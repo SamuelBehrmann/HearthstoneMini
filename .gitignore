@@ -1,6 +1,21 @@
 *.class
-*.log
 .bloop
 .bsp
 .metals
 .vscode
+
+# intelliJ
+.idea
+*.log
+*.iml
+*.ipr
+*.iws
+
+
+# mac
+.DS_Store
+
+# other
+.history
+.scala_dependencies
+.cache-main

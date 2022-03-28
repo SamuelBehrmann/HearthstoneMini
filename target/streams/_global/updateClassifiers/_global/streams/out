@@ -1,3 +1,4 @@
-[debug] not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/Users/samuelbehrmann/Documents/Studium/3.%20Semester/Software%20Engineering/HearthstoneMini/"), "root")...
-[debug] Done updating ProjectRef(uri("file:/Users/samuelbehrmann/Documents/Studium/3.%20Semester/Software%20Engineering/HearthstoneMini/"), "root")
+[warn] scala3-library_3-3.1.1-sources.jar no longer exists at /Users/samuelbehrmann/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.1.1/scala3-library_3-3.1.1-sources.jar
+[debug] not up to date. inChanged = false, force = false
+[debug] Updating ProjectRef(uri("file:/Users/jan/Uni/3.%20Semester/SE/HearthstoneMini/"), "root")...
+[debug] Done updating ProjectRef(uri("file:/Users/jan/Uni/3.%20Semester/SE/HearthstoneMini/"), "root")

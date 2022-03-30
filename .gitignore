@@ -4,3 +4,10 @@
 .bsp
 .metals
 .vscode
+project/project/
+project/target/
+target/
+.DS_Store
+.history
+.scala_dependencies
+.cache-main

@@ -1,6 +1,6 @@
 // For more information on writing tests, see
 // https://scalameta.org/munit/docs/getting-started.html
-package hearstonemini.src.test.scala
+
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Mathers._
 import src.main.scala.model.mana.scala

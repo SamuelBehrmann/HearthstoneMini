@@ -4,10 +4,10 @@ import scala.collection.mutable.Stack
 import model.Card
 
 case class FieldBar():
-    val cardArea = new CardArea(Vector[model.Card]())
-    val graveYard = Stack[model.Card]()
+    val cardArea = new CardArea(Vector[Card]())
+    val graveYard = Stack[Card]()
 
-    def placeCard(field: Int, card: model.Card) = cardArea.replaceSlot(field, card)
+    def placeCard(field: Int, card: Card) = cardArea.replaceSlot(field, card)
 
     def removeCard(field : Int) = { 
         graveYard.push(cardArea.slot(field)) // add Card to graveyard

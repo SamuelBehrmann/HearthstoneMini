@@ -11,3 +11,4 @@ target/
 .history
 .scala_dependencies
 .cache-main
+build.properties

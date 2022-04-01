@@ -1,3 +1,4 @@
-case class Cards {
+package model
+case class Card() {
 
 }

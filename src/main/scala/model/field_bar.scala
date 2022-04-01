@@ -1,21 +1,22 @@
 package model
 
 import scala.collection.mutable.Stack
+import model.Card
 
 case class FieldBar():
-    val cardArea = new CardArea
-    val graveYard = Stack[Card]()
+    val cardArea = new CardArea(Vector[model.Card]())
+    val graveYard = Stack[model.Card]()
 
-    def placeCard(field: Int, card: Card) = copy(cardArea.replaceSlot(field, card))
+    def placeCard(field: Int, card: model.Card) = cardArea.replaceSlot(field, card)
 
     def removeCard(field : Int) = { 
-        graveYard.push(cardArea(field)) // add Card to graveyard
-        copy(cardArea.replaceSlot(field, NULL)) // clear the slot
+        graveYard.push(cardArea.slot(field)) // add Card to graveyard
+        cardArea.replaceSlot(field, null) // clear the slot
     }
 
-    def attack()
+    def attack() = {}
 
-    def useEffect()
+    def useEffect() = {}
 
 
     

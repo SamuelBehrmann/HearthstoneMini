@@ -1,10 +1,9 @@
-// For more information on writing tests, see
-// https://scalameta.org/munit/docs/getting-started.html
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import model.Mana
 
-class HearthstoneminiTest extends AnyWordSpec with Matchers {
+
+class ManaTest extends AnyWordSpec with Matchers {
   "Mana" when {
     "not set any value " should {
       val emptyMana = Mana()

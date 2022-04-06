@@ -2,7 +2,6 @@ package model
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import scala.annotation.meta.field
 
 class FieldBarSpec extends AnyWordSpec with Matchers {
    "A HearthstoneMini Field" when {

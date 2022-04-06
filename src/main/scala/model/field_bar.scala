@@ -4,14 +4,14 @@ import scala.collection.mutable.Stack
 import model.Card
 
 case class FieldBar():
-    val cardArea = new CardArea(Vector[Card]())
-    val graveYard = Stack[Card]()
+    val cardArea = new CardArea(Vector[String]())
+    val graveYard = Stack[String]()
 
-    def placeCard(field: Int, card: Card) = cardArea.replaceSlot(field, card)
+    def placeCard(slot: Int, card: String) = cardArea.replaceSlot(slot, card)
 
-    def removeCard(field : Int) = { 
-        graveYard.push(cardArea.slot(field)) // add Card to graveyard
-        cardArea.replaceSlot(field, null) // clear the slot
+    def removeCard(slot: Int) = {
+        graveYard.push(cardArea.slot(slot)) // add Card to graveyard
+        cardArea.replaceSlot(slot, "") // clear the slot
     }
 
     def attack() = {}
@@ -19,4 +19,3 @@ case class FieldBar():
     def useEffect() = {}
 
 
-    

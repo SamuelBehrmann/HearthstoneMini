@@ -6,6 +6,7 @@
 .vscode
 project/project/
 project/target/
+project/metals.sbt
 target/
 .DS_Store
 .history

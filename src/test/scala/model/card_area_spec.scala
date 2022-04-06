@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class CardAreaSpec extends AnyWordSpec with Matchers {
-   "A Cardarea is a Vector with x amount of fields" when {
+   "A Cardarea is a Vector with x amount of slots" when {
     "empty" should {
       "be created by using a size and a samlpe cell" in {
           val cardArea = new CardArea(5, "s")

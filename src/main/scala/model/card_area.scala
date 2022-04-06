@@ -1,7 +1,8 @@
 package model
 import model.Card
 
-case class CardArea[Card](row: Vector[model.Card]):
-    val size = row.size
+case class CardArea[String](row: Vector[String]):
+    def this(size: Int, filling: String) = this(Vector.tabulate(size) { (row) => filling })
+    val size: Int = row.size
     def slot(slotNum: Int) = row(slotNum)
-    def replaceSlot(slotNum: Int, slot: model.Card): CardArea[model.Card] = copy(row.updated(slotNum, slot)) 
+    def replaceSlot(slotNum: Int, slot: String): CardArea[String] = copy(row.updated(slotNum, slot))

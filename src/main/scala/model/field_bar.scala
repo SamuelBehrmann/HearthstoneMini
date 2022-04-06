@@ -7,10 +7,10 @@ case class FieldBar():
     val cardArea = new CardArea(Vector[Card]())
     val graveYard = Stack[Card]()
 
-    def placeCard(field: Int, card: Card) = cardArea.replaceSlot(field, card)
+    def placeCard(slot: Int, card: Card) = cardArea.replaceSlot(slot, card)
 
-    def removeCard(field : Int) = { 
-        graveYard.push(cardArea.slot(field)) // add Card to graveyard
+    def removeCard(slot: Int) = { 
+        graveYard.push(cardArea.slot(slot)) // add Card to graveyard
         cardArea.replaceSlot(field, null) // clear the slot
     }
 

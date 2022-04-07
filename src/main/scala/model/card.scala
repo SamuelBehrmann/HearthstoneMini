@@ -1,14 +1,14 @@
 package model
 
 
-abstract class Card(name: String, manaCost: Int, attValue: Int, defenseValue: Int, effect: String, rarity: Int) {
+abstract class Card(name: String, manaCost: Int, attValue: Int, defenseValue: Int, effect: String, rarity: String) {
 
   def setName(name: String): Unit
   def setManaCost(amount: Int): Mana
   def setAttack(amount: Int): Unit
   def setDefense(amount: Int): Unit
   def setEffect(beschreibung: String): Unit
-  def setRarity(rarity: Int): Unit
+  def setRarity(rarity: String): Unit
 
 
 
@@ -21,12 +21,12 @@ abstract class Card(name: String, manaCost: Int, attValue: Int, defenseValue: In
 
 }
 
-// enum für rarities
+/*// enum für rarities
 object rarities extends Enumeration {
-  type rarity = Value
-
-  val gewöhnlich, selten, episch, legendär = Value
+  val gewoehnlich, selten, episch, legendaer = Value
 }
+
+*/
 
 
 

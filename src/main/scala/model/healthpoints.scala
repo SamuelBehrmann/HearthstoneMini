@@ -7,5 +7,5 @@ case class Healthpoints(value: Int = 0) {
     def isEmpty(): Boolean = value <= 0
     def setVal(amount: Int): Healthpoints = copy(value = amount)
 
-    override def toString() = "\u001b[32m" + value.toString()
+    override def toString() = value.toString()
 }

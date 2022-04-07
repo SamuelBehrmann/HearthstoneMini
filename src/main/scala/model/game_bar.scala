@@ -9,8 +9,8 @@ class GameBar {
 
     def hpSlot(): String = hp.toString
     def manaSlot(): String = mana.toString
-    def handSlot(): String = "\u001b[39m hand"
-    def deckSlot(): String = "\u001b[39m deck"
+    def handSlot(): String = "hand"
+    def deckSlot(): String = "deck"
 
     override def toString() = hpSlot() + " " + manaSlot() + " "+ handSlot() + " " + deckSlot()
 }

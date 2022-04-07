@@ -7,8 +7,8 @@ class FieldBarSpec extends AnyWordSpec with Matchers {
    "A HearthstoneMini Field" when {
         val eol = sys.props("line.separator")
         "filled with Card" should {
-            val field1 = new FieldBar(5, new Card())
-            val field2 = new FieldBar(5, new Card())
+            val field1 = new FieldBar(5, new Card("Test", 1, 1,1,"kann zaubern", "gewöhnlich"))
+            val field2 = new FieldBar(5, new Card("Test2", 1, 1,1,"kann zaubern", "gewöhnlich"))
             "have a bar as String of Form '+-----+-----+-----+-----+'" in {
                 field1.bar() should be("+----------+----------+----------+----------+----------+" + eol)
             }

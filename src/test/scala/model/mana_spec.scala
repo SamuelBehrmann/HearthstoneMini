@@ -3,7 +3,7 @@ import org.scalatest.matchers.should.Matchers
 import model.Mana
 
 
-class ManaTest extends AnyWordSpec with Matchers {
+class ManaSpec extends AnyWordSpec with Matchers {
   "Mana" when {
     "not set any value " should {
       val emptyMana = Mana()

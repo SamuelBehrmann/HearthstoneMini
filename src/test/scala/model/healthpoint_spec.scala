@@ -4,7 +4,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import model.Healthpoints
 
-class HpTest extends AnyWordSpec with Matchers {
+class HpSpec extends AnyWordSpec with Matchers {
   "HP" when {
     "not set any value " should {
       val emptyHp = Healthpoints()

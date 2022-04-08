@@ -1,18 +1,26 @@
 package model
 
+case class Card(name: String, manaCost: Int, attValue: Int, defenseValue: Int, rarity: String, effect: String) {
 
+//  def emptyCard: Card = {
+//
+//  }
 
-
-abstract class Card(name: String, manaCost: Int, attValue: Int, defenseValue: Int, effect: String, rarity: String) {
-
-  def setName(name: String): Unit
-  def setManaCost(amount: Int): Mana
-  def setAttack(amount: Int): Unit
-  def setDefense(amount: Int): Unit
-  def setEffect(beschreibung: String): Unit
-  def setRarity(rarity: String): Unit
+  override def toString: String = {
+    "Name: " + name +" (" + manaCost + ")" + "\n" + "attack: " + attValue + "\n" +
+      "defense: " + defenseValue + "\n" + "Seltenheit: " + rarity + "\n" +  "Effekt: " + effect
   }
 
+
+
+}
+
+/*// enum für rarities
+object rarities extends Enumeration {
+  val gewoehnlich, selten, episch, legendaer = Value
+}
+
+*/
 
 
 

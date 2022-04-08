@@ -9,6 +9,7 @@ case class Matrix[T](rows: Vector[Vector[T]]):
   def fill(filling: T): Matrix[T] = copy(Vector.tabulate(size, size) { (row, col) => filling })
   def replaceCell(row: Int, col: Int, cell: T): Matrix[T] = copy(rows.updated(row, rows(row).updated(col, cell)))
 
+  def printMatrix() = rows.map((f) => {f.map((char) => print(char)); print("\n")})
   def insertMatrix(rowStart: Int, colStart: Int, string: String): Matrix[Char] = {
     var matrix = new Matrix(this.size, ' ')
     val charArray = string.toCharArray()

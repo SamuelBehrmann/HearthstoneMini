@@ -6,6 +6,8 @@ import model._
 def run(): Unit = {
     val field = new Field(5)
     val matrix = new Matrix[Char](58, ' ')
-    matrix.insertMatrix(0, 0, field.toString()).rows.map((f) => println(f.toString()))
-
+    matrix.insertMatrix(0, 0, field.toString()).printMatrix()
+    //TODO: Height and Width müssen variable sein, 
+    //TODO: Matrix def if row is empty() 
+    //TODO:
 }

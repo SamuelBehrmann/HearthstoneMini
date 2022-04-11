@@ -1,5 +1,7 @@
 package model
 
+import scala.compiletime.ops.string
+
 class GameBar {
     val hp: Healthpoints = new Healthpoints(100)
     val mana: Mana = new Mana(100)

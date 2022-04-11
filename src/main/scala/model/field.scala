@@ -12,14 +12,16 @@ class Field(slotNum: Int = 5) {
     val eol = sys.props("line.separator")
 
 
-    def printField(): String = fieldBarP1.bar(slotNum = slotNum) +
-        menuBarP1 + "#" +
-        gameBarP1 + "#" +
-        fieldBarP1 + "#" +
-        fieldBarP2 + "#" +
-        gameBarP2 + "#" +
-        menuBarP2 + "#" +
+    def printField(): String = 
+        fieldBarP1.bar(slotNum = slotNum) + "#" +
+        //menuBarP1.toString() + "#" +
+        gameBarP1.toString() + "#" +
+        fieldBarP1.toString() + "#" +
+        fieldBarP2.toString() + "#" +
+        gameBarP2.toString() + "#" +
+        //menuBarP2.toString() + "#" +
         fieldBarP1.bar(slotNum = slotNum)
+        
 
     
     // def printField(): String = fieldBarP1.bar(slotNum = slotNum) +

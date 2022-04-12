@@ -14,7 +14,7 @@ class MatrixSpec extends AnyWordSpec with Matchers {
       }
       "should allow insert at col, row" in {
         val string: String = "Hello World! #Hello World!"
-        val newMa = matrix.insertMatrix(0, 0, string)
+        val newMa = matrix.createVectorList(0, 0, string)
         
       }
     }

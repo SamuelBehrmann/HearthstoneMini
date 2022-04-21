@@ -1,7 +1,7 @@
 package model
 
-case class Field(matrix: Matrix[String], slotNum: Int = 5,) {
-    def this(size: Int) = this(new Matrix[String](60,""),5)
+case class Field(matrix: Matrix[String], slotNum: Int = 5) {
+    def this(size: Int) = this(new Matrix[String](10,60,""),5)
 
     def placeCard(player: Player, slot: Int, card: Card) = player.fieldbar.placeCard(slot, card)
 

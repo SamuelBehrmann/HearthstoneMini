@@ -1,21 +1,19 @@
 package model
 
-import scala.collection.mutable.Stack
-import model.Card
-
 case class FieldBar(cardArea: CardArea[Any]):
-    def this(size: Int) = this(new CardArea(size, "         "))
+    def this(size: Int, filling: Any) = this(new CardArea(size, filling))
     val size = cardArea.size
+    var matrix = new Matrix[String](Card.height, Card.width * size, "0")
 
-    def bar(slotWidth: Int = 5, slotNum: Int = 5): String = (("+" + "-" * slotWidth + "-----") * slotNum) + "+#"
-    def slots(slotWidth: Int = 5): String = cardArea.row.map(" " * ((slotWidth - 1) / 2) + _ + " " * ((slotWidth - 1) / 2)).mkString("|", "|", "|") + "#"
-    def completeField(slotWidth: Int = 5): String = bar(slotWidth, size) + slots(slotWidth) + bar(slotWidth,size)
-    override def toString = completeField()
+    def bar(slotWidth: Int = Card.width, slotNum: Int = 5): String = (("+" + "-" * slotWidth) * slotNum) + "+#"
+    def slots() = cardArea.row.map((card) => matrix = matrix.updateMatrixWithMatrix(0,cardArea.row.toList.indexOf(card) * Card.width,card.asInstanceOf[Card].toMatrix()))
 
+    //def completeField(slotWidth: Int = Card.width): String = bar(slotWidth, size) + slots(slotWidth) + bar(slotWidth,size)
+
+    //override def toString = completeField()
     def placeCard(slot: Int, card: Any): FieldBar = copy(cardArea.replaceSlot(slot, card))
     def removeCard(slot: Int): FieldBar = copy({
-       // graveYard.push(cardArea.slot(slot)) // add Card to graveyard
-        cardArea.replaceSlot(slot, "      ") // clear the slot
+        cardArea.replaceSlot(slot, "")
     })
 
     //def attack() = {}

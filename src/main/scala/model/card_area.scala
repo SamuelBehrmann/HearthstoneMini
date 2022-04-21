@@ -1,5 +1,4 @@
 package model
-import model.Card
 
 case class CardArea[Any](row: Vector[Any]):
     def this(size: Int, filling: Any) = this(Vector.tabulate(size) { (row) => filling })

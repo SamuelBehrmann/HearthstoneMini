@@ -7,9 +7,9 @@ class FieldSpec extends AnyWordSpec with Matchers {
    "A Field" when {
     "empty" should {
       "be created using nothing" in {
-          val field1 = new Field()
-          print(field1)
-          field1.fieldBarP1.size should be(5)
+          val field = new Field(new Matrix[String](20,60,""),5)
+          //print(field)
+          field.matrix.rowSize should be(20)
       }
     }
   }

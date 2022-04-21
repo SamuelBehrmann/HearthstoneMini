@@ -10,9 +10,12 @@ class FieldBarSpec extends AnyWordSpec with Matchers {
             val fieldBar1 = new FieldBar(5, new Card("Test", 1, 1,1,"kann zaubern", "rare"))
             val fieldBar2 = new FieldBar(5, new Card("Test2", 1, 1,1,"kann zaubern", "rare"))
             "be able to print said card" in {
-                fieldBar1.slots()
-                fieldBar1.matrix.printMatrix()
-                fieldBar1.slots() should be("+----------+----------+----------+----------+----------+" + eol)
+                //fieldBar1.completeField
+                //fieldBar1.matrix.printMatrix()
+                val newfield = fieldBar1.placeCard(1,new Card("Test", 1, 1,1,"kann zaubern", "rare"))
+                val ndfield = newfield.placeCard(2,new Card("yolo", 1, 1,1,"nein", "legend"))
+                print(ndfield.completeField())
+                fieldBar1.completeField(10) should be("+----------+----------+----------+----------+----------+" + eol)
             }
         }
     }

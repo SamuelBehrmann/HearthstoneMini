@@ -2,14 +2,19 @@ package model
 
 import model.FieldBar
 
-class Field(slotNum: Int = 5) {
+case class Field(slotNum: Int = 5, fieldBarP1: FieldBar, fieldBarP2: FieldBar) {
+    def this(size: Int) = this(size, new FieldBar(size, "      "), new FieldBar(size, "      "))
     var menuBarP1: Any = null
     val gameBarP1: GameBar = new GameBar()
-    val fieldBarP1: FieldBar = new FieldBar(slotNum, "      ")
-    val fieldBarP2: FieldBar = new FieldBar(slotNum, "      ")
     val gameBarP2: GameBar = new GameBar()
     var menuBarP2: Any = null
     val eol = sys.props("line.separator")
+
+
+
+    def placeCardP1(slot: Int, card: Any) = copy(slotNum, fieldBarP1.placeCard(slot, card), fieldBarP2)
+    def placeCardP2(slot: Int, card: Any) = copy(slotNum, fieldBarP1 ,fieldBarP2.placeCard(slot, card))
+
 
     def printField(): String = fieldBarP1.bar(slotNum = slotNum) +
         "\u001b[31m" + menuBarP1 + eol +

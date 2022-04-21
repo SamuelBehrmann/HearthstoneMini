@@ -3,7 +3,7 @@ package model
 class GameBar {
     val hp: Healthpoints = new Healthpoints(100)
     val mana: Mana = new Mana(100)
-    var hand: List[String] = null
+    var hand: List[String] = List()
     val deck: List[Card] = null
     val eol = sys.props("line.separator")
 

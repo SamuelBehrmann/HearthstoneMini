@@ -11,7 +11,7 @@ class playingGame {
   field.menuBarP1 = nameS1
   field.menuBarP2 = nameS2
 
-  field.gameBarP1.hand = List("1", "2", "3", "4", "5")
+  field.gameBarP1.hand = List("  1   ", "2", "3", "4", "5")
   field.gameBarP2.hand = List("6", "7", "8", "9", "10")
 
   print(field)
@@ -22,7 +22,10 @@ class playingGame {
   val cardPlace: Int = scala.io.StdIn.readInt()
 
 
-  val placeCard: FieldBar = new FieldBar(2, " ").placeCard(card, cardPlace)
+  val placeCard: Field = field.placeCardP1(cardPlace, field.gameBarP1.hand(card - 1))
+
+  print(placeCard)
+
   
 
 

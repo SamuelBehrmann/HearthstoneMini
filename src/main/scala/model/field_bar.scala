@@ -10,14 +10,14 @@ case class FieldBar(cardArea: CardArea[Any]):
     val eol = sys.props("line.separator")
 
     def bar(slotWidth: Int = 5, slotNum: Int = 5): String = (("+" + "-" * slotWidth + "-----") * slotNum) + "+" + eol
-    def slots(slotWidth: Int = 5): String = cardArea.row.map(" " * ((slotWidth - 1) / 2) + _ + " " * ((slotWidth - 1) / 2)).mkString("|", "|", "|") + eol
+    def slots(slotWidth: Int = 5): String = cardArea.row.map("    " + _ + "     " * ).mkString("|", "|", "|") + eol
     def completeField(slotWidth: Int = 5): String = bar(slotWidth, size) + slots(slotWidth) + bar(slotWidth,size)
     override def toString = completeField()
 
     def placeCard(slot: Int, card: Any): FieldBar = copy(cardArea.replaceSlot(slot, card))
     def removeCard(slot: Int): FieldBar = copy({
         graveYard.push(cardArea.slot(slot)) // add Card to graveyard
-        cardArea.replaceSlot(slot, "      ") // clear the slot
+        cardArea.replaceSlot(slot, " ") // clear the slot
     })
 
     //def attack() = {}

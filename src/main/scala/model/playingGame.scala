@@ -7,25 +7,24 @@ class playingGame {
   println("Spieler 2: ")
   val nameS2: String = scala.io.StdIn.readLine()
 
-  val field = new Field(5)
-  field.menuBarP1 = nameS1
-  field.menuBarP2 = nameS2
+  val field = new Field(5, nameS1, nameS2)
 
-  field.gameBarP1.hand = List("  1   ", "2", "3", "4", "5")
-  field.gameBarP2.hand = List("6", "7", "8", "9", "10")
 
   print(field)
 
   println(nameS1 + " Karte legen. ( Karte + Kartenplatz angeben) \n" )
-  //ints auslesen -> int1 = karte -> int2 = platz
   val card: Int = scala.io.StdIn.readInt()
   val cardPlace: Int = scala.io.StdIn.readInt()
-
-
   val placeCard: Field = field.placeCardP1(cardPlace, field.gameBarP1.hand(card - 1))
-
   print(placeCard)
 
+  println(nameS2 + " Karte legen. ( Karte + Kartenplatz angeben) \n" )
+  val cardS2: Int = scala.io.StdIn.readInt()
+  val cardPlaceS2: Int = scala.io.StdIn.readInt()
+  val placeCardS2: Field = placeCard.placeCardP2(cardPlace, field.gameBarP2.hand(card - 1))
+  print(placeCardS2)
+
+  println("Schönes Spiel, Danke!!")
   
 
 

@@ -7,8 +7,8 @@ case class GameBar(hp: Healthpoints = new Healthpoints(100), mana: Mana = new Ma
 
     def hpSlot(): String = hp.toString
     def manaSlot(): String = mana.toString
-    def handSlot(): String = "\u001b[39m Hand: " + hand.mkString("|", "| |", "|")
-    def deckSlot(): String = "\u001b[39mdeck"
+    def handSlot(): String = "\u001b[30mHand: " + hand.mkString("|", "| |", "|")
+    def deckSlot(): String = "\u001b[30mdeck"
     
     def removeCard(card: String) = copy(hp, mana, hand.filter(_ != card), deck)
 

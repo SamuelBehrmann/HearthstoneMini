@@ -9,8 +9,8 @@ case class FieldBar(cardArea: CardArea[Any]):
     val size = cardArea.size
     val eol = sys.props("line.separator")
 
-    def bar(slotWidth: Int = 5, slotNum: Int = 5): String = (("+" + "-" * slotWidth + "-----") * slotNum) + "+" + eol
-    def slots(slotWidth: Int = 5): String = cardArea.row.map("    " + _ + "     " * ).mkString("|", "|", "|") + eol
+    def bar(slotWidth: Int = 5, slotNum: Int = 5): String = (("+" + "-" * slotWidth) * slotNum) + "+" + eol
+    def slots(slotWidth: Int = 5): String = cardArea.row.map((string) => " " * ((slotWidth-string.asInstanceOf[String].length)/2) + string + " " * ((slotWidth-string.asInstanceOf[String].length)/2)).mkString("|", "|", "|") + eol
     def completeField(slotWidth: Int = 5): String = bar(slotWidth, size) + slots(slotWidth) + bar(slotWidth,size)
     override def toString = completeField()
 

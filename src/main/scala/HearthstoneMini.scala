@@ -1,5 +1,3 @@
-//package scala
-
 import model._
 
 @main

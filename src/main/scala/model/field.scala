@@ -2,8 +2,8 @@ package model
 
 import model.FieldBar
 
-case class Field(slotNum: Int = 5, fieldBarP1: FieldBar, fieldBarP2: FieldBar,
-                 menuBarP1: String, menuBarP2: String,
+case class Field(slotNum: Int = 5, fieldBarP1: FieldBar = new FieldBar(5," "), fieldBarP2: FieldBar =  new FieldBar(5," "),
+                 menuBarP1: String = "PlayerA", menuBarP2: String = "PlayerB",
                  gameBarP1: GameBar = new GameBar(List("1", "2", "3", "4", "5")),
                  gameBarP2: GameBar = new GameBar(List("6", "7", "8", "9", "10"))) {
     def this(size: Int, nameP1: String, nameP2: String) = this(size, new FieldBar(size, " "), new FieldBar(size, " "), nameP1, nameP2)

@@ -21,14 +21,9 @@ class playingGame {
   println(nameS2 + " Karte legen. ( Karte + Kartenplatz angeben) \n" )
   val cardS2: Int = scala.io.StdIn.readInt()
   val cardPlaceS2: Int = scala.io.StdIn.readInt()
-  val placeCardS2: Field = placeCard.placeCardP2(cardPlace, field.gameBarP2.hand(card - 1))
+  val placeCardS2: Field = placeCard.placeCardP2(cardPlaceS2, placeCard.gameBarP2.hand(cardS2 - 1))
   print(placeCardS2)
 
-  println("Schönes Spiel, Danke!!")
-  
-
-
-  // Karte von Hand auf Spielfeld legen
-  // Karte von Hand entfernen
+  println("\u001B[30mSchönes Spiel, Danke!!")
 
 }

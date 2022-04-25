@@ -7,16 +7,18 @@ def run(): Unit = {
     val player1 = new Player("Heinrich", 1, new FieldBar(), new GameBar())
     val player2 = new Player("Peter", 2, new FieldBar(), new GameBar())
 
-    val field = new Field(size = 5, player1 = player1, player2 = player2)
+    val field = new Field(size = 5, player1 = "Heinrich", player2 = "Peter")
     val karte = new Card("Der Brecher", 2, 4, 3, "Zerstoerung", "rare")
 
-    //print(field.toString)
-    val newField = field.placeCardPlayer1(0, karte)
-    val newField1 = newField.placeCardPlayer2(3, karte)
-    val newField2 = newField1.reduceHp(17)
-    print(newField2.toString)
+    print("Stage: 1\n" + field)
+    val newField = field.placeCardPlayer1(1, 5)
+    print("Stage: 2\n" + newField)
+    val newField1 = newField.placeCardPlayer1(3, 3)
+    print("Stage: 3\n" + newField1)
+    val newField2 = newField1.reduceHp(20)
+    print("Stage: 4\n" + newField2)
     val newField3 = newField2.drawCardPlayer1()
-    print(newField3)
+    print("Stage: 5\n" + newField3)
     //TODO: Hand Dynamisch machen
     //TODO: Place card, ohne card parameter. sollte eine von der hand nehmen
     //TODO: player mit auto index
@@ -24,5 +26,5 @@ def run(): Unit = {
     //TODO: Friedhof und Deck müssen noch mit aufs Spielfeld
     //TODO: deck mischen implementieren
     //TODO: Tests schreiben
-    //TODO:
+    //TODO: Scalable
 }

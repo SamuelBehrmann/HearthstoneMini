@@ -15,10 +15,10 @@ object Field{
 }
 
 case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartFieldHeight, Field.standartFieldWidth, " "), slotNum: Int = Field.standartSlotNum, player1: Player = new Player(id = 1), player2: Player = new Player(id = 2)) {
-    def this(size: Int, player1: Player, player2: Player) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), size, player1, player2)
+    def this(size: Int, player1: String, player2: String) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), size, player1 =  new Player(name = player1, id = 1), new Player(name = player2, id = 2))
 
-    def placeCardPlayer1(slot: Int, card: Card): Field = copy(matrix = matrix.updateMatrixWithMatrix(Field.standartGameBarHeight + Field.standartMenueBarHeight, Field.standartSlotWidth * slot + 1, card.toMatrix()), player1 = player1.placeCard(slot, card))
-    def placeCardPlayer2(slot: Int, card: Card): Field = copy(matrix = matrix.updateMatrixWithMatrix(Field.standartGameBarHeight + Field.standartMenueBarHeight + Field.standartFieldBarHeight, Field.standartSlotWidth * slot + 1, card.toMatrix()), player2 = player2.placeCard(slot, card))
+    def placeCardPlayer1(handSlot: Int, fieldSlot: Int): Field = copy(player1 = player1.placeCard(handSlot - 1 ,fieldSlot - 1))
+    //def placeCardPlayer2(slot: Int, card: Card): Field = copy(matrix = matrix.updateMatrixWithMatrix(Field.standartGameBarHeight + Field.standartMenueBarHeight + Field.standartFieldBarHeight, Field.standartSlotWidth * slot + 1, card.toMatrix()), player2 = player2.placeCard(slot, card))
     def drawCardPlayer1(): Field = copy(player1 = player1.drawCard())
     def reduceHp(amount: Int): Field = copy(player1 = player1.reduceHp(amount))
 

@@ -22,6 +22,6 @@ case class Player(name: String = "Player", id: Int, fieldbar: FieldBar = new Fie
     .updateMatrixWithMatrix(Field.standartFieldBarHeight + Field.standartGameBarHeight, 0, menueBar())
 
     def menueBar(): Matrix[String] = new Matrix[String](Field.standartMenueBarHeight, Field.standartFieldWidth, " ")
-    .updateMatrix(0, 0, List[String](name + " " + "\u001b[32;1m|\u001b[0;37m" * ((Field.standartFieldWidth - name.length - 1) * gamebar.hp.value/100).asInstanceOf[Float].floor.asInstanceOf[Int], "-" * Field.standartFieldWidth))
+    .updateMatrix(0, 0, List[String]("\u001b[1m" + name + " " + "\u001b[32;1m|\u001b[0;37m" * ((Field.standartFieldWidth - name.length - 1) * gamebar.hp.value/100).asInstanceOf[Float].floor.asInstanceOf[Int], "-" * Field.standartFieldWidth))
 
 }

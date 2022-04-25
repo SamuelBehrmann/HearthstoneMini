@@ -6,15 +6,11 @@ case class FieldBar(cardArea: CardArea[CardType] = new CardArea[CardType](Field.
 
     val eol = sys.props("line.separator")
 
-    def bar(slotWidth: Int = Field.standartSlotWidth, slotNum: Int = Field.standartSlotNum): String = (("+" + "-" * slotWidth) * slotNum) + "+#"
-    //def completeField(slotWidth: Int = Field.standartSlotWidth): String = matrix.rows.map((row) => row.mkString).mkString("", eol, "")
-
-    //override def toString = completeField()
-    def placeCard(slot: Int, card: CardType): FieldBar = copy(cardArea = cardArea.replaceSlot(slot, card), matrix = matrix.updateMatrixWithMatrix(0, slot * Field.standartSlotWidth, card.toMatrix()))
-    def removeCard(slot: Int): FieldBar = copy(cardArea = cardArea.replaceSlot(slot, EmptyCard()), matrix = matrix.updateMatrixWithMatrix(0, slot * Field.standartSlotWidth, EmptyCard().toMatrix()))
+    def placeCard(slot: Int, card: CardType): FieldBar = copy(cardArea = cardArea.replaceSlot(slot, card), matrix = matrix.updateMatrixWithMatrix(0, slot * Field.standartSlotWidth + 1, card.toMatrix()))
+    def removeCard(slot: Int): FieldBar = copy(cardArea = cardArea.replaceSlot(slot, EmptyCard()), matrix = matrix.updateMatrixWithMatrix(0, slot * Field.standartSlotWidth + 1, EmptyCard().toMatrix()))
 
     def toMatrix(): Matrix[String] = matrix
-    //.updateMatrix(0,0, List[String]("-" * Field.standartFieldWidth))
+
     .updateMatrix(5,0, List[String]("-" * Field.standartFieldWidth))
 
     //def attack() = {}

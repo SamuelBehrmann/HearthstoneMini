@@ -4,8 +4,6 @@ import model._
 
 @main
 def run(): Unit = {
-    val player1 = new Player("Heinrich", 1, new FieldBar(), new GameBar())
-    val player2 = new Player("Peter", 2, new FieldBar(), new GameBar())
 
     val field = new Field(size = 5, player1 = "Heinrich", player2 = "Peter")
     val karte = new Card("Der Brecher", 2, 4, 3, "Zerstoerung", "rare")
@@ -18,7 +16,9 @@ def run(): Unit = {
     val newField2 = newField1.reduceHp(20)
     print("Stage: 4\n" + newField2)
     val newField3 = newField2.drawCardPlayer1()
-    print("Stage: 5\n" + newField3)
+    val newField4 = newField3.drawCardPlayer1()
+    val newField5 = newField4.drawCardPlayer1()
+    print("Stage: 5\n" + newField5)
     //TODO: Hand Dynamisch machen
     //TODO: Place card, ohne card parameter. sollte eine von der hand nehmen
     //TODO: player mit auto index

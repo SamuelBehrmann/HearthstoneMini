@@ -14,8 +14,7 @@ class FieldBarSpec extends AnyWordSpec with Matchers {
                 //fieldBar1.matrix.printMatrix()
                 val newfield = fieldBar1.placeCard(1,new Card("Test", 1, 1,1,"kann zaubern", "rare"))
                 val ndfield = newfield.placeCard(2,new Card("yolo", 1, 1,1,"nein", "legend"))
-                print(ndfield.completeField())
-                fieldBar1.completeField(10) should be("+----------+----------+----------+----------+----------+" + eol)
+                fieldBar1.cardArea.row.length should be(5)
             }
         }
     }

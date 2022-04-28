@@ -24,7 +24,7 @@ class TUI(controller: Controller) extends Observer {
 
         chars(0) match
             case 'q' => exit(0)
-            case 'p' => controller.placeCard(player, chars(1).asDigit, chars(2).asDigit)
+            case 'p' => controller.placeCard(player, chars(1).asDigit - 1, chars(2).asDigit - 1)
             case 'd' => controller.drawCard(player)
             case 'l' => controller.destroyCard(player, chars(1).asDigit - 1)
             case 'r' => controller.reduceHp(player, (chars(1).toString + chars(2).toString).toInt)

@@ -19,7 +19,6 @@ def run(): Unit = {
     val newField4 = newField3.drawCardPlayer1()
     val newField5 = newField4.drawCardPlayer1()
     print("Stage: 5\n" + newField5)
-    //TODO: Hand Dynamisch machen
     //TODO: Place card, ohne card parameter. sollte eine von der hand nehmen
     //TODO: player mit auto index
     //TODO: methoden umstellen sodass eine spieler-ID übergebenwerden kann

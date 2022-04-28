@@ -15,12 +15,7 @@ class MatrixSpec extends AnyWordSpec with Matchers {
         val string: String = "Hello World!#Hello World!"
         val newMa = matrix.updateMatrix(0, 0, string.split("#").toList)
       }
-      "should allow insert Matrix at col, row" in {
-        val matrixToInsert: Matrix[String] = new Matrix[String](4,10, "|")
-        val card = new Card("test", 1,1,1, "non","rare")
-        val newMa = matrix.updateMatrixWithMatrix(0, 0, card.toMatrix())
-        newMa.printMatrix()
+
       }
     }
   }
-}

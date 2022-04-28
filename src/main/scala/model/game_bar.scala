@@ -4,7 +4,7 @@ import scala.compiletime.ops.string
 import scala.collection.View.Empty
 
 case class GameBar(hp: Healthpoints = new Healthpoints(100),
-    mana: Mana = new Mana(0),
+    mana: Mana = new Mana(10),
     hand: Array[CardType] = Array[CardType](new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende")),
     deck: Array[CardType] = Array[CardType](new Card("test", 2, 3, 4, "yolo", "ss"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff")),
     friedhof: Array[CardType] = Array[CardType]()) {
@@ -14,8 +14,8 @@ case class GameBar(hp: Healthpoints = new Healthpoints(100),
     def addCardToHand(card: CardType): GameBar = copy(hand = hand.appended(card))
     def reduceHp(amount: Int): GameBar = copy(hp = new Healthpoints(hp.value - amount))
     def increaseHp(amount: Int): GameBar = copy(hp = new Healthpoints(hp.value + amount))
-    def reduceMana(amount: Int): GameBar = copy(hp = new Healthpoints(mana.value - amount))
-    def increaseMana(amount: Int): GameBar = copy(hp = new Healthpoints(mana.value + amount))
+    def reduceMana(amount: Int): GameBar = copy(mana = new Mana(mana.value - amount))
+    def increaseMana(amount: Int): GameBar = copy(mana = new Mana(mana.value + amount))
 
     def drawCard(): GameBar = copy(hand = hand.appended(deck(0)), deck = deck.filter(_ != deck(0)))
 

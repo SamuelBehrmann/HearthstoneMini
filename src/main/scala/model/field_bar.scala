@@ -10,7 +10,6 @@ case class FieldBar(cardArea: CardArea[CardType] = new CardArea[CardType](Field.
     def removeCard(slot: Int): FieldBar = copy(cardArea = cardArea.replaceSlot(slot, EmptyCard()), matrix = matrix.updateMatrixWithMatrix(0, slot * Field.standartSlotWidth + 1, EmptyCard().toMatrix()))
 
     def toMatrix(): Matrix[String] = matrix
-
     .updateMatrix(5,0, List[String]("-" * Field.standartFieldWidth))
 
     //def attack() = {}

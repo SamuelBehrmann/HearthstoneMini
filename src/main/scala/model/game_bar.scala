@@ -12,6 +12,7 @@ case class GameBar(hp: Healthpoints = new Healthpoints(100),
     val eol = sys.props("line.separator")
     def removeCardFromHand(slot: Int): GameBar = copy(hand = hand.filter(_ != hand(slot)))
     def addCardToHand(card: CardType): GameBar = copy(hand = hand.appended(card))
+    def addCardToFriedhof(card: CardType): GameBar = copy(friedhof = friedhof.appended(card))
     def reduceHp(amount: Int): GameBar = copy(hp = new Healthpoints(hp.value - amount))
     def increaseHp(amount: Int): GameBar = copy(hp = new Healthpoints(hp.value + amount))
     def reduceMana(amount: Int): GameBar = copy(mana = new Mana(mana.value - amount))

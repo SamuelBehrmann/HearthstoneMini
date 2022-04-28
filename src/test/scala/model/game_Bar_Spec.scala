@@ -38,6 +38,9 @@ class game_Bar_Spec extends AnyWordSpec with Matchers {
     "when mana increased by 50" in {
       gameBar.increaseMana(50).mana.value should be (60)
     }
+    "when card added to Friedhof" in {
+      gameBar.addCardToFriedhof(new EmptyCard()).friedhof.length should be (1)
+    }
   }
 }
 

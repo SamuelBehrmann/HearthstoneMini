@@ -16,13 +16,13 @@ object Field{
 case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartFieldHeight, Field.standartFieldWidth, " "), slotNum: Int = Field.standartSlotNum, players: List[Player] = List[Player](new Player(id = 1), new Player(id = 2))) {
     def this(size: Int, player1: String, player2: String) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), size, players =  List[Player](new Player(name = player1, id = 1), new Player(name = player2, id = 2)))
 
-    def placeCard(playerID: Int, handSlot: Int, fieldSlot: Int): Field = copy(players = players.updated(playerID - 1, players(playerID - 1).placeCard(handSlot - 1 ,fieldSlot - 1)))
-    def drawCard(playerID: Int): Field = copy(players = players.updated(playerID - 1, players(playerID - 1).drawCard()))
-    def destroyCard(playerID: Int, slot: Int): Field = copy(players = players.updated(playerID - 1, players(playerID -1).destroyCard(slot)))
-    def reduceHp(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID - 1, players(playerID -1).reduceHp(amount)))
-    def increaseHp(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID - 1, players(playerID -1).increaseHp(amount)))
-    def reduceMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID - 1, players(playerID -1).reduceMana(amount)))
-    def increaseMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID - 1, players(playerID -1).increaseMana(amount)))
+    def placeCard(playerID: Int, handSlot: Int, fieldSlot: Int): Field = copy(players = players.updated(playerID, players(playerID).placeCard(handSlot ,fieldSlot)))
+    def drawCard(playerID: Int): Field = copy(players = players.updated(playerID, players(playerID).drawCard()))
+    def destroyCard(playerID: Int, slot: Int): Field = copy(players = players.updated(playerID, players(playerID).destroyCard(slot)))
+    def reduceHp(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).reduceHp(amount)))
+    def increaseHp(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).increaseHp(amount)))
+    def reduceMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).reduceMana(amount)))
+    def increaseMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).increaseMana(amount)))
 
     def toMatrix(): Matrix[String] = matrix
     .updateMatrix(0, 0, List[String]("-" * Field.standartFieldWidth))

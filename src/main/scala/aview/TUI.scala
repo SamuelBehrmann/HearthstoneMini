@@ -11,14 +11,11 @@ class TUI(controller: Controller) extends Observer {
     var player = 0
 
     def run = {
-        println("\u001b[33mSpieler: " + (player + 1) + " ist dran!\u001b[0m")
-        println(controller.field.toString)
         getInputAndLoop()
     }
     override def update(we: java.util.Observable, obj:Object) = println(controller.field.toString)
 
     def getInputAndLoop(): Unit = {
-        println("\u001b[33mp-place(hand,solt) | d-draw() | l-destroy(slt) | r-decHP(amnt)\ni-incHP(ammount) | m-redMana(amnt) | n-incMana(amnt) | s-Endturn\u001b[0m")
         val input = readLine
         val chars = input.toCharArray
 
@@ -32,9 +29,13 @@ class TUI(controller: Controller) extends Observer {
             case 'm' => controller.reduceMana(player, (chars(1).toString + chars(2).toString).toInt)
             case 'n' => controller.increaseMana(player, (chars(1).toString + chars(2).toString).toInt)
             case 's' => switchPlayer()
-        println("\u001b[33mSpieler: " + (player + 1) + " ist dran!\u001b[0m")
-        println(controller.toString)
+        printField()
         getInputAndLoop()
+    }
+    def printField() = {
+        println("\u001b[33m" + controller.field.players(player).name + " ist dran!\u001b[0m")
+        println(controller.field.toString)
+        println("\u001b[33mp-place(hand,solt) | d-draw() | l-destroy(slt) | r-decHP(amnt)\ni-incHP(ammount) | m-redMana(amnt) | n-incMana(amnt) | s-Endturn\u001b[0m")
     }
     def switchPlayer() = if(player == 0) then player = 1 else player = 0
 }

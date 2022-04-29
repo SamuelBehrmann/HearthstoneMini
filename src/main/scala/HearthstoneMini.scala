@@ -3,15 +3,21 @@ package scala
 import model._
 import controller.Controller
 import aview.TUI
+import scala.io.StdIn.readLine
+//import scala.util.Random
 @main
 def run(): Unit = {
-    val field = new Field(size = 5, player1 = "Heinrich", player2 = "Peter")
+    println("Bitte Spielername 1 eingeben: ")
+    val playername1 = readLine
+    println("Bitte Spielername 2 eingeben: ")
+    val playername2 = readLine
+    val field = new Field(size = 5, player1 = playername1, player2 = playername2)
     val controller = Controller(field)
     val tui = TUI(controller)
 
     tui.run
-    //TODO: methoden umstellen sodass eine spieler-ID übergebenwerden kann
     //TODO: deck mischen implementieren
-    //TODO: Tests schreiben
-    //TODO: Scalable
+    //TODO: spielfluß einbauen
+    //TODO: Decks erstellen und importieren
+    //TODO: 
 }

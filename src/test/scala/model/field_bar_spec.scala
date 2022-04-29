@@ -3,51 +3,28 @@ package model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-//val Card: Card = new Card("test", 1, 1, 1, "normal", "zauber")
+class FieldBarSpec extends AnyWordSpec with Matchers {
+  "A HearthstoneMini fieldbar" when {
+    val eol = sys.props("line.separator")
+    "filled with Card" should {
+      val fieldBar1 = new FieldBar(5, new Card("Test", 1, 1, 1, "kann zaubern", "rare"))
+      val fieldBar2 = new FieldBar(5, new Card("Test2", 1, 1, 1, "kann zaubern", "rare"))
+      "be able to print said card" in {
+        //fieldBar1.completeField
+        //fieldBar1.matrix.printMatrix()
+        val newfield = fieldBar1.placeCard(1, new Card("Test", 1, 1, 1, "kann zaubern", "rare"))
+        val ndfield = newfield.placeCard(2, new Card("yolo", 1, 1, 1, "nein", "legend"))
+        fieldBar1.cardArea.row.length should be(5)
 
-class field_bar_spec extends AnyWordSpec with Matchers {
-   "A HearthstoneMini Field" when {
-        val eol = sys.props("line.separator")
-        "filled with Card" should {
-            val field1 = new FieldBar(5, "Card()")
-            val field2 = new FieldBar(5, "Card()")
-            "have a bar as String of Form '+-----+-----+-----+-----+'" in {
-                field1.bar() should be("+----------+----------+----------+----------+----------+" + eol)
-            }
-            "be scalable" in {
-                field1.bar(1,1) should be("+------+" + eol)
-                field1.bar(2,1) should be("+-------+" + eol)
-                field1.bar(1,2) should be("+------+------+" + eol)
-            }
-            "have slots of Form '|  Card()  |  Card()  |  Card()  |  Card()  |  Card()  |'" in {
-                field1.slots(5) should be("|  Card()  |  Card()  |  Card()  |  Card()  |  Card()  |" + eol)
-            }
-            "have a mesh of Form 'bar eol slots eol bar'" in {
-                field2.completeField(5) should be("+----------+----------+----------+----------+----------+" +
-                 eol + "|  Card()  |  Card()  |  Card()  |  Card()  |  Card()  |" +
-                 eol + "+----------+----------+----------+----------+----------+" + eol)
-            }
-        }
-        "filled with empty" should {
-            val field3 = new FieldBar(5, "      ")
-            "be empty initially" in {
-                field3.completeField() should be("+----------+----------+----------+----------+----------+" +
-                 eol + "|          |          |          |          |          |" +
-                 eol + "+----------+----------+----------+----------+----------+" + eol)
-            }
-            "have 'Card()' in first & second Slot after 2 moves" in {
-                val moveField3 = field3.placeCard(1, "Card()").placeCard(0, "Card()")
-                moveField3.completeField() should be("+----------+----------+----------+----------+----------+" +
-                 eol + "|  Card()  |  Card()  |          |          |          |" +
-                 eol + "+----------+----------+----------+----------+----------+" + eol)
-            }
-             "have 'Empty' in first & 'Card()' in second Slot after removing 1 slot card" in {
-                val moveField3 = field3.placeCard(1, "Card()").placeCard(0, "Card()")
-                val removedField3 = moveField3.removeCard(0)
-                removedField3.completeField() should be("+----------+----------+----------+----------+----------+" +
-                 eol + "|          |  Card()  |          |          |          |" +
-                 eol + "+----------+----------+----------+----------+----------+" + eol)
-            }
-        }
+      }
+      "when card is removed" in {
+        fieldBar1.removeCard(1).cardArea.slot(1).toMatrix().toAString() should be ((" " * Field.standartCardWidth + "\n") * Field.standartCardHeight)
+        fieldBar2.removeCard(2).cardArea.slot(2).toMatrix().toAString() should be ((" " * Field.standartCardWidth + "\n") * Field.standartCardHeight)
+      }
+    }
+    "fieldBar to matrix" in {
+      val fieldBarM = new FieldBar().toMatrix().toAString() should be ((" " * Field.standartFieldWidth + "\n") * (Field.standartFieldBarHeight - 1)
+          + "-" * Field.standartFieldWidth + "\n")
+    }
   }
 }

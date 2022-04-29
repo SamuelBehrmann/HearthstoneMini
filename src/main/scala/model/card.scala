@@ -1,27 +1,21 @@
 package model
 
-case class Card(name: String, manaCost: Int, attValue: Int, defenseValue: Int, rarity: String, effect: String) {
-
-//  def emptyCard: Card = {
-//
-//  }
-
-  override def toString: String = {
-    "Name: " + name +" (" + manaCost + ")" + "\n" + "attack: " + attValue + "\n" +
-      "defense: " + defenseValue + "\n" + "Seltenheit: " + rarity + "\n" +  "Effekt: " + effect
-  }
-
-
-
+trait CardType {
+    val name: String
+    val manaCost: Int
+    val attValue: Int
+    val defenseValue: Int
+    val effect: String
+    val rarity: String
+    def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ")
 }
 
-/*// enum für rarities
-object rarities extends Enumeration {
-  val gewoehnlich, selten, episch, legendaer = Value
+class Card(val name: String, val manaCost: Int, val attValue: Int, val defenseValue: Int, val effect: String, val rarity: String) extends CardType {
+    override def toString(): String = name + " (" + manaCost + ")" + "#" + "atk: " + attValue + "#def: " + defenseValue + "#" + effect + "#" + rarity
+    override def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ").updateMatrix(0, 0, toString().split("#").toList)
 }
 
-*/
-
-
-
+class EmptyCard(val name: String = "yolo", val manaCost: Int = 0, val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "") extends CardType {
+    override def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ")
+}
 

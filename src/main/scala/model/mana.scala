@@ -7,5 +7,5 @@ case class Mana(value: Int = 0){
     def isEmpty(): Boolean = value <= 0
     def setVal(amount: Int): Mana = copy(value = amount)
 
-    override def toString() = "\u001b[34m" + value.toString()
+    override def toString() = value.toString()
 }

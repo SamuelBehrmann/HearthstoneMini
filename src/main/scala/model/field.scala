@@ -1,29 +1,33 @@
 package model
 
-import model.FieldBar
+object Field{
+    val offset: Int = 1
+    val standartSlotNum: Int = 5
+    val standartCardWidth: Int = 15
+    val standartCardHeight: Int = 5
+    val standartSlotWidth: Int = standartCardWidth + 2 // 2 for Margin
+    val standartFieldBarHeight: Int = standartCardHeight + 1 // + 2 for border
+    val standartGameBarHeight: Int = 7
+    val standartMenueBarHeight: Int = 2
+    val standartFieldWidth: Int = standartSlotNum * standartSlotWidth
+    val standartFieldHeight: Int = (standartFieldBarHeight + standartGameBarHeight + standartMenueBarHeight) * 2 + Field.offset
+}
 
-case class Field(slotNum: Int = 5, fieldBarP1: FieldBar, fieldBarP2: FieldBar) {
-    def this(size: Int) = this(size, new FieldBar(size, "      "), new FieldBar(size, "      "))
-    var menuBarP1: Any = null
-    val gameBarP1: GameBar = new GameBar()
-    val gameBarP2: GameBar = new GameBar()
-    var menuBarP2: Any = null
-    val eol = sys.props("line.separator")
+case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartFieldHeight, Field.standartFieldWidth, " "), slotNum: Int = Field.standartSlotNum, players: List[Player] = List[Player](new Player(id = 1), new Player(id = 2))) {
+    def this(size: Int, player1: String, player2: String) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), size, players =  List[Player](new Player(name = player1, id = 1), new Player(name = player2, id = 2)))
 
+    def placeCard(playerID: Int, handSlot: Int, fieldSlot: Int): Field = copy(players = players.updated(playerID, players(playerID).placeCard(handSlot ,fieldSlot)))
+    def drawCard(playerID: Int): Field = copy(players = players.updated(playerID, players(playerID).drawCard()))
+    def destroyCard(playerID: Int, slot: Int): Field = copy(players = players.updated(playerID, players(playerID).destroyCard(slot)))
+    def reduceHp(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).reduceHp(amount)))
+    def increaseHp(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).increaseHp(amount)))
+    def reduceMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).reduceMana(amount)))
+    def increaseMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).increaseMana(amount)))
 
+    def toMatrix(): Matrix[String] = matrix
+    .updateMatrix(0, 0, List[String]("-" * Field.standartFieldWidth))
+    .updateMatrixWithMatrix(Field.offset, 0, players(0).toMatrix())
+    .updateMatrixWithMatrix(Field.offset + Field.standartMenueBarHeight + Field.standartGameBarHeight + Field.standartFieldBarHeight, 0, players(1).toMatrix())
 
-    def placeCardP1(slot: Int, card: Any) = copy(slotNum, fieldBarP1.placeCard(slot, card), fieldBarP2)
-    def placeCardP2(slot: Int, card: Any) = copy(slotNum, fieldBarP1 ,fieldBarP2.placeCard(slot, card))
-
-
-    def printField(): String = fieldBarP1.bar(slotNum = slotNum) +
-        "\u001b[31m" + menuBarP1 + eol +
-        gameBarP1 + eol +
-        "\u001b[31m" + fieldBarP1 + eol +
-        "\u001b[34m" + fieldBarP2 +
-        gameBarP2 + eol +
-        "\u001b[34m" + menuBarP2 + eol +
-        "\u001b[37m" + fieldBarP1.bar(slotNum = slotNum)
-
-    override def toString() = printField()
+    override def toString() = toMatrix().rows.map(_.mkString("|","","|\n")).mkString
 }

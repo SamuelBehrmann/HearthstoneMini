@@ -60,6 +60,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
           * ((Field.standartFieldWidth - field.players(1).name.length - 1) * field.players(1).gamebar.hp.value/100).asInstanceOf[Float].floor.asInstanceOf[Int] + "\n" +
           "-------------------------------------------------------------------------------------\n"
         )
+
       }
     }
   }

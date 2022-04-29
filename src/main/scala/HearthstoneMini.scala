@@ -1,6 +1,7 @@
-package scala
+//package scala
 
 import model._
+
 import controller.Controller
 import aview.TUI
 import scala.io.StdIn.readLine
@@ -21,3 +22,4 @@ def run(): Unit = {
     //TODO: Decks erstellen und importieren
     //TODO: 
 }
+

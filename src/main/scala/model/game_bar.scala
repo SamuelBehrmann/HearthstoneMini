@@ -26,7 +26,6 @@ case class GameBar(hp: Healthpoints = new Healthpoints(100),
         tmpMatrix
     }
 
-
     def toMatrix(): Matrix[String] = new Matrix[String](Field.standartGameBarHeight, Field.standartFieldWidth, " ")
     .updateMatrix(0,0,List[String]("\u001b[32mHP: " + hp.toString + " \u001b[0;34mMana: " + mana.toString + "\u001b[0;37m"))
     .updateMatrix(0,Field.standartFieldWidth - 1, List[String]("\u001b[0;31mDeck: " + deck.length + "  Friedhof: " + friedhof.length + "\u001b[0;37m"))

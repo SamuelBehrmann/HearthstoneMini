@@ -17,7 +17,7 @@ lazy val root = project
     libraryDependencies += "org.json4s" %% "json4s-jackson" % "4.0.5",
     // SBT
     libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.8.1",
-    
+
     jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
       None,
@@ -25,8 +25,5 @@ lazy val root = project
       Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML), // note XML formatter
       "utf-8")
   )
-
-    
-   
 
 

@@ -10,7 +10,7 @@ on:
     branches: [ main, development ]
 
 env:
-  CODECOV_TOKEN: '3625fa7f-8783-4018-af58-72e30da83814'
+  CODECOV_TOKEN: 'ffef9e27-f6d7-4150-a211-4569a65cfbe1'
 
 permissions:
   contents: read

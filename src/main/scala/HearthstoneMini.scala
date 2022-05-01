@@ -5,9 +5,13 @@ import model._
 import controller.Controller
 import aview.TUI
 import scala.io.StdIn.readLine
+
+import org.json4s
+import org.json4s.jackson.JsonMethods._
 //import scala.util.Random
 @main
 def run(): Unit = {
+
     println("Bitte Spielername 1 eingeben: ")
     val playername1 = readLine
     println("Bitte Spielername 2 eingeben: ")
@@ -20,6 +24,9 @@ def run(): Unit = {
     //TODO: deck mischen implementieren
     //TODO: spielfluß einbauen
     //TODO: Decks erstellen und importieren
-    //TODO: 
+    //TODO:
+    // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 }
+
+
 

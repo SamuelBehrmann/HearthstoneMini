@@ -18,4 +18,3 @@ class Card(val name: String, val manaCost: Int, val attValue: Int, val defenseVa
 class EmptyCard(val name: String = "yolo", val manaCost: Int = 0, val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "") extends CardType {
     override def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ")
 }
-

@@ -15,7 +15,7 @@ lazy val root = project
     libraryDependencies += "com.lihaoyi" %% "upickle" % "1.6.0",
     libraryDependencies += "org.json4s" %% "json4s-jackson" % "4.0.5",
     // SBT
-      libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.8.1"
+    libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.8.1"
 
   )
 

@@ -1,10 +1,16 @@
 name: Scala CI
 
+
+
 on:
   push:
     branches: [ development ]
   pull_request:
+
     branches: [ main, development ]
+
+env:
+  CODECOV_TOKEN: '3625fa7f-8783-4018-af58-72e30da83814'
 
 permissions:
   contents: read
@@ -28,9 +34,6 @@ jobs:
       - name: Run tests
         run:
           sbt clean test jacoco
-      - name: Codecov
-        uses: codecov/codecov-action@v3.1.0
-        
       - name: Upload report to Codecov
         run: |
           curl -s https://codecov.io/bash > .codecov

@@ -12,10 +12,21 @@ lazy val root = project
 
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.11",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.11" % "test",
+
     libraryDependencies += "com.lihaoyi" %% "upickle" % "1.6.0",
     libraryDependencies += "org.json4s" %% "json4s-jackson" % "4.0.5",
     // SBT
-    libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.8.1"
-
+    libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.8.1",
+    
+    jacocoReportSettings := JacocoReportSettings(
+      "Jacoco Coverage Report",
+      None,
+      JacocoThresholds(),
+      Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML), // note XML formatter
+      "utf-8")
   )
+
+    
+   
+
 

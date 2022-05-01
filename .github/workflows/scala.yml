@@ -1,11 +1,15 @@
 name: Scala CI
 
+
+
 on:
   push:
     branches: [ dev ]
   pull_request:
     branches: [ main, dev ]
-
+env:
+  CODECOV_TOKEN: '3625fa7f-8783-4018-af58-72e30da83814'
+  
 permissions:
   contents: read
 

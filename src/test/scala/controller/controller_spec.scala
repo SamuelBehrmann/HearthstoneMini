@@ -11,8 +11,8 @@ import _root_.model.EmptyCard
 import util.Observer
 
 class ControllerSpec extends AnyWordSpec with Matchers {
-   "The Controller" should {
-       val controller = Controller(new Field(5, "Sam", "Jan"))
+  "The Controller" should {
+    val controller = Controller(new Field(5, "Sam", "Jan"))
     "place a card when a card gets placed" in {
         val fieldAfterMove = controller.placeCard(Move(0, 1, 0))
         fieldAfterMove.players(0).fieldbar.cardArea.row(0) shouldBe an [Card]

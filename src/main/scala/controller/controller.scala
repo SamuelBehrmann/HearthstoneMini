@@ -9,7 +9,6 @@ case class Controller(var field: Field) extends Observable {
     def placeCard(move: Move) = {
             field.placeCard(move.playerID, move.handSlot, move.fieldSlot)
     }
-
     def destroyCard(move: Move) = {
         field.destroyCard(move.playerID, move.fieldSlot)
     }
@@ -24,12 +23,10 @@ case class Controller(var field: Field) extends Observable {
     }
     def reduceMana(move: Move) = {
          field.reduceMana(move.playerID, move.amount)
-
     }
     def increaseMana(move: Move) = {
          field.increaseMana(move.playerID, move.amount)
     }
-
     def doAndPublish(doThis: Move => Field, move: Move ) = {
         field = doThis(move)
         notifyObservers

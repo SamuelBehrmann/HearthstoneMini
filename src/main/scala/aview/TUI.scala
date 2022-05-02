@@ -9,8 +9,6 @@ import java.lang.System.exit
 class TUI(controller: Controller) extends Observer {
     controller.add(this)
     var player = 0
-    var moveMethod: Move => Field = null
-    var moveParams: Move = null
 
     def run = {
         getInputAndLoop()
@@ -19,8 +17,8 @@ class TUI(controller: Controller) extends Observer {
 
     def getInputAndLoop(): Unit = {
         printField()
-        getInput()
-        controller.doAndPublish(moveMethod, moveParams)
+        val (method, params) = getInput(readLine)
+        controller.doAndPublish(method, params)
         getInputAndLoop()
     }
     def printField() = {
@@ -32,20 +30,18 @@ class TUI(controller: Controller) extends Observer {
     }
     def switchPlayer() = if(player == 0) then player = 1 else player = 0
 
-    def getInput() = {
-        val input = readLine
+    def getInput(input: String): (Move => Field, Move) = {
         val chars = input.toCharArray
-
         chars(0) match
-            case 'q' => exit(0)
-            case 'p' => moveMethod = controller.placeCard; moveParams = Move(playerID = player, chars(1).asDigit - 1, chars(2).asDigit - 1)
-            case 'd' => moveMethod = controller.drawCard; moveParams = Move(playerID = player)
-            case 'l' => moveMethod = controller.destroyCard; moveParams = Move(playerID = player, fieldSlot = chars(2).asDigit)
-            case 'r' => moveMethod = controller.reduceHp; moveParams = Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt)
-            case 'i' => moveMethod = controller.increaseHp; moveParams = Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt)
-            case 'm' => moveMethod = controller.reduceMana; moveParams = Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt)
-            case 'n' => moveMethod = controller.increaseMana; moveParams = Move(playerID = player, amount = (chars(1).toString + chars(2).toString).toInt)
-            case 's' => switchPlayer()
+            case 'q' => exit(0); (null, null)
+            case 'p' => (controller.placeCard, Move(playerID = player, chars(1).asDigit - 1, chars(2).asDigit - 1))
+            case 'd' => (controller.drawCard, Move(playerID = player))
+            case 'l' => (controller.destroyCard, Move(playerID = player, fieldSlot = chars(2).asDigit))
+            case 'r' => (controller.reduceHp, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))
+            case 'i' => (controller.increaseHp, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))
+            case 'm' => (controller.reduceMana, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))
+            case 'n' => (controller.increaseMana, Move(playerID = player, amount = (chars(1).toString + chars(2).toString).toInt))
+            case 's' => switchPlayer(); (null, null)
     }
 }
 

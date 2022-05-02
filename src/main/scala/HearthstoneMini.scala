@@ -24,8 +24,7 @@ def run(): Unit = {
     //TODO: deck mischen implementieren
     //TODO: spielfluß einbauen
     //TODO: Decks erstellen und importieren
-    //TODO:
-    // hello world
+
 }
 
 

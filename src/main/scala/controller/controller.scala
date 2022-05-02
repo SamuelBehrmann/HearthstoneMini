@@ -1,36 +1,38 @@
 package controller
 
-import java.util.Observable
+import util.Observable
 import model.Field
 import model.Player
+import model.Move
 
 case class Controller(var field: Field) extends Observable {
-    def placeCard(playerID: Int, handSlot: Int, fieldSlot: Int) = {
-        field = field.placeCard(playerID, handSlot, fieldSlot)
-        notifyObservers
+    def placeCard(move: Move) = {
+            field.placeCard(move.playerID, move.handSlot, move.fieldSlot)
     }
-    def destroyCard(playerID: Int, fieldSlot: Int) = {
-        field = field.destroyCard(playerID, fieldSlot)
-        notifyObservers
+
+    def destroyCard(move: Move) = {
+        field.destroyCard(move.playerID, move.fieldSlot)
     }
-    def drawCard(playerID: Int) = {
-        field = field.drawCard(playerID)
-        notifyObservers
+    def drawCard(move: Move) = {
+         field.drawCard(move.playerID)
     }
-    def reduceHp(playerID: Int, amount: Int) = {
-        field = field.reduceHp(playerID, amount)
-        notifyObservers
+    def reduceHp(move: Move) = {
+         field.reduceHp(move.playerID, move.amount)
     }
-    def increaseHp(playerID: Int, amount: Int) = {
-        field = field.increaseHp(playerID, amount)
-        notifyObservers
+    def increaseHp(move: Move) = {
+         field.increaseHp(move.playerID, move.amount)
     }
-    def reduceMana(playerID: Int, amount: Int) = {
-        field = field.reduceMana(playerID, amount)
-        notifyObservers
+    def reduceMana(move: Move) = {
+         field.reduceMana(move.playerID, move.amount)
+
     }
-    def increaseMana(playerID: Int, amount: Int) = {
-        field = field.increaseMana(playerID, amount)
+    def increaseMana(move: Move) = {
+         field.increaseMana(move.playerID, move.amount)
+    }
+
+    def doAndPublish(doThis: Move => Field, move: Move ) = {
+        field = doThis(move)
+        notifyObservers
     }
 
     override def toString() = field.toString

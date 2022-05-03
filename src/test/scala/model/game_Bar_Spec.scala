@@ -17,7 +17,7 @@ class game_Bar_Spec extends AnyWordSpec with Matchers {
           "-------------------------------------------------------------------------------------\n")
       }
     }
-    "when you draw a card" in {
+    "you draw a card" in {
       gameBar.drawCard().hand.length should be (5)
     }
     "a card is removed from hand" in {
@@ -26,19 +26,19 @@ class game_Bar_Spec extends AnyWordSpec with Matchers {
     "a card is added to hand" in {
       gameBar.addCardToHand(new EmptyCard()).hand.length should be(5)
     }
-    "when hp reduced by 20" in {
+    "hp reduced by 20" in {
       gameBar.reduceHp(20).hp.value should be (80)
     }
-    "when hp increased by 40" in {
+    "hp increased by 40" in {
       gameBar.increaseHp(40).hp.value should be (140)
     }
-    "when mana reduced by 10" in {
+    "mana reduced by 10" in {
       gameBar.reduceMana(10).mana.value should be (0)
     }
-    "when mana increased by 50" in {
+    "mana increased by 50" in {
       gameBar.increaseMana(50).mana.value should be (60)
     }
-    "when card added to Friedhof" in {
+    "card added to Friedhof" in {
       gameBar.addCardToFriedhof(new EmptyCard()).friedhof.length should be (1)
     }
   }

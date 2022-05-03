@@ -36,7 +36,7 @@ class TUI(controller: Controller) extends Observer {
             case 'q' => exit(0); (null, null)
             case 'p' => (controller.placeCard, Move(playerID = player, chars(1).asDigit - 1, chars(2).asDigit - 1))
             case 'd' => (controller.drawCard, Move(playerID = player))
-            case 'l' => (controller.destroyCard, Move(playerID = player, fieldSlot = chars(2).asDigit))
+            case 'l' => (controller.destroyCard, Move(playerID = player, fieldSlot = chars(1).asDigit - 1))
             case 'r' => (controller.reduceHp, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))
             case 'i' => (controller.increaseHp, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))
             case 'm' => (controller.reduceMana, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))

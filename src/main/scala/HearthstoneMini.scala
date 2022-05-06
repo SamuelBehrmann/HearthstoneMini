@@ -6,9 +6,6 @@ import controller.Controller
 import aview.TUI
 import scala.io.StdIn.readLine
 
-import org.json4s
-import org.json4s.jackson.JsonMethods._
-
 @main
 def run(): Unit = {
     val field = new Field(5)

@@ -29,19 +29,19 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         fieldAfterMove.players(0).gamebar.deck.length should be(3)
     }
     "increase the Healthpoints when the Healthpoints gets increased" in {
-        val fieldAfterMove = controller.increaseHp(Move(0, 0, 0, 20))
+        val fieldAfterMove = controller.increaseHp(Move(0, 0, 20))
         fieldAfterMove.players(0).gamebar.hp.value should be(120)
     }
     "decrease the Healthpoints when the Healthpoints gets decreased" in {
-        val fieldAfterMove = controller.reduceHp(Move(0, 0, 0, 20))
+        val fieldAfterMove = controller.reduceHp(Move(0, 0, 20))
         fieldAfterMove.players(0).gamebar.hp.value should be(80)
     }
     "increase the Mana when the Mana gets increased" in {
-        val fieldAfterMove = controller.increaseMana(Move(0, 0, 0, 20))
+        val fieldAfterMove = controller.increaseMana(Move(0, 0, 20))
         fieldAfterMove.players(0).gamebar.mana.value should be(30)
     }
     "decrease the Mana when the Mana gets decreased" in {
-        val fieldAfterMove = controller.reduceMana(Move(0, 0, 0, 20))
+        val fieldAfterMove = controller.reduceMana(Move(0, 0, 20))
         fieldAfterMove.players(0).gamebar.mana.value should be(-10)
     }
      "notify its observers on change" in {

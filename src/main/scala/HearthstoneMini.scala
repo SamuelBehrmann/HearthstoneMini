@@ -8,15 +8,10 @@ import scala.io.StdIn.readLine
 
 import org.json4s
 import org.json4s.jackson.JsonMethods._
-//import scala.util.Random
+
 @main
 def run(): Unit = {
-
-    println("Bitte Spielername 1 eingeben: ")
-    val playername1 = readLine
-    println("Bitte Spielername 2 eingeben: ")
-    val playername2 = readLine
-    val field = new Field(size = 5, player1 = playername1, player2 = playername2)
+    val field = new Field(5)
     val controller = Controller(field)
     val tui = TUI(controller)
 
@@ -24,6 +19,15 @@ def run(): Unit = {
     //TODO: deck mischen implementieren
     //TODO: spielfluß einbauen
     //TODO: Decks erstellen und importieren
+    //TODO: contraints implementieren für methoden und HP
+    //TODO: friedhof - leere karten
+    //TODO: Hp balken geht über bildschirm rand hinaus
+    //TODO: belegte felder können überschrieben werden
+    //TODO: mana kan negativ werden
+    //TODO: spiel ende wenn hp = 0 sind
+    //TODO: angriffe etc implementieren
+    //TODO: karten einlesen
+    //TODO: 
 
 }
 

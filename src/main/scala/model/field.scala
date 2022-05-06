@@ -15,6 +15,7 @@ object Field{
 
 case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartFieldHeight, Field.standartFieldWidth, " "), slotNum: Int = Field.standartSlotNum, players: List[Player] = List[Player](new Player(id = 1), new Player(id = 2))) {
     def this(size: Int, player1: String, player2: String) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), size, players =  List[Player](new Player(name = player1, id = 1), new Player(name = player2, id = 2)))
+    def this(size: Int) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), size, players =  List[Player](new Player(id = 1), new Player(id = 2)))
 
     def placeCard(playerID: Int, handSlot: Int, fieldSlot: Int): Field = copy(players = players.updated(playerID, players(playerID).placeCard(handSlot ,fieldSlot)))
     def drawCard(playerID: Int): Field = copy(players = players.updated(playerID, players(playerID).drawCard()))
@@ -23,7 +24,7 @@ case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartField
     def increaseHp(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).increaseHp(amount)))
     def reduceMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).reduceMana(amount)))
     def increaseMana(playerID: Int, amount: Int): Field = copy(players = players.updated(playerID, players(playerID).increaseMana(amount)))
-
+    def setPlayerNames(p1: String, p2: String): Field = copy(players = players.updated(0, players(0).setName(p1)).updated(1, players(1).setName(p2)))
     def toMatrix(): Matrix[String] = matrix
     .updateMatrix(0, 0, List[String]("-" * Field.standartFieldWidth))
     .updateMatrixWithMatrix(Field.offset, 0, players(0).toMatrix())

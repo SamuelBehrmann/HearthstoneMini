@@ -33,7 +33,7 @@ class TUI(controller: Controller) extends Observer {
     def getInput(input: String): (Move => Field, Move) = {
         val chars = input.toCharArray
         chars(0) match
-            case 'q' => exit(0); (null, null)
+            case 'q' => exit(0); ((Move) => controller.field, Move())
             case 'p' => (controller.placeCard, Move(playerID = player, chars(1).asDigit - 1, chars(2).asDigit - 1))
             case 'd' => (controller.drawCard, Move(playerID = player))
             case 'l' => (controller.destroyCard, Move(playerID = player, fieldSlot = chars(1).asDigit - 1))
@@ -41,7 +41,7 @@ class TUI(controller: Controller) extends Observer {
             case 'i' => (controller.increaseHp, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))
             case 'm' => (controller.reduceMana, Move(playerID = player, amount  = (chars(1).toString + chars(2).toString).toInt))
             case 'n' => (controller.increaseMana, Move(playerID = player, amount = (chars(1).toString + chars(2).toString).toInt))
-            case 's' => switchPlayer(); (null, null)
+            case 's' => switchPlayer(); ((Move) => controller.field, Move()) // return old Field and Empty move
     }
 }
 

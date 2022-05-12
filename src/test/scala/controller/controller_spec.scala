@@ -14,12 +14,12 @@ class ControllerSpec extends AnyWordSpec with Matchers {
   "The Controller" should {
     val controller = Controller(new Field(5, "Sam", "Jan"))
     "place a card when a card gets placed" in {
-        val fieldAfterMove = controller.placeCard(Move(0, 1, 0))
-        fieldAfterMove.players(0).fieldbar.cardArea.row(0) shouldBe an [Card]
+        val fieldAfterMove = controller.placeCard(Move(0, 1))
+        fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an [Card]
     }
     "remove a card when a card gets removed" in {
         val fieldAfterMove0 = controller.placeCard(Move(0, 1, 0))
-        fieldAfterMove0.players(0).fieldbar.cardArea.row(0) shouldBe an [Card]
+        fieldAfterMove0.players(0).fieldbar.cardArea.row(1) shouldBe an [Card]
         val fieldAfterMove = controller.destroyCard(Move(0, 0, 0))
         fieldAfterMove.players(0).fieldbar.cardArea.row(0) shouldBe an [EmptyCard]
     }
@@ -43,6 +43,20 @@ class ControllerSpec extends AnyWordSpec with Matchers {
     "decrease the Mana when the Mana gets decreased" in {
         val fieldAfterMove = controller.reduceMana(Move(0, 0, 20))
         fieldAfterMove.players(0).gamebar.mana.value should be(-10)
+    }
+    "switch the active player on switch" in {
+        val fieldAfterMove = controller.switchPlayer(Move())
+        fieldAfterMove should be (controller.field)
+        controller.player should be (1)
+    }
+    "leave the game on press" in {
+        val fieldAfterMove = controller.switchPlayer(Move())
+        fieldAfterMove should be (controller.field)
+    }
+    "set the player names" in {
+        val fieldAfterMove = controller.setPlayerNames(Move(p1 = "test1", p2 = "test2"))
+        fieldAfterMove.players(0).name should be("test1")
+        fieldAfterMove.players(1).name should be("test2")
     }
      "notify its observers on change" in {
       class TestObserver(controller: Controller) extends Observer:

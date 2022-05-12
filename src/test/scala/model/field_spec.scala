@@ -34,7 +34,6 @@ class FieldSpec extends AnyWordSpec with Matchers {
           field.increaseMana(0, 20).players(0).gamebar.mana.value should be(30)
       }
       "have a Matrix representation" in {
-        print(field.toMatrix().toAString())
         field.toMatrix().toAString() should be (
           "-------------------------------------------------------------------------------------\n" +
           "\u001b[1mPlayer " + "\u001b[0m" + "\u001b[32;1m|\u001b[0;37m"

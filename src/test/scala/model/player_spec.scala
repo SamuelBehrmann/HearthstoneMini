@@ -3,7 +3,7 @@ package model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class player_spec extends AnyWordSpec with Matchers {
+class PlayerSpec extends AnyWordSpec with Matchers {
   "A Player" when {
     val player1 = new Player(id = 1)
     val player2 = new Player(id = 2)

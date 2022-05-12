@@ -3,7 +3,7 @@ package model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class game_Bar_Spec extends AnyWordSpec with Matchers {
+class GameBarSpec extends AnyWordSpec with Matchers {
   "A Gamebar" when {
     val gameBar = GameBar()
     "created" should {

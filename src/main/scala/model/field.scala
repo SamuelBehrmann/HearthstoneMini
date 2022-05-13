@@ -20,9 +20,9 @@ case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartField
     def this(size: Int, player1: String, player2: String) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), 
         size, 
         players =  List[Player](new Player(name = player1, id = 1), new Player(name = player2, id = 2)))
-    def this(size: Int) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), 
-        size, 
-        players =  List[Player](new Player(id = 1), new Player(id = 2)))
+    // def this(size: Int) = this(new Matrix[String](Field.standartFieldHeight, Field.standartSlotWidth * size, " "), 
+    //     size, 
+    //     players =  List[Player](new Player(id = 1), new Player(id = 2)))
 
     def placeCard( handSlot: Int, fieldSlot: Int): Field = copy(players = players.updated(0, players(0).placeCard(handSlot ,fieldSlot)))
     def drawCard(): Field = copy(players = players.updated(0, players(0).drawCard()))

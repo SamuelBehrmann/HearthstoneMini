@@ -16,7 +16,7 @@ case class Controller(var field: Field) extends Observable {
      def setPlayerNames(move: Move) = field.setPlayerNames(move.p1,move.p2)
      def switchPlayer(move: Move) = field.switchPlayer()
      def exitGame(move: Move) = {
-          exit(0)
+          //exit(0)
           field
      }
      def doAndPublish(doThis: Move => Field, move: Move ) = {

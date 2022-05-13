@@ -7,6 +7,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
    "A Field" when {
     "created" should {
       val field = new Field(5, "Player", "Player")
+      val field1 = new Field(5)
       "be created using default fieldsize 5 and 2 player names" in {
           field.matrix.colSize should be(Field.standartFieldWidth)
       }

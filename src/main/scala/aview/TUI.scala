@@ -16,10 +16,18 @@ class TUI(controller: Controller) extends Observer {
     override def update = println(controller.field.toString)
 
     def getInputAndLoop(): Unit = {
-        printField()
-        val (method, params) = getInput(readLine)
-        controller.doAndPublish(method, params)
-        getInputAndLoop()
+        if (!controller.doExit) then {
+            printField()
+            val input: String = readLine
+            checkInput(input) match {
+                case false => {}
+                case true => {
+                    val (method, params) = getInput(input)
+                    controller.doAndPublish(method, params)
+                }
+            }
+            getInputAndLoop()
+        }
     }
     def getPlayerNames() = {
         println("Bitte Spielername 1 eingeben: ")
@@ -35,7 +43,8 @@ class TUI(controller: Controller) extends Observer {
         println("\u001b[33mp-place(hand,solt) | d-draw() | l-destroy(slt) | r-decHP(amnt)\ni-incHP(ammount) | m-redMana(amnt) | n-incMana(amnt) | s-Endturn\u001b[0m")
 
     }
-    
+    def checkInput(input: String) = input.matches("([qpdlrimns]\\d\\d)|([a-z]\\d)|([a-z])")
+
     def getInput(input: String): (Move => Field, Move) = {
         val chars = input.toCharArray
         chars(0) match
@@ -49,6 +58,7 @@ class TUI(controller: Controller) extends Observer {
             case 'n' => (controller.increaseMana, Move( amount = (chars(1).toString + chars(2).toString).toInt))
             case 's' => (controller.switchPlayer, Move()) // return old Field and Empty move
     }
+
 }
 
 // <taste/befehl> <playerID> <argumente1> <argument2>

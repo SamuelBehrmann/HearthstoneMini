@@ -38,7 +38,7 @@ class TUI(controller: Controller) extends Observer {
     }
     def printField() = {
         print("\u001b[2J")
-        println("\u001b[33m" + controller.field.players(controller.player).name + " ist dran!\u001b[0m")
+        println("\u001b[33m" + controller.field.players(0).name + " ist dran!\u001b[0m")
         println(controller.field.toString)
         println("\u001b[33mp-place(hand,solt) | d-draw() | l-destroy(slt) | r-decHP(amnt)\ni-incHP(ammount) | m-redMana(amnt) | n-incMana(amnt) | s-Endturn\u001b[0m")
 

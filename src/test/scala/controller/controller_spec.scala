@@ -50,8 +50,10 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.player should be (1)
     }
     "leave the game on press" in {
-        val fieldAfterMove = controller.switchPlayer(Move())
+        controller.doExit should be(false)
+        val fieldAfterMove = controller.exitGame(Move())
         fieldAfterMove should be (controller.field)
+        controller.doExit should be(true)
     }
     "set the player names" in {
         val fieldAfterMove = controller.setPlayerNames(Move(p1 = "test1", p2 = "test2"))

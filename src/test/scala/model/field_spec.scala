@@ -6,7 +6,8 @@ import org.scalatest.wordspec.AnyWordSpec
 class FieldSpec extends AnyWordSpec with Matchers {
    "A Field" when {
     "created" should {
-      val field = new Field(5, "Player", "Player")
+      val field0 = Field()
+      val field = new Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2)))
       val field1 = new Field(5)
       "be created using default fieldsize 5 and 2 player names" in {
           field.matrix.colSize should be(Field.standartFieldWidth)
@@ -17,25 +18,28 @@ class FieldSpec extends AnyWordSpec with Matchers {
       }
       "have no Card in slot 1 when remove a card in slot 1" in {
           val field1 = field.placeCard(0, 0)
-          field1.destroyCard(0).players(0).fieldbar.cardArea.row(0) shouldBe an [EmptyCard]
+          field1.destroyCard(0,0).players(0).fieldbar.cardArea.row(0) shouldBe an [EmptyCard]
       }
       "have 5 cards in hand after drawing 1 form deck" in {
         field.drawCard().players(0).gamebar.hand.length should be (5)
       }
-      "have 80 Hp when reduced by 20" in {
-          field.reduceHp(20).players(0).gamebar.hp.value should be(80)
+      "have 10 Hp when reduced by 20" in {
+          field.reduceHp(0,20).players(0).gamebar.hp.value should be(10)
       }
-      "have 120 Hp when increased by 20" in {
-          field.increaseHp(20).players(0).gamebar.hp.value should be(120)
+      "have 50 Hp when increased by 20" in {
+          field.increaseHp(20).players(0).gamebar.hp.value should be(50)
       }
       "have 0 Mana when reduced by 10" in {
           field.reduceMana(10).players(0).gamebar.mana.value should be(0)
       }
-      "have 30 Mana when increased by 20" in {
-          field.increaseMana(20).players(0).gamebar.mana.value should be(30)
+      "have 1 Mana when increased" in {
+          field.increaseMana(20).players(1).gamebar.mana.value should be(1)
       }
       "switch the active player" in {
-        field.switchPlayer().players should be(field.players.reverse)
+        val fieldAfterMove = field.switchPlayer()
+        fieldAfterMove.players should be(field.players.reverse)
+        val fieldAfter2ndMove = fieldAfterMove.switchPlayer()
+        fieldAfter2ndMove.players(0).gamebar.mana.value should be(3)
       }
       "return the active player" in {
         field.getActivePlayer() should be(field.players(0))
@@ -44,12 +48,12 @@ class FieldSpec extends AnyWordSpec with Matchers {
         field.getPlayerById(1) should be (field.players(0))
       }
       "have a Matrix representation" in {
-        field.toMatrix().toAString() should be (
+        field1.toMatrix().toAString() should be (
           "-------------------------------------------------------------------------------------\n" +
           "\u001b[1mPlayer " + "\u001b[0m" + "\u001b[32;1m|\u001b[0;37m"
-            * ((Field.standartFieldWidth - field.players(0).name.length - 1) * field.players(0).gamebar.hp.value/100).asInstanceOf[Float].floor.asInstanceOf[Int]  +
+            * ((Field.standartFieldWidth - field.players(0).name.length - 1) * field.players(0).gamebar.hp.value/field.players(0).gamebar.hp.max).asInstanceOf[Float].floor.asInstanceOf[Int]  +
           "\n-------------------------------------------------------------------------------------\n" +
-          "\u001b[32mHP: 100 \u001b[0;34mMana: 10\u001b[0;37m                                                 \u001b[0;31mDeck: 4  Friedhof: 0\u001b[0;37m\n " +
+          "\u001b[32mHP: 30 \u001b[0;34mMana: 1\u001b[0;37m                                                   \u001b[0;31mDeck: 4  Friedhof: 0\u001b[0;37m\n " +
           "Brecher (2)      Brecher (2)      Brecher (2)      Brecher (2)                      \n " +
           "atk: 3           atk: 3           atk: 3           atk: 3                           \n " +
           "def: 4           def: 4           def: 4           def: 4                           \n " +
@@ -58,7 +62,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
           "-------------------------------------------------------------------------------------\n" +
           field.players(0).fieldbar.toMatrix().toAString() +
           field.players(1).fieldbar.toMatrix().toAString() +
-          "\u001b[32mHP: 100 \u001b[0;34mMana: 10\u001b[0;37m                                                 \u001b[0;31mDeck: 4  Friedhof: 0\u001b[0;37m\n " +
+          "\u001b[32mHP: 30 \u001b[0;34mMana: 1\u001b[0;37m                                                   \u001b[0;31mDeck: 4  Friedhof: 0\u001b[0;37m\n " +
           "Brecher (2)      Brecher (2)      Brecher (2)      Brecher (2)                      \n " +
           "atk: 3           atk: 3           atk: 3           atk: 3                           \n " +
           "def: 4           def: 4           def: 4           def: 4                           \n " +
@@ -66,11 +70,17 @@ class FieldSpec extends AnyWordSpec with Matchers {
           "Legende          Legende          Legende          Legende                          \n"  +
           "-------------------------------------------------------------------------------------\n" +
           "\u001b[1mPlayer " + "\u001b[0m" + "\u001b[32;1m|\u001b[0;37m"
-          * ((Field.standartFieldWidth - field.players(1).name.length - 1) * field.players(1).gamebar.hp.value/100).asInstanceOf[Float].floor.asInstanceOf[Int] + "\n" +
+          * ((Field.standartFieldWidth - field.players(1).name.length - 1) * field.players(1).gamebar.hp.value/field.players(1).gamebar.hp.max).asInstanceOf[Float].floor.asInstanceOf[Int] + "\n" +
           "-------------------------------------------------------------------------------------\n"
         )
-
       }
+      "have reset and increased mana" in {
+          val fieldAfterMove = field1.resetAndIncreaseMana()
+          fieldAfterMove.players(0).gamebar.mana.value should be(2)
+          fieldAfterMove.players(0).gamebar.mana.max should be(2)
+          fieldAfterMove.players(1).gamebar.mana.value should be(2)
+          fieldAfterMove.players(1).gamebar.mana.max should be(2)
+        }
     }
   }
 }

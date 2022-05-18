@@ -8,45 +8,36 @@ import _root_.model.Field
 import _root_.model.Move
 import _root_.model.Card
 import _root_.model.EmptyCard
+import _root_.model.Player
 import util.Observer
+
 
 class ControllerSpec extends AnyWordSpec with Matchers {
   "The Controller" should {
-    val controller = Controller(new Field(5, "Sam", "Jan"))
+    val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2))))
     "place a card when a card gets placed" in {
         val fieldAfterMove = controller.placeCard(Move(0, 1))
         fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an [Card]
     }
-    "remove a card when a card gets removed" in {
-        val fieldAfterMove0 = controller.placeCard(Move(0, 1, 0))
-        fieldAfterMove0.players(0).fieldbar.cardArea.row(1) shouldBe an [Card]
-        val fieldAfterMove = controller.destroyCard(Move(0, 0, 0))
-        fieldAfterMove.players(0).fieldbar.cardArea.row(0) shouldBe an [EmptyCard]
-    }
-    "draw a card from deck when a card gets drawn" in {
-        val fieldAfterMove = controller.drawCard(Move(0))
+    "draw a card when draw is called" in {
+        val fieldAfterMove = controller.drawCard(Move())
         fieldAfterMove.players(0).gamebar.hand.length should be(5)
-        fieldAfterMove.players(0).gamebar.deck.length should be(3)
-    }
-    "increase the Healthpoints when the Healthpoints gets increased" in {
-        val fieldAfterMove = controller.increaseHp(Move(0, 0, 20))
-        fieldAfterMove.players(0).gamebar.hp.value should be(120)
-    }
-    "decrease the Healthpoints when the Healthpoints gets decreased" in {
-        val fieldAfterMove = controller.reduceHp(Move(0, 0, 20))
-        fieldAfterMove.players(0).gamebar.hp.value should be(80)
-    }
-    "increase the Mana when the Mana gets increased" in {
-        val fieldAfterMove = controller.increaseMana(Move(0, 0, 20))
-        fieldAfterMove.players(0).gamebar.mana.value should be(30)
-    }
-    "decrease the Mana when the Mana gets decreased" in {
-        val fieldAfterMove = controller.reduceMana(Move(0, 0, 20))
-        fieldAfterMove.players(0).gamebar.mana.value should be(-10)
     }
     "switch the active player on switch" in {
         val fieldAfterMove = controller.switchPlayer(Move())
-        fieldAfterMove should be(controller.field)
+        fieldAfterMove.players should be(controller.field.players.reverse)
+    }
+    "delete a card, and reduce healthpoints after attack" in {
+        val testController = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2).resetAndIncreaseMana()))
+          .placeCard(1,1)
+          .switchPlayer().placeCard(1,1))
+        val fieldAfterMove = testController.attack(Move(fieldSlotActive = 1, fieldSlotInactive = 1))
+        fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an [EmptyCard]
+        fieldAfterMove.players(1).fieldbar.cardArea.row(1) shouldBe an [Card]
+        fieldAfterMove.players(0).gamebar.friedhof.length should be(1)
+        fieldAfterMove.players(1).gamebar.friedhof.length should be(0)
+        fieldAfterMove.players(0).gamebar.hp.value should be(29)
+        fieldAfterMove.players(1).gamebar.hp.value should be(30)
     }
     "leave the game on press" in {
         controller.doExit should be(false)

@@ -24,7 +24,7 @@ def run(): Unit = {
     //TODO: spiel ende wenn hp = 0 sind
     //TODO: angriffe etc implementieren
     //TODO: karten einlesen
-    //TODO: 
+    //TODO:
 
 }
 

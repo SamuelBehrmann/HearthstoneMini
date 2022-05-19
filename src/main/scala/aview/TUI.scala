@@ -11,13 +11,18 @@ class TUI(controller: Controller) extends Observer {
 
     def run = {
         getPlayerNames()
+        update
         getInputAndLoop()
     }
-    override def update = println(controller.field.toString)
+    override def update = {
+        print("\u001b[2J")
+        println("turns: " + controller.field.turns + "\u001b[33m" + controller.field.players(0).name + " ist dran!\u001b[0m")
+        println(controller.field.toString)
+        println("\u001b[33mp-place(hand,solt) | d-draw() | a-attack(your-field, their-field) | s-Endturn | q-Quit\u001b[0m")
+    }
 
     def getInputAndLoop(): Unit = {
         if (!controller.doExit) then {
-            printField()
             val input: String = readLine
             checkInput(input) match {
                 case false => {}
@@ -38,12 +43,12 @@ class TUI(controller: Controller) extends Observer {
     }
     def printField() = {
         print("\u001b[2J")
-        println("\u001b[33m" + controller.field.players(0).name + " ist dran!\u001b[0m")
+        println("turns: " + controller.field.turns + "\u001b[33m" + controller.field.players(0).name + " ist dran!\u001b[0m")
         println(controller.field.toString)
-        println("\u001b[33mp-place(hand,solt) | d-draw() | l-destroy(slt) | r-decHP(amnt)\ni-incHP(ammount) | m-redMana(amnt) | n-incMana(amnt) | s-Endturn\u001b[0m")
+        println("\u001b[33mp-place(hand,solt) | d-draw() | a-attack(your-field, their-field) | s-Endturn | q-Quit\u001b[0m")
 
     }
-    def checkInput(input: String) = input.matches("([qpdlrimns]\\d\\d)|([a-z]\\d)|([a-z])")
+    def checkInput(input: String) = input.matches("([qpdas]\\d\\d)|([a-z]\\d)|([a-z])")
 
     def getInput(input: String): (Move => Field, Move) = {
         val chars = input.toCharArray
@@ -51,21 +56,9 @@ class TUI(controller: Controller) extends Observer {
             case 'q' => (controller.exitGame, Move())
             case 'p' => (controller.placeCard, Move(chars(1).asDigit - 1, chars(2).asDigit - 1))
             case 'd' => (controller.drawCard, Move())
-            case 'l' => (controller.destroyCard, Move( fieldSlot = chars(1).asDigit - 1))
-            case 'r' => (controller.reduceHp, Move( amount  = (chars(1).toString + chars(2).toString).toInt))
-            case 'i' => (controller.increaseHp, Move( amount  = (chars(1).toString + chars(2).toString).toInt))
-            case 'm' => (controller.reduceMana, Move( amount  = (chars(1).toString + chars(2).toString).toInt))
-            case 'n' => (controller.increaseMana, Move( amount = (chars(1).toString + chars(2).toString).toInt))
-            case 's' => (controller.switchPlayer, Move()) // return old Field and Empty move
+            case 'a' => (controller.attack, Move(fieldSlotActive = chars(1).asDigit - 1, fieldSlotInactive = chars(2).asDigit - 1))
+            case 's' => (controller.switchPlayer, Move())
     }
 
 }
 
-// <taste/befehl> <playerID> <argumente1> <argument2>
-// p = placecard(id, hand, feld)
-// d = drawcard(id)
-// l = destroycard(id, fieldslot)
-// r = reduceHP(id, amount)
-// i = increaseHP(id, amount)
-// m = reduceMana(id, amount)
-// n = increaseMana(id, amount)

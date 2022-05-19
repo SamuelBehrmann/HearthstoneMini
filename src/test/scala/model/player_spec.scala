@@ -67,5 +67,11 @@ class PlayerSpec extends AnyWordSpec with Matchers {
     "set a player name" in {
       player1.setName("testName").name should be("testName")
     }
+    "set HP value for a Player" in {
+      player1.setHpValue(50).gamebar.hp.value should be (50)
+    }
+    "set Mana for a Player" in {
+      player2.setManaValue(40).gamebar.mana.value should be (40)
+    }
   }
 }

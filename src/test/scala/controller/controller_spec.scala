@@ -80,5 +80,6 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       controller.doAndPublish(controller.drawCard, Move())
       testObserver.bing should be(true)
     }
+    ""
   }
 }

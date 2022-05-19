@@ -11,7 +11,7 @@ class TUI(controller: Controller) extends Observer {
 
     def run = {
         getPlayerNames()
-        update
+        //update
         getInputAndLoop()
     }
     override def update = {

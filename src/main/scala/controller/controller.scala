@@ -5,6 +5,7 @@ import model.Field
 import model.Player
 import model.Move
 import java.lang.System.exit
+
 case class Controller(var field: Field) extends Observable {
 
      var doExit = false

@@ -17,7 +17,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
     val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2))))
     "place a card when a card gets placed" in {
         val fieldAfterMove = controller.placeCard(Move(0, 1))
-        fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an [Card]
+        fieldAfterMove.players(0).fieldbar.cardArea.row(1).get shouldBe a [Card]
     }
     "draw a card when draw is called" in {
         val fieldAfterMove = controller.drawCard(Move())
@@ -32,32 +32,11 @@ class ControllerSpec extends AnyWordSpec with Matchers {
           .placeCard(1,1)
           .switchPlayer().placeCard(1,1))
         val fieldAfterMove = testController.attack(Move(fieldSlotActive = 1, fieldSlotInactive = 1))
-        fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an [EmptyCard]
-        fieldAfterMove.players(1).fieldbar.cardArea.row(1) shouldBe an [Card]
+        fieldAfterMove.players(0).fieldbar.cardArea.row(1).isDefined should be(false)
+        fieldAfterMove.players(1).fieldbar.cardArea.row(1).isDefined should be (true)
         fieldAfterMove.players(0).gamebar.friedhof.length should be(1)
         fieldAfterMove.players(1).gamebar.friedhof.length should be(0)
         fieldAfterMove.players(0).gamebar.hp.value should be(29)
-        fieldAfterMove.players(1).gamebar.hp.value should be(30)
-    }
-    "delete a card, and reduce healthpoints of p2 after attack" in {
-        val testController = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2).resetAndIncreaseMana()))
-          .placeCard(1,1))
-        val fieldAfterMove = testController.attack(Move(fieldSlotActive = 1, fieldSlotInactive = 1))
-        fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an [Card]
-        fieldAfterMove.players(1).fieldbar.cardArea.row(1) shouldBe an [EmptyCard]
-        fieldAfterMove.players(0).gamebar.friedhof.length should be(0)
-        fieldAfterMove.players(1).gamebar.friedhof.length should be(1)
-        fieldAfterMove.players(0).gamebar.hp.value should be(30)
-        fieldAfterMove.players(1).gamebar.hp.value should be(27)
-    }
-    "delete both cards, and reduce healthpoints NO Healthpoints after attack" in {
-        val testController = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2).resetAndIncreaseMana())))
-        val fieldAfterMove = testController.attack(Move(fieldSlotActive = 1, fieldSlotInactive = 1))
-        fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an [EmptyCard]
-        fieldAfterMove.players(1).fieldbar.cardArea.row(1) shouldBe an [EmptyCard]
-        fieldAfterMove.players(0).gamebar.friedhof.length should be(1)
-        fieldAfterMove.players(1).gamebar.friedhof.length should be(1)
-        fieldAfterMove.players(0).gamebar.hp.value should be(30)
         fieldAfterMove.players(1).gamebar.hp.value should be(30)
     }
     "leave the game on press" in {

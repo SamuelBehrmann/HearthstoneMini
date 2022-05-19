@@ -17,11 +17,11 @@ class FieldSpec extends AnyWordSpec with Matchers {
       }
       "have a Card in slot 1 after placed 1 card in slot 1 from hand" in {
         field.placeCard(0, 0).players(0).gamebar.hand.length should be(3)
-        field.placeCard(0, 0).players(0).fieldbar.cardArea.row(0) shouldBe an [Card]
+        field.placeCard(0, 0).players(0).fieldbar.cardArea.row(0).isDefined should be(true)
       }
       "have no Card in slot 1 when remove a card in slot 1" in {
         val field1 = field.placeCard(0, 0)
-        field1.destroyCard(0,0).players(0).fieldbar.cardArea.row(0) shouldBe an [EmptyCard]
+        field1.destroyCard(0,0).players(0).fieldbar.cardArea.row(0).isDefined should be(false)
       }
       "have 5 cards in hand after drawing 1 form deck" in {
         field.drawCard().players(0).gamebar.hand.length should be (5)

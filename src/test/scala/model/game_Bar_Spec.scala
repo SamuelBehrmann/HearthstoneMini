@@ -25,7 +25,8 @@ class GameBarSpec extends AnyWordSpec with Matchers {
       gameBar.removeCardFromHand(2).hand.length should be(3)
     }
     "a card is added to hand" in {
-      gameBar.addCardToHand(new EmptyCard()).hand.length should be(5)
+      val card = Card("test", 2, 2, 2, "Schmettern", "rare")
+      gameBar.addCardToHand(Some(card)).hand.length should be(5)
     }
     "hp reduced by 20" in {
       gameBar.reduceHp(20).hp.value should be (10)
@@ -40,7 +41,8 @@ class GameBarSpec extends AnyWordSpec with Matchers {
       gameBar.increaseMana(10).mana.value should be (1)
     }
     "card added to Friedhof" in {
-      gameBar.addCardToFriedhof(new EmptyCard()).friedhof.length should be (1)
+      val card = Card("test", 2, 2, 2, "Schmettern", "rare")
+      gameBar.addCardToFriedhof(Some(card)).friedhof.length should be (1)
     }
     "reset and increased mana" in {
       val afterAlter = gameBar.resetAndIncreaseMana()

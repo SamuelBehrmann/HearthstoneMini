@@ -6,34 +6,37 @@ import org.scalatest.wordspec.AnyWordSpec
 class FieldSpec extends AnyWordSpec with Matchers {
    "A Field" when {
     "created" should {
-      val field0 = Field()
       val field = new Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2)))
       val field1 = new Field(5)
+      "be created with empty constructor" in {
+        val field0 = Field()
+        field0.slotNum should be(5)
+      }
       "be created using default fieldsize 5 and 2 player names" in {
-          field.matrix.colSize should be(Field.standartFieldWidth)
+        field.matrix.colSize should be(Field.standartFieldWidth)
       }
       "have a Card in slot 1 after placed 1 card in slot 1 from hand" in {
-          field.placeCard(0, 0).players(0).gamebar.hand.length should be(3)
-          field.placeCard(0, 0).players(0).fieldbar.cardArea.row(0) shouldBe an [Card]
+        field.placeCard(0, 0).players(0).gamebar.hand.length should be(3)
+        field.placeCard(0, 0).players(0).fieldbar.cardArea.row(0) shouldBe an [Card]
       }
       "have no Card in slot 1 when remove a card in slot 1" in {
-          val field1 = field.placeCard(0, 0)
-          field1.destroyCard(0,0).players(0).fieldbar.cardArea.row(0) shouldBe an [EmptyCard]
+        val field1 = field.placeCard(0, 0)
+        field1.destroyCard(0,0).players(0).fieldbar.cardArea.row(0) shouldBe an [EmptyCard]
       }
       "have 5 cards in hand after drawing 1 form deck" in {
         field.drawCard().players(0).gamebar.hand.length should be (5)
       }
       "have 10 Hp when reduced by 20" in {
-          field.reduceHp(0,20).players(0).gamebar.hp.value should be(10)
+        field.reduceHp(0,20).players(0).gamebar.hp.value should be(10)
       }
       "have 50 Hp when increased by 20" in {
-          field.increaseHp(20).players(0).gamebar.hp.value should be(50)
+        field.increaseHp(20).players(0).gamebar.hp.value should be(50)
       }
       "have 0 Mana when reduced by 10" in {
-          field.reduceMana(10).players(0).gamebar.mana.value should be(0)
+        field.reduceMana(10).players(0).gamebar.mana.value should be(0)
       }
       "have 1 Mana when increased" in {
-          field.increaseMana(20).players(1).gamebar.mana.value should be(1)
+        field.increaseMana(20).players(1).gamebar.mana.value should be(1)
       }
       "switch the active player" in {
         val fieldAfterMove = field.switchPlayer()
@@ -75,11 +78,11 @@ class FieldSpec extends AnyWordSpec with Matchers {
         )
       }
       "have reset and increased mana" in {
-          val fieldAfterMove = field1.resetAndIncreaseMana()
-          fieldAfterMove.players(0).gamebar.mana.value should be(2)
-          fieldAfterMove.players(0).gamebar.mana.max should be(2)
-          fieldAfterMove.players(1).gamebar.mana.value should be(2)
-          fieldAfterMove.players(1).gamebar.mana.max should be(2)
+        val fieldAfterMove = field1.resetAndIncreaseMana()
+        fieldAfterMove.players(0).gamebar.mana.value should be(2)
+        fieldAfterMove.players(0).gamebar.mana.max should be(2)
+        fieldAfterMove.players(1).gamebar.mana.value should be(2)
+        fieldAfterMove.players(1).gamebar.mana.max should be(2)
         }
     }
   }

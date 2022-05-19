@@ -7,12 +7,13 @@ import model.Healthpoints
 class HpSpec extends AnyWordSpec with Matchers {
   "HP" when {
     "not set any value " should {
-      val emptyHp = Healthpoints()
       "have Value 0" in {
+        val emptyHp = Healthpoints()
         emptyHp.value should be(0)
         emptyHp.max should be(30)
       }
       "not be set" in {
+        val emptyHp = Healthpoints()
         emptyHp.isEmpty() should be(true)
       }
     }

@@ -5,8 +5,8 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   "A Player" when {
-    val player1 = new Player(id = 1)
-    val player2 = new Player(id = 2)
+    val player1 = Player(id = 1)
+    val player2 = Player(id = 2)
     "created player with ID = 1" should {
       "look like this" in {
         player1.toMatrix().toAString() should be ("\u001b[1mPlayer " + "\u001b[0m" + "\u001b[32;1m|\u001b[0;37m"

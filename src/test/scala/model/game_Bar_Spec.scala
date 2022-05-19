@@ -18,7 +18,8 @@ class GameBarSpec extends AnyWordSpec with Matchers {
       }
     }
     "you draw a card" in {
-      gameBar.drawCard().hand.length should be (5)
+      val gameBar1 = GameBar()
+      gameBar1.drawCard().hand.length should be (5)
     }
     "a card is removed from hand" in {
       gameBar.removeCardFromHand(2).hand.length should be(3)

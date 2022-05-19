@@ -18,7 +18,8 @@ case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
     def increaseMana(amount: Int): GameBar = copy(mana = mana.increase(amount))
     def resetAndIncreaseMana(): GameBar = copy(mana = mana.resetAndIncrease())
     def drawCard(): GameBar = copy(hand = hand.appended(deck(0)), deck = deck.filter(_ != deck(0)))
-
+    def setManaValue(amount: Int) = copy(mana = mana.setVal(amount))
+    def setHpValue(amount: Int) = copy(hp = hp.setVal(amount))
     def handAsMatrix(): Matrix[String] = {
         var tmpMatrix =  new Matrix[String](Field.standartCardHeight, Field.standartFieldWidth, " ")
         hand.zipWithIndex.foreach((elem,index) => tmpMatrix = tmpMatrix.updateMatrixWithMatrix(0, Field.standartSlotWidth * index + 1, hand(index).toMatrix()))

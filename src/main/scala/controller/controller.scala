@@ -4,11 +4,11 @@ import util.Observable
 import model.Field
 import model.Player
 import model.Move
+import controller.GameState._
 import java.lang.System.exit
 
 case class Controller(var field: Field) extends Observable {
-
-     var doExit = false
+     var gameState: GameState = GameState.PREGAME
 
      def placeCard(move: Move) = field.placeCard(move.handSlot, move.fieldSlotActive)
      def drawCard(move: Move) = field.drawCard()
@@ -21,14 +21,17 @@ case class Controller(var field: Field) extends Observable {
                field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
           else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue == field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
                field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
-          else field
+          else {
+               gameState = GameState.ERROR
+               field
+          }
      }
 
      def switchPlayer(move: Move) = {
           field.switchPlayer()
      }
      def exitGame(move: Move) = {
-          doExit = true
+          gameState = GameState.EXIT
           field
      }
      def doAndPublish(doThis: Move => Field, move: Move ) = {

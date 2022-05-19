@@ -12,6 +12,8 @@ case class Player(name: String = "Player", id: Int, fieldbar: FieldBar = new Fie
     def increaseMana(amount: Int): Player = copy(gamebar = gamebar.increaseMana(amount))
     def resetAndIncreaseMana(): Player = copy(gamebar = gamebar.resetAndIncreaseMana())
     def setName(name: String): Player = copy(name = name)
+    def setHpValue(amount: Int): Player = copy(gamebar = gamebar.setHpValue(amount))
+    def setManaValue(amount: Int): Player = copy(gamebar = gamebar.setManaValue(amount))
     def toMatrix(): Matrix[String] = if ((id % 2) == 1) then renderUnevenId() else renderEvenId()
 
     def renderUnevenId(): Matrix[String] = new Matrix[String](Field.standartMenueBarHeight + Field.standartGameBarHeight + Field.standartFieldBarHeight, Field.standartFieldWidth, " ")

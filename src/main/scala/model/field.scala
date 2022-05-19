@@ -34,6 +34,8 @@ case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartField
     def increaseMana( amount: Int): Field = copy(players = players.updated(0, players(0).increaseMana(amount)))
     def resetAndIncreaseMana(): Field = copy(players = players.updated(0, players(0).resetAndIncreaseMana()).updated(1, players(1).resetAndIncreaseMana()))
     def setPlayerNames(p1: String, p2: String): Field = copy(players = players.updated(0, players(0).setName(p1)).updated(1, players(1).setName(p2)))
+    def setHpValues(amount: Int): Field = copy(players = players.updated(0, players(0).setHpValue(amount)).updated(1, players(1).setHpValue(amount)))
+    def setManaValues(amount: Int): Field = copy(players = players.updated(0, players(0).setManaValue(amount)).updated(1, players(1).setManaValue(amount)))
     def switchPlayer() = if (turns != 0 && turns % 2 == 1)
         then copy(players = players.updated(0, players(0).resetAndIncreaseMana()).updated(1, players(1).resetAndIncreaseMana()).reverse, turns = turns + 1)
         else copy(players = players.reverse, turns = turns + 1)

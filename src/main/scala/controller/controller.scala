@@ -14,12 +14,12 @@ case class Controller(var field: Field) extends Observable {
      def drawCard(move: Move) = field.drawCard()
      def setPlayerNames(move: Move) = field.setPlayerNames(move.p1,move.p2)
      def attack(move: Move) = {
-          val difference = Math.abs(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue - field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue)
-          if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue < field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
+          val difference = Math.abs(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue - field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue)
+          if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue < field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
                field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
-          else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue > field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
+          else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue > field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
                field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
-          else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue == field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
+          else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue == field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
                field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
           else {
                gameState = GameState.ERROR

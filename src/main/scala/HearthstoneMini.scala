@@ -13,11 +13,6 @@ def run(): Unit = {
     val tui = TUI(controller)
 
     controller.notifyObservers
-    //TODO: deck mischen implementieren
-    //TODO: Decks erstellen und importieren
-    //TODO: spiel ende wenn hp = 0 sind
-    //TODO: karten einlesen
-    //TODO: check hanc karte auf valid
 }
 
 

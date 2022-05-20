@@ -15,6 +15,7 @@ class TUI(controller: Controller) extends Observer {
         update
     }
     override def update = {
+        printField()
         controller.gameState match {
             case GameState.PREGAME => preGame()
             case GameState.MAINGAME => getInputAndLoop()
@@ -45,7 +46,7 @@ class TUI(controller: Controller) extends Observer {
         val playername1 = readLine
         println("Bitte Spielername 2 eingeben: ")
         val playername2 = readLine
-        controller.doAndPublish(controller.setPlayerNames, Move(p1 = playername1, p2 = playername2))
+        controller.setPlayerNames(Move(p1 = playername1, p2 = playername2))
     }
     def printField(): Unit = {
         print("\u001b[2J")
@@ -55,26 +56,23 @@ class TUI(controller: Controller) extends Observer {
         
     }
     def getInputAndLoop(): Unit = { 
-        printField()
         val input: String = readLine
         checkInput(input) match {
-            case false => {}
-            case true => {
-                val (method, params) = getInput(input)
-                controller.doAndPublish(method, params)
-            }
+            case false => getInputAndLoop()
+            case true => getInput(input)
         }    
     }
-    def checkInput(input: String) = input.matches("([qpdas]\\d\\d)|([a-z]\\d)|([a-z])")
-    def getInput(input: String): (Move => Field, Move) = {
+    def checkInput(input: String) = input.matches("([pa]\\d\\d)|([qdszy])")
+    def getInput(input: String): Unit = {
         val chars = input.toCharArray
         chars(0) match
-            case 'q' => (controller.exitGame, Move())
-            case 'p' => (controller.placeCard, Move(chars(1).asDigit - 1, chars(2).asDigit - 1))
-            case 'd' => (controller.drawCard, Move())
-            case 'a' => (controller.attack, Move(fieldSlotActive = chars(1).asDigit - 1, fieldSlotInactive = chars(2).asDigit - 1))
-            case 's' => (controller.switchPlayer, Move())
+            case 'q' => controller.exitGame()
+            case 'p' => controller.placeCard(Move(chars(1).asDigit - 1, chars(2).asDigit - 1))
+            case 'd' => controller.drawCard()
+            case 'a' => controller.attack(Move(fieldSlotActive = chars(1).asDigit - 1, fieldSlotInactive = chars(2).asDigit - 1))
+            case 's' => controller.switchPlayer()
+            case 'z' => controller.undo
+            case 'y' => controller.redo
     }
-
 }
 

@@ -19,7 +19,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
 
       val fieldAfterMove = controller.placeCard(Move(0, 1))
       fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an[Card]
-
+    }
     "draw a card when draw is called" in {
       val fieldAfterMove = controller.drawCard(Move())
       fieldAfterMove.players(0).gamebar.hand.length should be(5)
@@ -64,7 +64,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
 
     "leave the game on press" in {
       controller.exitGame(Move())
-      controller.gameState should be (GameState.EXIT)
+      controller.gameState should be(GameState.EXIT)
     }
     "set the player names" in {
       val fieldAfterMove = controller.setPlayerNames(Move(p1 = "test1", p2 = "test2"))

@@ -19,12 +19,7 @@ case class Controller(var field: Field) extends Observable {
                field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
           else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue > field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
                field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
-          else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue == field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
-               field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
-          else {
-               gameState = GameState.ERROR
-               field
-          }
+          else field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
      }
 
      def switchPlayer(move: Move) = {

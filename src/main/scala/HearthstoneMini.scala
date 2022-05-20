@@ -14,17 +14,12 @@ def run(): Unit = {
 
     controller.notifyObservers
     //TODO: deck mischen implementieren
-    //TODO: spielfluß einbauen
     //TODO: Decks erstellen und importieren
-    //TODO: contraints implementieren für methoden und HP
-    //TODO: friedhof - leere karten
-    //TODO: Hp balken geht über bildschirm rand hinaus
+    //TODO: contraints implementieren für methoden und HP /friedhof leere karten / 
     //TODO: belegte felder können überschrieben werden
-    //TODO: mana kan negativ werden
     //TODO: spiel ende wenn hp = 0 sind
-    //TODO: angriffe etc implementieren
     //TODO: karten einlesen
-    //TODO:
+
 
 }
 

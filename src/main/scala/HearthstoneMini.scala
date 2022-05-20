@@ -19,8 +19,6 @@ def run(): Unit = {
     //TODO: belegte felder können überschrieben werden
     //TODO: spiel ende wenn hp = 0 sind
     //TODO: karten einlesen
-
-
 }
 
 

@@ -8,13 +8,13 @@ import util.Command
 class PlaceCardCommand(controller: Controller, move: Move) extends Command {
   var memento: Field = controller.field
   override def doStep: Unit = {
-    controller.field = controller.field.placeCard(move.handSlot, move.fieldSlotActive)
     memento = controller.field
+    controller.field = controller.field.placeCard(move.handSlot, move.fieldSlotActive)
   }
   override def undoStep: Unit = {
-    val new_memmento = controller.field
+    val new_memento = controller.field
     controller.field = memento
-    memento = new_memmento  
+    memento = new_memento  
   }
 
   override def redoStep: Unit = {

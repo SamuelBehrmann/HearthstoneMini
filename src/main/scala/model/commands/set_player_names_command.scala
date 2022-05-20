@@ -8,8 +8,8 @@ import model.Field
 class SetPlayerNamesCommand(controller: Controller, move: Move) extends Command {
   var memento: Field = controller.field
   override def doStep: Unit = {
-    controller.field = controller.field.setPlayerNames(move.p1, move.p2)
     memento = controller.field
+    controller.field = controller.field.setPlayerNames(move.p1, move.p2)
   }
   override def undoStep: Unit = {
     val new_memento = controller.field

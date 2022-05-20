@@ -18,8 +18,8 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
         controller.field = controller.field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
         memento = controller.field
       else 
-        controller.field = controller.field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
         memento = controller.field
+        controller.field = controller.field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
     }
   }
   

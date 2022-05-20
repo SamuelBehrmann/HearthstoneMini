@@ -8,8 +8,8 @@ import util.Command
 class DrawCardCommand(controller: Controller) extends Command {
   var memento: Field = controller.field
   override def doStep: Unit = {
-    controller.field = controller.field.drawCard()
     memento = controller.field
+    controller.field = controller.field.drawCard()
   }
   override def undoStep: Unit = {
     val new_memento = controller.field

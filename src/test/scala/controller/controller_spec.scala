@@ -50,11 +50,9 @@ class ControllerSpec extends AnyWordSpec with Matchers {
     "undo step / redo step" in {
       controller.drawCard()
       controller.undo
-      controller.undo
       controller.field.players(0).gamebar.hand.length should be(4)
       controller.redo
-      controller.redo
-      controller.field.players(0).gamebar.hand.length should be (5)
+      controller.field.players(0).gamebar.hand.length should be(5)
     }
   }
 }

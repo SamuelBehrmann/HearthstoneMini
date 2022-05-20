@@ -15,7 +15,6 @@ class TUI(controller: Controller) extends Observer {
         update
     }
     override def update = {
-        printField()
         controller.gameState match {
             case GameState.PREGAME => preGame()
             case GameState.MAINGAME => getInputAndLoop()
@@ -56,6 +55,7 @@ class TUI(controller: Controller) extends Observer {
         
     }
     def getInputAndLoop(): Unit = { 
+        printField()
         val input: String = readLine
         checkInput(input) match {
             case false => getInputAndLoop()

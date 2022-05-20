@@ -6,6 +6,7 @@ import org.scalatest.wordspec.AnyWordSpec
 class FieldSpec extends AnyWordSpec with Matchers {
   "A Field" when {
     "created" should {
+      val field0 = new Field(5, "Player1", "Player2")
       val field = new Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(), Player(id = 2)))
       val field1 = new Field(5)
       "be created with empty constructor" in {

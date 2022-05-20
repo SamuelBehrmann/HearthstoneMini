@@ -7,7 +7,7 @@ import controller.Controller
 import controller.GameState
 import controller.Strategy
 import scala.io.StdIn.readLine
-
+import scala.util.{Try, Success, Failure}
 
 class TUI(controller: Controller) extends Observer {
     controller.add(this)
@@ -56,12 +56,12 @@ class TUI(controller: Controller) extends Observer {
         printField()
         val input: String = readLine
         checkInput(input) match {
-            case false => getInputAndLoop()
-            case true => getInput(input)
+            case Failure(_) => getInputAndLoop()
+            case Success(_) => getInput(input)
         }    
     }
-    def checkInput(input: String) = input.matches("([pa]\\d\\d)|([qdszy])")
-    def getInput(input: String): Unit = {
+    def checkInput(input: String): Try[String] = if (input.matches("([pa]\\d\\d)|([qdszy])")) then Success(input) else Failure(Exception(""))
+    def getInput(input: String) = {
         val chars = input.toCharArray
         chars(0) match
             case 'q' => controller.exitGame()

@@ -50,9 +50,9 @@ class TUI(controller: Controller) extends Observer {
         println("\u001b[33m" + controller.field.players(0).name + " ist dran!\u001b[0m")
         println(controller.field.toString)
         println("\u001b[33mp-place(hand,solt) | d-draw() | a-attack(yours, theirs) | s-Endturn | z-undo | y-redo | q-Quit\u001b[0m")
-        
+
     }
-    def getInputAndLoop(): Unit = { 
+    def getInputAndLoop(): Unit = {
         printField()
         val input: String = readLine
         checkInput(input) match {
@@ -60,6 +60,7 @@ class TUI(controller: Controller) extends Observer {
             case Success(_) => evlInput(input)
         }    
     }
+
     def checkInput(input: String): Try[String] = if (input.matches("([pa]\\d\\d)|([qdszy])")) then Success(input) else Failure(Exception(""))
     def evlInput(input: String) = {
         val chars = input.toCharArray

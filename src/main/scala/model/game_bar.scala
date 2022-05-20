@@ -6,8 +6,8 @@ import util.CardProvider
 
 case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
     mana: Mana = new Mana(),
-    hand: List[Card] = new CardProvider("src/main/scala/model/jsonStuff/cards.json").getCards(5),
-    deck: List[Card] = new CardProvider("src/main/scala/model/jsonStuff/cards.json").getCards(30),
+    hand: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(5),
+    deck: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(30),
     friedhof: Array[Card] = Array[Card]()) {
 
     def removeCardFromHand(slot: Int): GameBar = copy(hand = hand.filter(_ != hand(slot)))

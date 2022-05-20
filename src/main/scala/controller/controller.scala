@@ -5,13 +5,10 @@ import util.UndoManager
 import model.Field
 import model.Player
 import model.Move
-import controller.GameState._
+import controller.GameState.*
+
 import java.lang.System.exit
-import model.commands.DrawCardCommand
-import model.commands.PlaceCardCommand
-import model.commands.SetPlayerNamesCommand
-import model.commands.AttackCommand
-import model.commands.SwitchPlayerCommand
+import model.commands.{AttackCommand, DirectAttackCommand, DrawCardCommand, PlaceCardCommand, SetPlayerNamesCommand, SwitchPlayerCommand}
 
 case class Controller(var field: Field) extends Observable {
      var gameState: GameState = GameState.PREGAME
@@ -31,6 +28,10 @@ case class Controller(var field: Field) extends Observable {
      }
      def attack(move: Move): Unit = {
           undoManager.doStep(new AttackCommand(this, move))
+          notifyObservers
+     }
+     def directAttack(move: Move): Unit = {
+          undoManager.doStep(new DirectAttackCommand(this, move))
           notifyObservers
      }
      def switchPlayer(): Unit = {

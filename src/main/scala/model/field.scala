@@ -26,8 +26,8 @@ case class Field(matrix: Matrix[String] = new Matrix[String](Field.standartField
     size,
     players = List[Player](new Player(id = 1), new Player(id = 2)))
 
-  def placeCard(handSlot: Int, fieldSlot: Int): Field = if (players(0).gamebar.mana.value >= players(0).gamebar.hand(handSlot).manaCost)
-  then if (players(0).fieldbar.cardArea.slot(fieldSlot).isEmpty)
+  def placeCard(handSlot: Int, fieldSlot: Int): Field = if (  players(0).fieldbar.cardArea.slot(fieldSlot).isEmpty && handSlot < players(0).gamebar.hand.length)
+  then if (players(0).gamebar.mana.value >= players(0).gamebar.hand(handSlot).manaCost)
     then copy(players = players.updated(0, players(0).placeCard(handSlot, fieldSlot).reduceMana(players(0).gamebar.hand(handSlot).manaCost)))
     else this
   else this

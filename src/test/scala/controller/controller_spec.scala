@@ -19,6 +19,5 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       controller.gameState should be(GameState.PREGAME)
 
     }
-
   }
 }

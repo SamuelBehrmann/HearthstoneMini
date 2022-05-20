@@ -8,16 +8,17 @@ import util.Command
 class AttackCommand(controller: Controller, move: Move) extends Command {
   var memento: Field = controller.field
   override def doStep: Unit = {
-    val difference = Math.abs(controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue - controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue)
-    if(controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue < controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
-      controller.field = controller.field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
-      memento = controller.field
-    else if(controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).attValue > controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).defenseValue) then
-      controller.field = controller.field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
-      memento = controller.field
-    else 
-      controller.field = controller.field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
-      memento = controller.field
+    if (controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).isDefined && controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotActive).isDefined) then 
+      val difference = Math.abs(controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue - controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue)
+      if(controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue < controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
+        controller.field = controller.field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
+        memento = controller.field
+      else if(controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue > controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
+        controller.field = controller.field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
+        memento = controller.field
+      else 
+        controller.field = controller.field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
+        memento = controller.field
   }
   override def undoStep: Unit = {
     val new_memmento = controller.field

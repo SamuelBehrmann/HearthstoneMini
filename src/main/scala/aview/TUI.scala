@@ -57,16 +57,16 @@ class TUI(controller: Controller) extends Observer {
         val input: String = readLine
         checkInput(input) match {
             case Failure(_) => getInputAndLoop()
-            case Success(_) => getInput(input)
+            case Success(_) => evlInput(input)
         }    
     }
     def checkInput(input: String): Try[String] = if (input.matches("([pa]\\d\\d)|([qdszy])")) then Success(input) else Failure(Exception(""))
-    def getInput(input: String) = {
+    def evlInput(input: String) = {
         val chars = input.toCharArray
         chars(0) match
             case 'q' => controller.exitGame()
             case 'p' => controller.placeCard(Move(chars(1).asDigit - 1, chars(2).asDigit - 1))
-            case 'd' => controller.drawCard()
+            case 'd' => {if (controller.field.players(0).gamebar.hand.length < 5) then controller.drawCard() else getInputAndLoop()}
             case 'a' => controller.attack(Move(fieldSlotActive = chars(1).asDigit - 1, fieldSlotInactive = chars(2).asDigit - 1))
             case 's' => controller.switchPlayer()
             case 'z' => controller.undo

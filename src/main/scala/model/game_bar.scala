@@ -2,11 +2,12 @@ package model
 
 import scala.compiletime.ops.string
 import scala.collection.View.Empty
+import util.CardProvider
 
 case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
     mana: Mana = new Mana(),
-    hand: Array[Card] = Array[Card](new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende")),
-    deck: Array[Card] = Array[Card](new Card("test", 2, 3, 4, "yolo", "ss"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff")),
+    hand: List[Card] = new CardProvider("src/main/scala/model/jsonStuff/cards.json").getCards(5),
+    deck: List[Card] = new CardProvider("src/main/scala/model/jsonStuff/cards.json").getCards(30),
     friedhof: Array[Card] = Array[Card]()) {
 
     def removeCardFromHand(slot: Int): GameBar = copy(hand = hand.filter(_ != hand(slot)))
@@ -31,7 +32,7 @@ case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
 
     def toMatrix(): Matrix[String] = new Matrix[String](Field.standartGameBarHeight, Field.standartFieldWidth, " ")
     .updateMatrix(0,0,List[String]("\u001b[32mHP: " + hp.toString + " \u001b[0;34mMana: " + mana.toString + "\u001b[0;37m"))
-    .updateMatrix(0,Field.standartFieldWidth - 1, List[String]("\u001b[0;31mDeck: " + deck.length + "  Friedhof: " + friedhof.length + "\u001b[0;37m"))
+    .updateMatrix(0,Field.standartFieldWidth - 2, List[String]("\u001b[0;31mDeck: " + deck.length + "  Friedhof: " + friedhof.length + "\u001b[0;37m"))
     .updateMatrixWithMatrix(1,0, handAsMatrix())
     .updateMatrix(6,0,List[String]("-" * Field.standartFieldWidth))
 }

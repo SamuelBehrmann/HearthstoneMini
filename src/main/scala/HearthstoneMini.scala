@@ -15,10 +15,9 @@ def run(): Unit = {
     controller.notifyObservers
     //TODO: deck mischen implementieren
     //TODO: Decks erstellen und importieren
-    //TODO: contraints implementieren für methoden und HP /friedhof leere karten / 
-    //TODO: belegte felder können überschrieben werden
     //TODO: spiel ende wenn hp = 0 sind
     //TODO: karten einlesen
+    //TODO: check hanc karte auf valid
 }
 
 

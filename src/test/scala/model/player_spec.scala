@@ -39,7 +39,7 @@ class PlayerSpec extends AnyWordSpec with Matchers {
       }
     }
     "placing a card" in {
-      player1.placeCard(2,2).fieldbar.cardArea.row(2) shouldBe an [Card]
+      player1.placeCard(2,2).fieldbar.cardArea.row(2).isDefined should be(true)
     }
     "drawing a card" in {
       player1.drawCard().gamebar.hand.length.intValue should be (5)

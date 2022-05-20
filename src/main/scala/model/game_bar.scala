@@ -5,13 +5,16 @@ import scala.collection.View.Empty
 
 case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
     mana: Mana = new Mana(),
-    hand: Array[CardType] = Array[CardType](new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende")),
-    deck: Array[CardType] = Array[CardType](new Card("test", 2, 3, 4, "yolo", "ss"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff")),
-    friedhof: Array[CardType] = Array[CardType]()) {
+    hand: Array[Card] = Array[Card](new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende"),new Card("Brecher", 2, 3, 4, "Truemmer", "Legende")),
+    deck: Array[Card] = Array[Card](new Card("test", 2, 3, 4, "yolo", "ss"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff"), new Card("test1", 2, 3, 4, "sss", "fff")),
+    friedhof: Array[Card] = Array[Card]()) {
 
     def removeCardFromHand(slot: Int): GameBar = copy(hand = hand.filter(_ != hand(slot)))
-    def addCardToHand(card: CardType): GameBar = copy(hand = hand.appended(card))
-    def addCardToFriedhof(card: CardType): GameBar = copy(friedhof = friedhof.appended(card))
+    def addCardToHand(card: Option[Card]): GameBar = copy(hand = hand.appended(card.get))
+    def addCardToFriedhof(card: Option[Card]): GameBar = card match {
+        case Some(_) => copy(friedhof = friedhof.appended(card.get))
+        case None => this
+    }
     def reduceHp(amount: Int): GameBar = copy(hp = hp.decrease(amount))
     def increaseHp(amount: Int): GameBar = copy(hp = hp.increase(amount))
     def reduceMana(amount: Int): GameBar = copy(mana = mana.decrease(amount))

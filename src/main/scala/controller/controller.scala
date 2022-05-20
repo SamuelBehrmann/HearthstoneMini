@@ -1,41 +1,52 @@
 package controller
 
 import util.Observable
+import util.UndoManager
 import model.Field
 import model.Player
 import model.Move
 import controller.GameState._
 import java.lang.System.exit
+import model.commands.DrawCardCommand
+import model.commands.PlaceCardCommand
+import model.commands.SetPlayerNamesCommand
+import model.commands.AttackCommand
+import model.commands.SwitchPlayerCommand
 
 case class Controller(var field: Field) extends Observable {
      var gameState: GameState = GameState.PREGAME
+     private val undoManager: UndoManager = new UndoManager
 
-     def placeCard(move: Move) = field.placeCard(move.handSlot, move.fieldSlotActive)
-     def drawCard(move: Move) = field.drawCard()
-     def setPlayerNames(move: Move) = field.setPlayerNames(move.p1,move.p2)
-     def attack(move: Move) = {
-          val difference = Math.abs(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue - field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue)
-          if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue < field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
-               field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
-          else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue > field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
-               field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
-          else if(field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue == field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue) then
-               field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
-          else {
-               gameState = GameState.ERROR
-               field
-          }
-
+     def placeCard(move: Move): Unit = {
+          undoManager.doStep(new PlaceCardCommand(this, move))
+          notifyObservers
      }
-     def switchPlayer(move: Move) = {
-          field.switchPlayer()
+     def drawCard(): Unit = {
+          undoManager.doStep(new DrawCardCommand(this))
+          notifyObservers
      }
-     def exitGame(move: Move) = {
+     def setPlayerNames(move: Move): Unit = {
+          undoManager.doStep(new SetPlayerNamesCommand(this, move))
+          notifyObservers
+     }
+     def attack(move: Move): Unit = {
+          undoManager.doStep(new AttackCommand(this, move))
+          notifyObservers
+     }
+     def switchPlayer(): Unit = {
+          undoManager.doStep(new SwitchPlayerCommand(this))
+          notifyObservers
+     }
+     def exitGame(): Unit = {
           gameState = GameState.EXIT
-          field
+          notifyObservers
      }
-     def doAndPublish(doThis: Move => Field, move: Move ) = {
-          field = doThis(move)
+     def undo: Unit = {
+          undoManager.undoStep
+          notifyObservers
+     }
+     def redo: Unit = {
+          undoManager.redoStep
           notifyObservers
      }
      override def toString() = field.toString

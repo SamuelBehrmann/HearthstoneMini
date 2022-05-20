@@ -22,6 +22,7 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
         memento = controller.field
     }
   }
+  
   override def undoStep: Unit = {
     val new_memento = controller.field
     controller.field = memento

@@ -2,7 +2,7 @@ package model
 
 import java.awt.MenuBar
 
-case class Player(name: String = "Player", id: Int, fieldbar: FieldBar = new FieldBar(Field.standartSlotNum , EmptyCard()), gamebar: GameBar  = new GameBar()) {
+case class Player(name: String = "Player", id: Int, fieldbar: FieldBar = new FieldBar(Field.standartSlotNum , None), gamebar: GameBar  = new GameBar()) {
     def placeCard(handSlot: Int, fieldSlot: Int ): Player = copy(fieldbar = fieldbar.placeCard(fieldSlot, gamebar.hand(handSlot)), gamebar = gamebar.removeCardFromHand(handSlot))
     def drawCard(): Player = copy(gamebar = gamebar.drawCard())
     def destroyCard(fieldSlot: Int): Player = copy(fieldbar = fieldbar.removeCard(fieldSlot), gamebar = gamebar.addCardToFriedhof(fieldbar.cardArea.row(fieldSlot)))

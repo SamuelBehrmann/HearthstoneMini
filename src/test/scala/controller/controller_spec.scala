@@ -16,9 +16,10 @@ class ControllerSpec extends AnyWordSpec with Matchers {
   "The Controller" should {
     val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(), Player(id = 2))))
     "place a card when a card gets placed" in {
+
       val fieldAfterMove = controller.placeCard(Move(0, 1))
       fieldAfterMove.players(0).fieldbar.cardArea.row(1) shouldBe an[Card]
-    }
+
     "draw a card when draw is called" in {
       val fieldAfterMove = controller.drawCard(Move())
       fieldAfterMove.players(0).gamebar.hand.length should be(5)
@@ -60,6 +61,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       fieldAfterMove.players(0).gamebar.hp.value should be(30)
       fieldAfterMove.players(1).gamebar.hp.value should be(30)
     }
+
     "leave the game on press" in {
       controller.exitGame(Move())
       controller.gameState should be (GameState.EXIT)

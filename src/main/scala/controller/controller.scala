@@ -9,7 +9,6 @@ import java.lang.System.exit
 
 case class Controller(var field: Field) extends Observable {
      var gameState: GameState = GameState.PREGAME
-
      def placeCard(move: Move) = field.placeCard(move.handSlot, move.fieldSlotActive)
      def drawCard(move: Move) = field.drawCard()
      def setPlayerNames(move: Move) = field.setPlayerNames(move.p1,move.p2)
@@ -25,8 +24,8 @@ case class Controller(var field: Field) extends Observable {
                gameState = GameState.ERROR
                field
           }
-     }
 
+     }
      def switchPlayer(move: Move) = {
           field.switchPlayer()
      }

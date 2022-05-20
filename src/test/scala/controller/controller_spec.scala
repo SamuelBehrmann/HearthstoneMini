@@ -17,6 +17,8 @@ class ControllerSpec extends AnyWordSpec with Matchers {
     val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(),Player(id = 2))))
     "have a default gametstate of GameState.PREGAME" in {
       controller.gameState should be(GameState.PREGAME)
+
     }
+
   }
 }

@@ -6,14 +6,14 @@ import org.scalatest.wordspec.AnyWordSpec
 class FieldBarSpec extends AnyWordSpec with Matchers {
   "A HearthstoneMini fieldbar" when {
     "filled with Card" should {
-      val fieldBar1 = new FieldBar(5, new EmptyCard())
+      val fieldBar1 = new FieldBar(5, None)
       val fieldBar2 = FieldBar()
       "be able to place cards" in {
         val newfield = fieldBar1.placeCard(1, new Card("Test", 1, 1, 1, "kann zaubern", "rare"))
-        newfield.cardArea.row(1) shouldBe a[Card]
+        newfield.cardArea.row(1).get shouldBe a[Card]
       }
       "when card is removed" in {
-        fieldBar1.removeCard(1).cardArea.slot(1).toMatrix().toAString() should be ((" " * Field.standartCardWidth + "\n") * Field.standartCardHeight)
+        fieldBar1.removeCard(1).cardArea.slot(1).isDefined should be (false)
       }
     }
     "fieldBar to matrix" in {

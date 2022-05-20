@@ -1,4 +1,5 @@
 package aview
+
 import model.Move
 import model.Field
 import util.Observer
@@ -18,8 +19,8 @@ class TUI(controller: Controller) extends Observer {
         controller.gameState match {
             case GameState.PREGAME => preGame()
             case GameState.MAINGAME => getInputAndLoop()
-            case GameState.ERROR => println(GameState.message(controller.gameState))
-            case GameState.EXIT => println("\u001b[2J" + GameState.message(controller.gameState))
+            case GameState.ERROR => println("Error aufgetaucht")
+            case GameState.EXIT => println("\u001b[2J" + "Schönes Spiel!")
         }
     }
     def preGame(): Unit = {

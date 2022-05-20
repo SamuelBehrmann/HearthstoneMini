@@ -46,4 +46,14 @@ class HpSpec extends AnyWordSpec with Matchers {
       }
     }
   }
+  "set value for Hp" when {
+    Healthpoints().setVal(20).value should be(20)
+  }
+  "when empty" when {
+    Healthpoints().setVal(0).isEmpty() should be (true)
+  }
+  "when increased" when {
+    Healthpoints().setVal(40).increase(20).value should be (60)
+  }
+
 }

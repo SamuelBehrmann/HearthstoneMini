@@ -12,7 +12,7 @@ def run(): Unit = {
     val controller = Controller(field)
     val tui = TUI(controller)
 
-    tui.run
+    controller.notifyObservers
     //TODO: deck mischen implementieren
     //TODO: spielfluß einbauen
     //TODO: Decks erstellen und importieren

@@ -3,6 +3,7 @@ package aview
 import model.Move
 import model.Field
 import util.Observer
+import util.Event
 import controller.Controller
 import controller.GameState
 import controller.Strategy
@@ -12,13 +13,18 @@ import scala.util.{Try, Success, Failure}
 class TUI(controller: Controller) extends Observer {
     controller.add(this)
 
-    override def update = {
-        controller.gameState match {
-            case GameState.PREGAME => preGame()
-            case GameState.MAINGAME => getInputAndLoop()
-            case GameState.ERROR => println("Error aufgetaucht")
-            case GameState.EXIT => println("\u001b[2J" + "Schönes Spiel!")
-            case GameState.WIN => checkWinner()
+    override def update(e: Event) = {
+        e match {
+            case Event.EXIT => controller.gameState = GameState.EXIT
+            case Event.PLAY => {
+                controller.gameState match {
+                    case GameState.PREGAME => preGame()
+                    case GameState.MAINGAME => getInputAndLoop()
+                    case GameState.ERROR => println("Error aufgetaucht")
+                    case GameState.EXIT => println("\u001b[2J" + "Schönes Spiel!")
+                    case GameState.WIN => checkWinner()
+                }
+            }
         }
     }
     def preGame(): Unit = {
@@ -59,7 +65,7 @@ class TUI(controller: Controller) extends Observer {
         checkInput(input) match {
             case Failure(_) => getInputAndLoop()
             case Success(_) => evlInput(input)
-        }    
+        }
     }
 
     def checkInput(input: String): Try[String] = if (input.matches("([pa]\\d\\d)|([qdszy])|([e]\\d)")) then Success(input) else Failure(Exception(""))

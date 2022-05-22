@@ -9,6 +9,7 @@ import controller.GameState.*
 
 import java.lang.System.exit
 import model.commands.{AttackCommand, DirectAttackCommand, DrawCardCommand, PlaceCardCommand, SetPlayerNamesCommand, SwitchPlayerCommand}
+import util.Event
 
 case class Controller(var field: Field) extends Observable {
      var gameState: GameState = GameState.PREGAME
@@ -16,39 +17,39 @@ case class Controller(var field: Field) extends Observable {
 
      def placeCard(move: Move): Unit = {
           undoManager.doStep(new PlaceCardCommand(this, move))
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      def drawCard(): Unit = {
           undoManager.doStep(new DrawCardCommand(this))
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      def setPlayerNames(move: Move): Unit = {
           undoManager.doStep(new SetPlayerNamesCommand(this, move))
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      def attack(move: Move): Unit = {
           undoManager.doStep(new AttackCommand(this, move))
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      def directAttack(move: Move): Unit = {
           undoManager.doStep(new DirectAttackCommand(this, move))
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      def switchPlayer(): Unit = {
           undoManager.doStep(new SwitchPlayerCommand(this))
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      def exitGame(): Unit = {
           gameState = GameState.EXIT
-          notifyObservers
+          notifyObservers(Event.EXIT)
      }
      def undo: Unit = {
           undoManager.undoStep
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      def redo: Unit = {
           undoManager.redoStep
-          notifyObservers
+          notifyObservers(Event.PLAY)
      }
      override def toString() = field.toString
 }

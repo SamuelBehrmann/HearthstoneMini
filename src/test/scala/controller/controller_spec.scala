@@ -9,11 +9,16 @@ import _root_.model.Move
 import _root_.model.Card
 import _root_.model.EmptyCard
 import _root_.model.Player
+import _root_.model.GameBar
 import util.Observer
 
 class ControllerSpec extends AnyWordSpec with Matchers {
+  val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
+        Card("test1", 1, 1, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
+        Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
+
   "The Controller" should {
-    val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1).resetAndIncreaseMana(), Player(id = 2))))
+    val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(), Player(id = 2))))
     "have a default gametstate of GameState.PREGAME" in {
       controller.gameState should be(GameState.PREGAME)
 
@@ -46,6 +51,11 @@ class ControllerSpec extends AnyWordSpec with Matchers {
     "exit the game" in {
       controller.exitGame()
       controller.gameState should be(GameState.EXIT)
+    }
+    "do a direct attack" in {
+      controller.placeCard(Move(2, 2))
+      controller.directAttack(Move(fieldSlotActive = 2))
+      controller.field.players(1).gamebar.hp.value should be(29)
     }
     "undo step / redo step" in {
       controller.drawCard()

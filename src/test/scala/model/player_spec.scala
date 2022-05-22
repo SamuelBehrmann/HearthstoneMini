@@ -4,38 +4,39 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class PlayerSpec extends AnyWordSpec with Matchers {
+  val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
+        Card("test1", 1, 1, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
+        Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
+
   "A Player" when {
-    val player1 = Player(id = 1)
+    val player1 = Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana()
     val player2 = Player(id = 2)
     "created player with ID = 1" should {
-      "look like this" in {
-        player1.toMatrix().toAString() should be ("\u001b[1mPlayer " + "\u001b[0m" + "\u001b[32;1m|\u001b[0;37m"
-            * ((Field.standartFieldWidth - player1.name.length - 1) * player1.gamebar.hp.value/player1.gamebar.hp.max).asInstanceOf[Float].floor.asInstanceOf[Int]  +
-          "\n-------------------------------------------------------------------------------------\n" +
-          "\u001b[32mHP: 30 \u001b[0;34mMana: 1\u001b[0;37m                                                   \u001b[0;31mDeck: 4  Friedhof: 0\u001b[0;37m\n " +
-          "Brecher (2)      Brecher (2)      Brecher (2)      Brecher (2)                      \n " +
-          "atk: 3           atk: 3           atk: 3           atk: 3                           \n " +
-          "def: 4           def: 4           def: 4           def: 4                           \n " +
-          "Truemmer         Truemmer         Truemmer         Truemmer                         \n " +
-          "Legende          Legende          Legende          Legende                          \n"  +
-          "-------------------------------------------------------------------------------------\n" +
-          player1.fieldbar.toMatrix().toAString() )
+      "have ID 1" in {
+        player1.id should be(1)
+      }
+      "have a gamebar" in {
+        player1.gamebar shouldBe a[GameBar]
+      }
+      "have a fieldbar" in {
+        player1.fieldbar shouldBe a[FieldBar]
+      }
+      "have name Player by default" in {
+        player1.name should be("Player")
       }
     }
     "created player with ID = 2" should {
-      "look like this" in {
-        player2.toMatrix().toAString() should be (player2.fieldbar.toMatrix().toAString() +
-          "\u001b[32mHP: 30 \u001b[0;34mMana: 1\u001b[0;37m                                                   \u001b[0;31mDeck: 4  Friedhof: 0\u001b[0;37m\n " +
-          "Brecher (2)      Brecher (2)      Brecher (2)      Brecher (2)                      \n " +
-          "atk: 3           atk: 3           atk: 3           atk: 3                           \n " +
-          "def: 4           def: 4           def: 4           def: 4                           \n " +
-          "Truemmer         Truemmer         Truemmer         Truemmer                         \n " +
-          "Legende          Legende          Legende          Legende                          \n"  +
-          "-------------------------------------------------------------------------------------\n" +
-          "\u001b[1mPlayer " + "\u001b[0m" + "\u001b[32;1m|\u001b[0;37m"
-          * ((Field.standartFieldWidth - player2.name.length - 1) * player2.gamebar.hp.value/player2.gamebar.hp.max).asInstanceOf[Float].floor.asInstanceOf[Int] + "\n" +
-          "-------------------------------------------------------------------------------------\n")
-
+      "have ID 2" in {
+        player2.id should be(2)
+      }
+      "have a gamebar" in {
+        player2.gamebar shouldBe a[GameBar]
+      }
+      "have a fieldbar" in {
+        player2.fieldbar shouldBe a[FieldBar]
+      }
+      "have name Player by default" in {
+        player2.name should be("Player")
       }
     }
     "placing a card" in {
@@ -57,7 +58,7 @@ class PlayerSpec extends AnyWordSpec with Matchers {
       player1.reduceMana(10).gamebar.mana.value should be (0)
     }
     "increasing mana" in {
-      player1.increaseMana(50).gamebar.mana.value should be (1)
+      player1.increaseMana(50).gamebar.mana.value should be (2)
     }
     "reset and increasing mana" in {
       val afterAlter = player1.resetAndIncreaseMana()

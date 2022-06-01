@@ -20,7 +20,7 @@ build.properties
 *.iml
 *.ipr
 *.iws
-
+*.semanticdb
 
 # mac
 .DS_Store

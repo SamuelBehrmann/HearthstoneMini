@@ -20,7 +20,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
   "The Controller" should {
     val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(), Player(id = 2))))
     "have a default gametstate of GameState.PREGAME" in {
-      controller.gameState should be(GameState.PREGAME)
+      controller.gameState should be(GameState.CHOOSEMODE)
 
     }
     "place a card on field" in {
@@ -48,10 +48,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       controller.switchPlayer()
       controller.field.players(0).name should be("Sam")
     }
-    "exit the game" in {
-      controller.exitGame()
-      controller.gameState should be(GameState.EXIT)
-    }
+
     "do a direct attack" in {
       controller.placeCard(Move(2, 2))
       controller.directAttack(Move(fieldSlotActive = 2))

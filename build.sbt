@@ -7,12 +7,14 @@ lazy val root = project
   .settings(
     name := "hearstonemini",
     version := "0.1.0-SNAPSHOT",
-
+   //fork := true,
     scalaVersion := scala3Version,
 
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.11",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.11" % "test",
-    libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R24",
+
+    libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R25",
+
     libraryDependencies ++= {
       // Determine OS version of JavaFX binaries
       lazy val osName = System.getProperty("os.name") match {

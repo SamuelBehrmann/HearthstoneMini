@@ -6,13 +6,14 @@ import model.Field
 import model.Player
 import model.Move
 import controller.GameState.*
+import controller.Strategy
 
 import java.lang.System.exit
 import model.commands.{AttackCommand, DirectAttackCommand, DrawCardCommand, PlaceCardCommand, SetPlayerNamesCommand, SwitchPlayerCommand}
 import util.Event
 
 case class Controller(var field: Field) extends Observable {
-     var gameState: GameState = GameState.PREGAME
+     var gameState: GameState = GameState.CHOOSEMODE
      private val undoManager: UndoManager = new UndoManager
 
      def placeCard(move: Move): Unit = {
@@ -25,6 +26,7 @@ case class Controller(var field: Field) extends Observable {
      }
      def setPlayerNames(move: Move): Unit = {
           undoManager.doStep(new SetPlayerNamesCommand(this, move))
+          nextState()
           notifyObservers(Event.PLAY)
      }
      def attack(move: Move): Unit = {
@@ -49,6 +51,18 @@ case class Controller(var field: Field) extends Observable {
      }
      def redo: Unit = {
           undoManager.redoStep
+          notifyObservers(Event.PLAY)
+     }
+     def nextState(): Unit = {
+          gameState match {
+               case GameState.CHOOSEMODE => gameState = GameState.ENTERPLAYERNAMES
+               case GameState.ENTERPLAYERNAMES => gameState = GameState.MAINGAME
+               case GameState.MAINGAME => gameState = GameState.WIN
+          }
+     }
+     def setStrategy(strat: Field) = {
+          field = strat
+          nextState()
           notifyObservers(Event.PLAY)
      }
      override def toString() = field.toString

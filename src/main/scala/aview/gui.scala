@@ -47,7 +47,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
         Platform.runLater {
           () -> {
             controller.gameState match {
-              case GameState.CHOOSEMODE => content = renderModeDialog()
+              case GameState.CHOOSEMODE => content = renderModeselection()
               case GameState.ENTERPLAYERNAMES => content = renderPlayernamesDialog()
               case GameState.MAINGAME => content = renderMainGame()
               case GameState.WIN => stopApp()
@@ -57,7 +57,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       }
     }
   }
-  def renderModeDialog() = {
+  def renderModeselection() = {
     val mainGrid = new GridPane() {
       vgap = 10
       hgap = 10
@@ -84,6 +84,34 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       add(nextButton1,1,3)
     }
     mainGrid
+  }
+  def renderCard(card: Option[Card]) = {
+    if (card.isDefined) then {
+      val mainGrid = new GridPane() {
+        val background1 = new Rectangle() {
+          height = 100
+          width = 100
+          fill = Red
+        }
+        val valueGrid = new GridPane() {
+          val label = new Label(card.get.name)
+          val cost = new Label("cost: " + card.get.manaCost.toString)
+          val hp = new Label("def: " + card.get.defenseValue.toString)
+          val attack = new Label("att: " + card.get.attValue.toString)
+          addColumn(0, label, cost, hp, attack)
+        }
+        add(valueGrid,0,0)
+        add(background1, 0,0)
+      }
+      mainGrid
+    } else {
+      new Rectangle() {
+        height = 100
+        width = 100
+        fill = White
+      }
+    }
+
   }
 
   def renderMainGame() = {
@@ -128,9 +156,9 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       }
       controller.field.getPlayerById(1).fieldbar.cardArea.row.zipWithIndex.map((card) => {
         if (card(0).isDefined) then {
-          fieldbar.add(new Rectangle{height = 100; width = 50; fill = Red}, card(1), 0)
+          fieldbar.add(renderCard(card(0)), card(1), 0)
         } else {
-          fieldbar.add(new Rectangle{height = 100; width = 50; fill = White}, card(1), 0)
+          fieldbar.add(renderCard(card(0)), card(1), 0)
         }
       })
       val hand = new GridPane() {
@@ -138,7 +166,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
         hgap = 10
       }
       controller.field.getPlayerById(1).gamebar.hand.zipWithIndex.map((card) => {
-        hand.add(new Rectangle{height = 100; width = 50; fill = Red}, card(1), 0)
+        hand.add(renderCard(Some(card(0))), card(1), 0)
       })
       add(gamebar, 0,0)
       add(hand, 0,1)
@@ -181,9 +209,9 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       }
       controller.field.getPlayerById(2).fieldbar.cardArea.row.zipWithIndex.map((card) => {
         if (card(0).isDefined) then {
-          fieldbar.add(new Rectangle{height = 100; width = 50; fill = Red}, card(1), 0)
+          fieldbar.add(renderCard(card(0)), card(1), 0)
         } else {
-          fieldbar.add(new Rectangle{height = 100; width = 50; fill = White}, card(1), 0)
+          fieldbar.add(renderCard(card(0)), card(1), 0)
         }
       })
       val hand = new GridPane() {
@@ -191,7 +219,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
         hgap = 10
       }
       controller.field.getPlayerById(1).gamebar.hand.zipWithIndex.map((card) => {
-        hand.add(new Rectangle{height = 100; width = 50; fill = Red}, card(1), 0)
+        hand.add(renderCard(Some(card(0))), card(1), 0)
       })
       add(fieldbar, 0, 0)
       add(hand, 0,1)

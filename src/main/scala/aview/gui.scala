@@ -89,7 +89,6 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
     mainGrid
   }
   def renderCard(card: Option[Card]): scene.Node = {
-    var isSelected = false
     val background1: Rectangle = new Rectangle() {
       height = 100
       width = 100
@@ -115,14 +114,21 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
     }
 
     mainGrid.onMouseDragReleased = (event) => {
+      val thisNodesX = getColumnIndex(event.getSource.asInstanceOf[Node])
+      val thatNodesX = getColumnIndex(event.getGestureSource.asInstanceOf[Node])
       if (event.getSource.asInstanceOf[Node].getParent.getId == "fieldbar" &&
         event.getGestureSource.asInstanceOf[Node].getParent.getId == "hand") then {
-        val thisNodesX = getColumnIndex(event.getSource.asInstanceOf[Node])
-        val thatNodesX = getColumnIndex(event.getGestureSource.asInstanceOf[Node])
         if (event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString &&
           event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString)
         then {
           controller.placeCard(Move(handSlot = thatNodesX, fieldSlotActive = thisNodesX))
+        }
+      } else if (event.getSource.asInstanceOf[Node].getParent.getId == "fieldbar" &&
+        event.getGestureSource.asInstanceOf[Node].getParent.getId == "fieldbar") then {
+        if (event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(1).id.toString &&
+          event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString)
+        then {
+          controller.attack(Move(fieldSlotInactive = thisNodesX, fieldSlotActive = thatNodesX))
         }
       }
     }
@@ -140,10 +146,12 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
     val player1Grid = new GridPane() {
       id = "1"
       vgap = 10
+      var isActive = if (controller.field.players(0).id.toString == id.value) then true else false
       val gamebar = new GridPane() {
         vgap = 10
         hgap = 10
         val hpBar = new GridPane() {
+          id = "hpbar"
           val bar = new Rectangle {
             height = 20
             width = (300 * (controller.field.getPlayerById(1).gamebar.hp.value.toDouble / controller.field.getPlayerById(1).gamebar.hp.max.toDouble))
@@ -154,6 +162,18 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
           add(bar, 0,0)
           add(amount,0,0)
         }
+        hpBar.onMouseDragReleased = (event) => {
+          val thatNodesX = getColumnIndex(event.getGestureSource.asInstanceOf[Node])
+          println(event.getSource.asInstanceOf[Node].getParent.getParent.getId)
+          if (event.getGestureSource.asInstanceOf[Node].getParent.getId == "fieldbar") then {
+            if (event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(1).id.toString &&
+              event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString)
+            then {
+              controller.directAttack(Move(fieldSlotActive = thatNodesX))
+            }
+          }
+        }
+
         val labelBox = new GridPane{
           val box = new Rectangle{
             height = 20
@@ -161,6 +181,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
             fill = White
           }
           val label = new Label(controller.field.getPlayerById(1).name)
+          label.setTextFill(if isActive then Green else Black)
           add(box, 0,0)
           add(label,0,0)
         }
@@ -169,10 +190,12 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
         add(hpBar, 1,0)
       }
       val fieldbar = new GridPane() {
+        gridLinesVisible = true
         id = "fieldbar"
         vgap = 10
         hgap = 10
       }
+
 
       controller.field.getPlayerById(1).fieldbar.cardArea.row.zipWithIndex.foreach((card) => {
         fieldbar.add(renderCard(card(0)), card(1), 0)
@@ -185,18 +208,22 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       controller.field.getPlayerById(1).gamebar.hand.zipWithIndex.foreach((card) => {
         hand.add(renderCard(Some(card(0))), card(1), 0)
       })
+
       add(gamebar, 0,0)
       add(hand, 0,1)
       add(fieldbar, 0, 2)
+
     }
 
     val player2Grid = new GridPane() {
       id = "2"
+      var isActive = if (controller.field.players(0).id.toString == id.value) then true else false
       vgap = 10
       val gamebar = new GridPane() {
         vgap = 10
         hgap = 10
         val hpBar = new GridPane() {
+          id = "hpbar"
           val bar = new Rectangle {
             height = 20
             width = (300 * (controller.field.getPlayerById(2).gamebar.hp.value.toDouble /
@@ -208,6 +235,18 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
           add(bar, 0,0)
           add(amount,0,0)
         }
+
+        hpBar.onMouseDragReleased = (event) => {
+          val thatNodesX = getColumnIndex(event.getGestureSource.asInstanceOf[Node])
+          println(event.getSource.asInstanceOf[Node].getParent.getParent.getId)
+          if (event.getGestureSource.asInstanceOf[Node].getParent.getId == "fieldbar") then {
+            if (event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(1).id.toString &&
+              event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString)
+            then {
+              controller.directAttack(Move(fieldSlotActive = thatNodesX))
+            }
+          }
+        }
         val labelBox = new GridPane{
           val box = new Rectangle{
             height = 20
@@ -215,6 +254,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
             fill = White
           }
           val label = new Label(controller.field.getPlayerById(2).name)
+          label.setTextFill(if isActive then Green else Black)
           add(box, 0,0)
           add(label,0,0)
         }
@@ -223,6 +263,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
         add(hpBar, 1,0)
       }
       val fieldbar = new GridPane() {
+        gridLinesVisible = true
         id = "fieldbar"
         vgap = 10
         hgap = 10
@@ -247,10 +288,24 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       add(gamebar, 0,2)
 
     }
+    val buttongrid = new GridPane {
+      hgap = 10
+      val switchButton = new Button("end turn")
+      switchButton.onMouseClicked = (_) => controller.switchPlayer()
+      val undoButton = new Button("undo")
+      undoButton.onMouseClicked = (_) => controller.undo
+      val redoButton = new Button("redo")
+      redoButton.onMouseClicked = (_) => controller.redo
+
+      add(switchButton,0,2)
+      add(undoButton,1,2)
+      add(redoButton,2,2)
+    }
+
 
     playersGrid.add(player1Grid, 0,0)
     playersGrid.add(player2Grid, 0,1)
-
+    playersGrid.add(buttongrid,0,2)
     playersGrid
   }
   def renderPlayernamesDialog() = {

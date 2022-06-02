@@ -42,7 +42,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       title = "HearthstoneMini"
-      width = 600
+      width = 700
       height = 600
 
       scene = new Scene {
@@ -134,9 +134,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
     }
     mainGrid
   }
-  def placeCard(node: MouseEvent): Unit = {
 
-  }
   def renderMainGame() = {
     val playersGrid = new GridPane() {
       vgap = 20
@@ -146,6 +144,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
     val player1Grid = new GridPane() {
       id = "1"
       vgap = 10
+      hgap = 10
       var isActive = if (controller.field.players(0).id.toString == id.value) then true else false
       val gamebar = new GridPane() {
         vgap = 10
@@ -157,7 +156,18 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
             width = (300 * (controller.field.getPlayerById(1).gamebar.hp.value.toDouble / controller.field.getPlayerById(1).gamebar.hp.max.toDouble))
             fill = Green
           }
-          val amount = new Label(controller.field.getPlayerById(1).gamebar.hp.value.toString)
+          val amount = new Label("  " + controller.field.getPlayerById(1).gamebar.hp.value.toString)
+          amount.setTextFill(White)
+          add(bar, 0,0)
+          add(amount,0,0)
+        }
+        val manaBar = new GridPane() {
+          val bar = new Rectangle {
+            height = 20
+            width = (100 * (controller.field.getPlayerById(1).gamebar.hp.value.toDouble / controller.field.getPlayerById(1).gamebar.hp.max.toDouble))
+            fill = Blue
+          }
+          val amount = new Label("  " + controller.field.getPlayerById(1).gamebar.mana.value.toString)
           amount.setTextFill(White)
           add(bar, 0,0)
           add(amount,0,0)
@@ -188,6 +198,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
 
         add(labelBox, 0,0)
         add(hpBar, 1,0)
+        add(manaBar,2,0)
       }
       val fieldbar = new GridPane() {
         gridLinesVisible = true
@@ -208,7 +219,24 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       controller.field.getPlayerById(1).gamebar.hand.zipWithIndex.foreach((card) => {
         hand.add(renderCard(Some(card(0))), card(1), 0)
       })
+      val deck = new Rectangle() {
+        fill = Grey
+        height = 100
+        width = 100
+      }
+      deck.onMouseClicked = (_) => {
+        if(controller.field.getPlayerById(1).gamebar.hand.length < 5) then controller.drawCard()
+      }
+      val friedhof = new Rectangle() {
+        fill = Red
+        height = 100
+        width = 100
+      }
 
+      add(deck,1,1)
+      add(new Label("Deck: " + controller.field.getPlayerById(1).gamebar.deck.length.toString),1,1)
+      add(friedhof, 1,2)
+      add(new Label("Friedhof: " + controller.field.getPlayerById(1).gamebar.friedhof.length.toString),1,2)
       add(gamebar, 0,0)
       add(hand, 0,1)
       add(fieldbar, 0, 2)
@@ -217,8 +245,9 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
 
     val player2Grid = new GridPane() {
       id = "2"
-      var isActive = if (controller.field.players(0).id.toString == id.value) then true else false
       vgap = 10
+      hgap = 10
+      var isActive = if (controller.field.players(0).id.toString == id.value) then true else false
       val gamebar = new GridPane() {
         vgap = 10
         hgap = 10
@@ -230,7 +259,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
               controller.field.getPlayerById(2).gamebar.hp.max.toDouble))
             fill = Green
           }
-          val amount = new Label(controller.field.getPlayerById(2).gamebar.hp.value.toString)
+          val amount = new Label("  " + controller.field.getPlayerById(2).gamebar.hp.value.toString)
           amount.setTextFill(White)
           add(bar, 0,0)
           add(amount,0,0)
@@ -247,6 +276,17 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
             }
           }
         }
+        val manaBar = new GridPane() {
+          val bar = new Rectangle {
+            height = 20
+            width = (100 * (controller.field.getPlayerById(2).gamebar.hp.value.toDouble / controller.field.getPlayerById(1).gamebar.hp.max.toDouble))
+            fill = Blue
+          }
+          val amount = new Label("  " + controller.field.getPlayerById(2).gamebar.mana.value.toString)
+          amount.setTextFill(White)
+          add(bar, 0,0)
+          add(amount,0,0)
+        }
         val labelBox = new GridPane{
           val box = new Rectangle{
             height = 20
@@ -261,6 +301,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
 
         add(labelBox, 0,0)
         add(hpBar, 1,0)
+        add(manaBar,2,0)
       }
       val fieldbar = new GridPane() {
         gridLinesVisible = true
@@ -283,6 +324,25 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       controller.field.getPlayerById(2).gamebar.hand.zipWithIndex.map((card) => {
         hand.add(renderCard(Some(card(0))), card(1), 0)
       })
+      val deck = new Rectangle() {
+        fill = Grey
+        height = 100
+        width = 100
+      }
+      deck.onMouseClicked = (_) => {
+        if(controller.field.getPlayerById(2).gamebar.hand.length < 5) then controller.drawCard()
+      }
+
+      val friedhof = new Rectangle() {
+        fill = Red
+        height = 100
+        width = 100
+      }
+
+      add(deck,1,1)
+      add(new Label("Deck: " + controller.field.getPlayerById(2).gamebar.deck.length.toString),1,1)
+      add(friedhof,1,0)
+      add(new Label("Friedhof: " + controller.field.getPlayerById(2).gamebar.friedhof.length.toString),1,0)
       add(fieldbar, 0, 0)
       add(hand, 0,1)
       add(gamebar, 0,2)

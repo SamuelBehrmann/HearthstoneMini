@@ -18,10 +18,12 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
 
   "The Controller" should {
-    val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(), Player(id = 2))))
+    val controller = Controller(Field(slotNum = 5,
+      players = List[Player](Player(id = 1,
+      gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
+      Player(id = 2))))
     "have a default gametstate of GameState.PREGAME" in {
       controller.gameState should be(GameState.CHOOSEMODE)
-
     }
     "place a card on field" in {
       controller.placeCard(Move(2, 2))
@@ -48,7 +50,6 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       controller.switchPlayer()
       controller.field.players(0).name should be("Sam")
     }
-
     "do a direct attack" in {
       controller.placeCard(Move(2, 2))
       controller.directAttack(Move(fieldSlotActive = 2))
@@ -60,6 +61,15 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       controller.field.players(0).gamebar.hand.length should be(4)
       controller.redo
       controller.field.players(0).gamebar.hand.length should be(5)
+    }
+    "setStrategy should set a strategy based on input" in {
+      controller.setStrategy(Strategy.adminStrategy())
+      controller.field.getPlayerById(1).gamebar.hp.value should be (100)
+      controller.field.getPlayerById(1).gamebar.mana.value should be (100)
+    }
+    "should set gamestate to Exit" in {
+      controller.exitGame()
+      controller.gameState should be(GameState.EXIT)
     }
   }
 }

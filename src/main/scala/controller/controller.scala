@@ -7,12 +7,12 @@ import model.Player
 import model.Move
 import controller.GameState.*
 import controller.Strategy
-
+import controller.component.ControllerInterface
 import java.lang.System.exit
-import model.commands.{AttackCommand, DirectAttackCommand, DrawCardCommand, PlaceCardCommand, SetPlayerNamesCommand, SwitchPlayerCommand}
+import model.commands.*
 import util.Event
 
-case class Controller(var field: Field) extends Observable {
+case class Controller(var field: Field) extends ControllerInterface() {
      var gameState: GameState = GameState.CHOOSEMODE
      private val undoManager: UndoManager = new UndoManager
 

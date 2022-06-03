@@ -164,7 +164,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
         val manaBar = new GridPane() {
           val bar = new Rectangle {
             height = 20
-            width = (100 * (controller.field.getPlayerById(1).gamebar.hp.value.toDouble / controller.field.getPlayerById(1).gamebar.hp.max.toDouble))
+            width = (100 * (controller.field.getPlayerById(1).gamebar.mana.value.toDouble / controller.field.getPlayerById(1).gamebar.mana.max.toDouble))
             fill = Blue
           }
           val amount = new Label("  " + controller.field.getPlayerById(1).gamebar.mana.value.toString)
@@ -279,7 +279,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
         val manaBar = new GridPane() {
           val bar = new Rectangle {
             height = 20
-            width = (100 * (controller.field.getPlayerById(2).gamebar.hp.value.toDouble / controller.field.getPlayerById(1).gamebar.hp.max.toDouble))
+            width = (100 * (controller.field.getPlayerById(2).gamebar.mana.value.toDouble / controller.field.getPlayerById(1).gamebar.mana.max.toDouble))
             fill = Blue
           }
           val amount = new Label("  " + controller.field.getPlayerById(2).gamebar.mana.value.toString)

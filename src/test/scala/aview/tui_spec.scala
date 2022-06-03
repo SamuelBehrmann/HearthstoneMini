@@ -14,7 +14,7 @@ class StrategySpec extends AnyWordSpec with Matchers {
     val tui = new TUI(Controller(Field()))
     "checkInput is used" should {
       "return a Try" in {
-        tui.checkInput("a11").isSuccess should be (true)
+        tui.checkInput("1").isSuccess should be (true)
       }
     }
   }

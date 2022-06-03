@@ -10,8 +10,8 @@ lazy val root = project
    //fork := true,
     scalaVersion := scala3Version,
 
-    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.11",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.11" % "test",
+    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.12",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.12" % "test",
 
     libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R25",
 
@@ -27,13 +27,20 @@ lazy val root = project
         .map(m => "org.openjfx" % s"javafx-$m" % "16" classifier osName)
     },
 
+    libraryDependencies += "com.google.inject" % "guice" % "5.1.0",
+    //libraryDependencies += "net.coding-well" %% "scala-guice" % "4.2.11",
+
     libraryDependencies += ("com.typesafe.play" %% "play-json" % "2.10.0-RC1").cross(CrossVersion.for3Use2_13),
+
     jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
       None,
       JacocoThresholds(),
       Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML), // note XML formatter
-      "utf-8")
+      "utf-8"),
+    jacocoExcludes := Seq("aview*")
+
   )
+
 
 

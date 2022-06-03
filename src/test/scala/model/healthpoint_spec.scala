@@ -7,46 +7,53 @@ import model.Healthpoints
 class HpSpec extends AnyWordSpec with Matchers {
   "HP" when {
     "not set any value " should {
-      val emptyHp = Healthpoints()
       "have Value 0" in {
+        val emptyHp = Healthpoints()
         emptyHp.value should be(0)
+        emptyHp.max should be(30)
       }
       "not be set" in {
+        val emptyHp = Healthpoints()
         emptyHp.isEmpty() should be(true)
       }
     }
   }
   "HP decrease" when {
     "initialized with 100" should {
-      val setHp = Healthpoints(100)
+      val setHp = Healthpoints(100, 100)
       "have Value 100" in {
         setHp.value should be(100)
+        setHp.max should be(100)
       }
       "have decreased value 90" in {
-        setHp.decrease(10).value should be(90)
+        val afterAlter = setHp.decrease(10)
+        afterAlter.value should be(90)
+        afterAlter.max should be(100)
+        afterAlter.decrease(100).value should be(0)
       }
     }
   }
   "HP increase" when {
     "initialized with 100" should {
-      val setHp = Healthpoints(100)
+      val setHp = Healthpoints(100, 100)
       "have Value 100" in {
         setHp.value should be(100)
       }
       "have increased value 110" in {
-        setHp.increase(10).value should be(110)
+        val afterAlter = setHp.increase(10)
+        afterAlter.value should be(110)
+        afterAlter.max should be(110)
       }
     }
   }
-  "HP setVal" when {
-    "initialized with 100" should {
-      val setHp = Healthpoints(100)
-      "have Value 100" in {
-        setHp.value should be(100)
-      }
-      "have set value 200" in {
-        setHp.setVal(200).value should be(200)
-      }
-    }
+  "set value for Hp" when {
+    Healthpoints().setVal(20).value should be(20)
   }
+  "when empty" when {
+    Healthpoints().setVal(0).isEmpty() should be (true)
+  }
+  "when increased" when {
+    Healthpoints().setVal(40).increase(20).value should be (60)
+  }
+
 }

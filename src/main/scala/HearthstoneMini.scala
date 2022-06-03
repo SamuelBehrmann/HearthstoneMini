@@ -1,31 +1,31 @@
 //package scala
 
-import model._
-
-import controller.Controller
+import model.*
+import controller.{Controller, GameState}
 import aview.TUI
+import aview.GUIApp
+
 import scala.io.StdIn.readLine
+import util.Event
+import scalafx.application.Platform
 
-import org.json4s
-import org.json4s.jackson.JsonMethods._
-//import scala.util.Random
+import scala.concurrent.*
+import java.time.Duration
+import org.scalactic.Bool
+
+import scala.io.StdIn
+
 @main
-def run(): Unit = {
-
-    println("Bitte Spielername 1 eingeben: ")
-    val playername1 = readLine
-    println("Bitte Spielername 2 eingeben: ")
-    val playername2 = readLine
-    val field = new Field(size = 5, player1 = playername1, player2 = playername2)
-    val controller = Controller(field)
+def run: Unit = {
+    val controller = Controller(new Field(5))
     val tui = TUI(controller)
+    val GUI = new GUIApp(controller)
+    tui.update(Event.PLAY)
+    while (controller.gameState != GameState.EXIT) do {
+        tui.onInput(StdIn.readLine())
+    }
 
-    tui.run
-    //TODO: deck mischen implementieren
-    //TODO: spielfluß einbauen
-    //TODO: Decks erstellen und importieren
-    //TODO:
-    // hello world
+
 }
 
 

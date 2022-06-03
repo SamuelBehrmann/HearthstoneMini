@@ -3,43 +3,50 @@ package model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class game_Bar_Spec extends AnyWordSpec with Matchers {
+class GameBarSpec extends AnyWordSpec with Matchers {
+
+  val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
+        Card("test1", 1, 1, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
+        Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
+
   "A Gamebar" when {
-    val gameBar = GameBar()
+    val gameBar = GameBar(hand = testCards)
+    val gameBar1 = GameBar()
     "created" should {
       "be created in initial state" in {
-        gameBar.toMatrix().toAString() should be("\u001b[32mHP: 100 \u001b[0;34mMana: 10\u001b[0;37m                                                 \u001b[0;31mDeck: 4  Friedhof: 0\u001b[0;37m\n " +
-          "Brecher (2)      Brecher (2)      Brecher (2)      Brecher (2)                      \n " +
-          "atk: 3           atk: 3           atk: 3           atk: 3                           \n " +
-          "def: 4           def: 4           def: 4           def: 4                           \n " +
-          "Truemmer         Truemmer         Truemmer         Truemmer                         \n " +
-          "Legende          Legende          Legende          Legende                          \n" +
-          "-------------------------------------------------------------------------------------\n")
+        gameBar.hand.count(_.isInstanceOf[Card]) should be(4)
       }
     }
-    "when you draw a card" in {
+    "you draw a card" in {
       gameBar.drawCard().hand.length should be (5)
     }
     "a card is removed from hand" in {
       gameBar.removeCardFromHand(2).hand.length should be(3)
     }
     "a card is added to hand" in {
-      gameBar.addCardToHand(new EmptyCard()).hand.length should be(5)
+      val card = Card("test", 2, 2, 2, "Schmettern", "rare")
+      gameBar.addCardToHand(Some(card)).hand.length should be(5)
     }
-    "when hp reduced by 20" in {
-      gameBar.reduceHp(20).hp.value should be (80)
+    "hp reduced by 20" in {
+      gameBar.reduceHp(20).hp.value should be (10)
     }
-    "when hp increased by 40" in {
-      gameBar.increaseHp(40).hp.value should be (140)
+    "hp increased by 40" in {
+      gameBar.increaseHp(40).hp.value should be (70)
     }
-    "when mana reduced by 10" in {
+    "mana reduced by 10" in {
       gameBar.reduceMana(10).mana.value should be (0)
     }
-    "when mana increased by 50" in {
-      gameBar.increaseMana(50).mana.value should be (60)
+    "mana increased" in {
+      gameBar.increaseMana(10).mana.value should be (1)
     }
-    "when card added to Friedhof" in {
-      gameBar.addCardToFriedhof(new EmptyCard()).friedhof.length should be (1)
+    "card added to Friedhof" in {
+      val card = Card("test", 2, 2, 2, "Schmettern", "rare")
+      gameBar.addCardToFriedhof(Some(card)).friedhof.length should be (1)
+    }
+    "reset and increased mana" in {
+      val afterAlter = gameBar.resetAndIncreaseMana()
+      afterAlter.mana.value should be(gameBar.mana.value + 1)
+      afterAlter.mana.max should be(gameBar.mana.max + 1)
     }
   }
 }

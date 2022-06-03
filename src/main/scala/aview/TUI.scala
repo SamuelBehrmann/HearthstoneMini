@@ -1,54 +1,106 @@
 package aview
 
-import javax.sound.sampled.Control
-import java.util.Observer
+import model.Move
+import model.Field
+import util.Observer
+import util.Event
 import controller.Controller
-import scala.io.StdIn.readLine
-import java.lang.System.exit
+import controller.GameState
+import controller.Strategy
+
+import scala.io.StdIn
+import scala.util.{Failure, Success, Try}
+import scala.concurrent.Future
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 class TUI(controller: Controller) extends Observer {
-    controller.addObserver(this)
-    var player = 0
+    controller.add(this)
 
-    def run = {
-        getInputAndLoop()
+    override def update(e: Event) = {
+        e match {
+            case Event.EXIT => println("\u001b[2J" + "Schönes Spiel!")
+            case Event.PLAY => {
+                controller.gameState match {
+                    case GameState.CHOOSEMODE => println("Bitte Spielmodus auswählen: " +
+                      "\n[1] Normal: Start mit: 30 Healthpoints & 1 Mana" +
+                      "\n[2] Hardcore: Start mit: 10 Healthpoints & 5 Mana " +
+                      "\n[3] Admin: Start mit: 100 Healthpints & 100 Mana")
+                    case GameState.ENTERPLAYERNAMES =>  println("Bitte Spielernamen 1 & 2 eingeben: ")
+                    case GameState.MAINGAME => printField()
+                    case GameState.WIN => checkWinner()
+                }
+            }
+        }
     }
-    override def update(we: java.util.Observable, obj:Object) = println(controller.field.toString)
 
-    def getInputAndLoop(): Unit = {
-        printField()
-        val input = readLine
-        val chars = input.toCharArray
 
-        chars(0) match
-            case 'q' => exit(0)
-            case 'p' => controller.placeCard(player, chars(1).asDigit - 1, chars(2).asDigit - 1)
-            case 'd' => controller.drawCard(player)
-            case 'l' => controller.destroyCard(player, chars(1).asDigit - 1)
-            case 'r' => controller.reduceHp(player, (chars(1).toString + chars(2).toString).toInt)
-            case 'i' => controller.increaseHp(player, (chars(1).toString + chars(2).toString).toInt)
-            case 'm' => controller.reduceMana(player, (chars(1).toString + chars(2).toString).toInt)
-            case 'n' => controller.increaseMana(player, (chars(1).toString + chars(2).toString).toInt)
-            case 's' => switchPlayer()
-        getInputAndLoop()
+    def onInput(input: String) = {
+        checkInput(input) match {
+            case Failure(_) =>
+            case Success(_) => controller.gameState match {
+                case GameState.CHOOSEMODE => setGameStrategy(input)
+                case GameState.ENTERPLAYERNAMES => setPlayerNames(input)
+                case GameState.MAINGAME => checkInputAndLoop(input)
+                case GameState.WIN => checkWinner()
+            }
+        }
     }
-    def printField() = {
+
+    def setGameStrategy(input: String): Unit = {
+        var strategy: Field = null
+        input.toCharArray.apply(0).asDigit match {
+            case 1 => strategy = Strategy.normalStrategy()
+            case 2 => strategy = Strategy.hardcoreStrategy()
+            case 3 => strategy = Strategy.adminStrategy()
+        }
+        controller.setStrategy(strategy)
+    }
+    def setPlayerNames(input: String): Unit = {
+        val splitInput = input.split(" ")
+        controller.setPlayerNames(Move(p1 = splitInput(0), p2 = splitInput(1)))
+    }
+    def printField(): Unit = {
         print("\u001b[2J")
-        println("\u001b[33m" + controller.field.players(player).name + " ist dran!\u001b[0m")
+        println("\u001b[33m" + controller.field.players(0).name + " ist dran!\u001b[0m")
         println(controller.field.toString)
-        println("\u001b[33mp-place(hand,solt) | d-draw() | l-destroy(slt) | r-decHP(amnt)\ni-incHP(ammount) | m-redMana(amnt) | n-incMana(amnt) | s-Endturn\u001b[0m")
+        println("\u001b[33mp-place(hand,solt) | d-draw() | a-attack(yours, theirs) | e-direct attack | s-Endturn | z-undo | y-redo | q-Quit\u001b[0m")
 
     }
-    def switchPlayer() = if(player == 0) then player = 1 else player = 0
+    def checkInputAndLoop(input: String): Unit = {
+        checkInput(input) match {
+            case Failure(_) =>
+            case Success(_) => evlInput(input)
+        }
+    }
+
+    def checkInput(input: String): Try[String] = {
+        controller.gameState match {
+            case GameState.CHOOSEMODE => if (input.matches("([123])")) then Success(input) else Failure(Exception(""))
+            case GameState.ENTERPLAYERNAMES => if (input.matches("(.{3,10}\\s.{3,10})")) then Success(input) else Failure(Exception(""))
+            case GameState.MAINGAME => if (input.matches("([pa]\\d\\d)|([qdszy])|([e]\\d)")) then Success(input) else Failure(Exception(""))
+        }
+    }
+
+    def evlInput(input: String) = {
+        val chars = input.toCharArray
+        chars(0) match
+            case 'q' => controller.exitGame()
+            case 'p' => controller.placeCard(Move(chars(1).asDigit - 1, chars(2).asDigit - 1))
+            case 'd' => {if (controller.field.players(0).gamebar.hand.length < 5) then controller.drawCard()}
+            case 'a' => controller.attack(Move(fieldSlotActive = chars(1).asDigit - 1, fieldSlotInactive = chars(2).asDigit - 1))
+            case 'e' => controller.directAttack(Move(fieldSlotActive = chars(1).asDigit - 1))
+            case 's' => controller.switchPlayer()
+            case 'z' => controller.undo
+            case 'y' => controller.redo
+    }
+
+    def checkWinner(): Unit = {
+        val p1Hp = controller.field.players(0).gamebar.hp.isEmpty()
+        val p2Hp = controller.field.players(1).gamebar.hp.isEmpty()
+
+        if p1Hp then println("\n" + controller.field.players(1).name + " hat gewonnen!!")
+        else println("\n" + controller.field.players(0).name + " hat gewonnen!!")
+    }
 }
 
-
-
-// <taste/befehl> <playerID> <argumente1> <argument2>
-// p = placecard(id, hand, feld)
-// d = drawcard(id)
-// l = destroycard(id, fieldslot)
-// r = reduceHP(id, amount)
-// i = increaseHP(id, amount)
-// m = reduceMana(id, amount)
-// n = increaseMana(id, amount)

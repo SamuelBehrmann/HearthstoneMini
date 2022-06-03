@@ -1,5 +1,5 @@
 package model
-
+import model.Matrix
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -12,6 +12,7 @@ class CardSpec extends AnyWordSpec with Matchers {
       }
       "have a Matrix repesentation" in {
         card.toMatrix().toString should be("Matrix(Vector(Vector(t, e, s, t,  , (, 2, ),  ,  ,  ,  ,  ,  ,  ), Vector(a, t, k, :,  , 2,  ,  ,  ,  ,  ,  ,  ,  ,  ), Vector(d, e, f, :,  , 2,  ,  ,  ,  ,  ,  ,  ,  ,  ), Vector(S, c, h, m, e, t, t, e, r, n,  ,  ,  ,  ,  ), Vector(r, a, r, e,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  )))")
+
       }
       "have a name" in {
         card.name should be("test")
@@ -32,7 +33,6 @@ class CardSpec extends AnyWordSpec with Matchers {
       "have a Rarity" in {
         card.rarity should be("rare")
       }
-
     }
   }
 }

@@ -22,7 +22,6 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
         controller.field = controller.field.destroyCard(0, move.fieldSlotActive).destroyCard(1, move.fieldSlotInactive)
       if (controller.field.players(0).gamebar.hp.isEmpty() || controller.field.players(1).gamebar.hp.isEmpty()) then controller.gameState =  GameState.WIN
     }
-    
   }
   
   override def undoStep: Unit = {

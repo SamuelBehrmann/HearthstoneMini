@@ -58,31 +58,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
     }
   }
   def renderModeselection() = {
-    val mainGrid = new GridPane() {
-      vgap = 10
-      hgap = 10
-      padding = Insets(20, 100, 10, 10)
-
-      val nextButton = new Button("next")
-      nextButton.disable = true
-
-      val radios = List(new RadioButton("Normal"), new RadioButton("Hardcore"),
-        new RadioButton("Debug"))
-      radios(0).setUserData(Strategy.normalStrategy())
-      radios(1).setUserData(Strategy.hardcoreStrategy())
-      radios(2).setUserData(Strategy.adminStrategy())
-
-      val togglegroup = new ToggleGroup()
-      radios.foreach(_.setToggleGroup(togglegroup))
-
-      val nextButton1 = new Button("next")
-
-      nextButton1.onMouseClicked = (_) =>
-        controller.setStrategy(togglegroup.getSelectedToggle.getUserData.asInstanceOf[model.Field])
-
-      addColumn(0, radios(0), radios(1), radios(2))
-      add(nextButton1,1,3)
-    }
+    
     mainGrid
   }
   def renderCard(card: Option[Card]) = {

@@ -1,12 +1,12 @@
 package model.commands
 
+import controller.component.controllerImpl.Controller
 import model.Move
-import model.Field
-import controller.Controller
+import model.field_component.fieldImpl.FieldInterface
 import util.Command
 
 class SwitchPlayerCommand(controller: Controller) extends Command {
-  var memento: Field = controller.field
+  var memento: FieldInterface = controller.field
   override def doStep: Unit = {
     memento = controller.field
     controller.field = controller.field.switchPlayer()

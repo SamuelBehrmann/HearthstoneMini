@@ -8,9 +8,10 @@ import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.image.Image
 import scalafx.scene.layout.Background
 import scalafx.scene.paint.Color
-import controller.{Controller, GameState}
+import controller.GameState
 import util.Observer
 import aview.GUI
+import controller.component.controllerImpl.Controller
 import util.Event
 
 class GUIApp(val controller:Controller) extends Observer {

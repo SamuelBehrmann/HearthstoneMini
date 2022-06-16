@@ -1,9 +1,10 @@
 package aview.gui.mode_selection_screen
-import controller.{Controller, Strategy}
+import controller.Strategy
 import controller.component.ControllerInterface
-
+import controller.component.controllerImpl.Controller
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
+import model.field_component.FieldInterface
 import scalafx.geometry.Insets
 import scalafx.scene.Node
 import scalafx.scene.control.{Button, RadioButton, ToggleGroup}
@@ -16,7 +17,7 @@ class ModeSelectionScreenImpl(controller: Controller) extends GridPane with Mode
   radiobuttons.foreach(_.setToggleGroup(radiogroup))
   override val nextbutton: Button = new Button("next")
   nextbutton.onMouseClicked = (_) =>
-    controller.setStrategy(radiogroup.getSelectedToggle.getUserData.asInstanceOf[model.Field])
+    controller.setStrategy(radiogroup.getSelectedToggle.getUserData.asInstanceOf[FieldInterface])
 
   radiobuttons(0).setUserData(Strategy.normalStrategy())
   radiobuttons(1).setUserData(Strategy.hardcoreStrategy())

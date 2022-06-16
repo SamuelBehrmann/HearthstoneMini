@@ -1,9 +1,11 @@
 //package scala
 
 import model.*
-import controller.{Controller, GameState}
+import controller.GameState
 import aview.TUI
 import aview.GUIApp
+import controller.component.controllerImpl.Controller
+import model.field_component.fieldImpl.{Field, FieldInterface}
 
 import scala.io.StdIn.readLine
 import util.Event

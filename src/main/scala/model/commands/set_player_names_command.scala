@@ -1,12 +1,12 @@
 package model.commands
 
+import controller.component.controllerImpl.Controller
 import model.Move
-import controller.Controller
+import model.field_component.fieldImpl.FieldInterface
 import util.Command
-import model.Field
 
 class SetPlayerNamesCommand(controller: Controller, move: Move) extends Command {
-  var memento: Field = controller.field
+  var memento: FieldInterface = controller.field
   override def doStep: Unit = {
     memento = controller.field
     controller.field = controller.field.setPlayerNames(move.p1, move.p2)

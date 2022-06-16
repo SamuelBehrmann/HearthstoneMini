@@ -2,7 +2,6 @@ package controller
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import _root_.model.Field
 import _root_.model.Move
 import _root_.model.Card
 import _root_.model.EmptyCard

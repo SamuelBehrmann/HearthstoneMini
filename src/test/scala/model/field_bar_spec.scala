@@ -1,5 +1,6 @@
 package model
 
+import model.field_component.fieldImpl.FieldInterface
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -17,8 +18,8 @@ class FieldBarSpec extends AnyWordSpec with Matchers {
       }
     }
     "fieldBar to matrix" in {
-      val fieldBarM = FieldBar().toMatrix().toAString() should be ((" " * Field.standartFieldWidth + "\n") * (Field.standartFieldBarHeight - 1)
-          + "-" * Field.standartFieldWidth + "\n")
+      val fieldBarM = FieldBar().toMatrix().toAString() should be ((" " * FieldInterface.standartFieldWidth + "\n") * (FieldInterface.standartFieldBarHeight - 1)
+          + "-" * FieldInterface.standartFieldWidth + "\n")
     }
   }
 }

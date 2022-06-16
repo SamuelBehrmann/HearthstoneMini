@@ -1,12 +1,12 @@
 package aview
 
 import model.Move
-import model.Field
 import util.Observer
 import util.Event
-import controller.Controller
 import controller.GameState
 import controller.Strategy
+import controller.component.controllerImpl.Controller
+import model.field_component.FieldInterface
 
 import scala.io.StdIn
 import scala.util.{Failure, Success, Try}
@@ -48,7 +48,7 @@ class TUI(controller: Controller) extends Observer {
     }
 
     def setGameStrategy(input: String): Unit = {
-        var strategy: Field = null
+        var strategy: FieldInterface = null
         input.toCharArray.apply(0).asDigit match {
             case 1 => strategy = Strategy.normalStrategy()
             case 2 => strategy = Strategy.hardcoreStrategy()

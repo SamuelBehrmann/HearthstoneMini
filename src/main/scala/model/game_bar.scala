@@ -1,5 +1,7 @@
 package model
 
+import model.field_component.fieldImpl.{Field, FieldInterface}
+
 import scala.compiletime.ops.string
 import scala.collection.View.Empty
 import util.CardProvider

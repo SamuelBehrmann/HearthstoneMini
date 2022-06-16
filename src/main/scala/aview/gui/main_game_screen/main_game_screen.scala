@@ -1,7 +1,8 @@
 package aview.gui.main_game_screen
 
 import controller.component.ControllerInterface
-import controller.{Controller, Strategy}
+import controller.Strategy
+import controller.component.controllerImpl.Controller
 import scalafx.event.EventHandler
 
 import scalafx.scene.input.MouseEvent

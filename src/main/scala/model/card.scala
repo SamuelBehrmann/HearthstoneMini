@@ -2,7 +2,9 @@ package model
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.JsonSerializable
-import play.api.libs.json._
+import model.field_component.fieldImpl.{Field, FieldInterface}
+import play.api.libs.json.*
+
 import scala.collection.View.Empty
 
 trait CardType {

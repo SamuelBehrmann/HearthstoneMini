@@ -4,12 +4,12 @@ package model
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import _root_.model.Field
 import _root_.model.Move
 import _root_.model.Card
 import _root_.model.EmptyCard
 import _root_.model.Player
 import _root_.model.GameBar
+import controller.component.controllerImpl.Controller
 import util.Observer
 
 class ControllerSpec extends AnyWordSpec with Matchers {
@@ -18,7 +18,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
 
   "The Controller" should {
-    val controller = Controller(Field(slotNum = 5,
+    val controller = Controller(FieldInterface(slotNum = 5,
       players = List[Player](Player(id = 1,
       gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
       Player(id = 2))))

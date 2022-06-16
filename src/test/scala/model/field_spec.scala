@@ -1,5 +1,7 @@
 package model
 
+import model.field_component.fieldImpl
+import model.field_component.fieldImpl.FieldInterface
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -10,18 +12,18 @@ class FieldSpec extends AnyWordSpec with Matchers {
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
 
-      val field0 = new Field(5, "Player1", "Player2")
-      val field = new Field(slotNum = 5, players = List[Player](
+      val field0 = new FieldInterface(5, "Player1", "Player2")
+      val field = new FieldInterface(slotNum = 5, players = List[Player](
         Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
         Player(id = 2)))
 
-      val field1 = new Field(5)
+      val field1 = new FieldInterface(5)
       "be created with empty constructor" in {
-        val field0 = Field()
+        val field0 = fieldImpl.FieldInterface()
         field0.slotNum should be(5)
       }
       "be created using default fieldsize 5 and 2 player names" in {
-        field.matrix.colSize should be(Field.standartFieldWidth)
+        field.matrix.colSize should be(FieldInterface.standartFieldWidth)
       }
       "have a Card in slot 1 after placed 1 card in slot 1 from hand" in {
         field.placeCard(0, 0).players(0).gamebar.hand.length should be(4)
@@ -74,10 +76,10 @@ class FieldSpec extends AnyWordSpec with Matchers {
       }
     }
      "when hp value is set" in {
-       Field().setHpValues(34).players(0).gamebar.hp.value should be (34)
+       FieldInterface().setHpValues(34).players(0).gamebar.hp.value should be (34)
      }
     "when mana value is set" in {
-      Field().setManaValues(45).players(1).gamebar.mana.value should be (45)
+      FieldInterface().setManaValues(45).players(1).gamebar.mana.value should be (45)
     }
   }
 }

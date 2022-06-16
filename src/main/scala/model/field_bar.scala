@@ -1,5 +1,7 @@
 package model
 
+import model.field_component.fieldImpl.{Field, FieldInterface}
+
 import scala.quoted.FromExpr.NoneFromExpr
 
 case class FieldBar(cardArea: CardArea[Option] = new CardArea[Option](Field.standartSlotNum, None), matrix: Matrix[String] = new Matrix[String](Field.standartFieldBarHeight, Field.standartFieldWidth, " ")):

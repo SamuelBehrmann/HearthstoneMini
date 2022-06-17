@@ -64,7 +64,6 @@ class MainGameScreen(controller: Controller) extends GridPane {
       }
       hpBar.onMouseDragReleased = event => {
         val thatNodesX = getColumnIndex(event.getGestureSource.asInstanceOf[Node])
-        println(event.getSource.asInstanceOf[Node].getParent.getParent.getId)
         if event.getGestureSource.asInstanceOf[Node].getParent.getId == "fieldbar" then {
           if event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(1).id.toString &&
             event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players.head.id.toString

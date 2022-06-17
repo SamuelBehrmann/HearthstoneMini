@@ -27,7 +27,7 @@ class GUIApp(val controller:Controller) extends Observer {
     val gui: GUI = new GUI(this, controller)
     val thread: Thread = new Thread {
         override def run(): Unit = {
-        gui.main(Array())
+            gui.main(Array())
         }
     }
     thread.start()

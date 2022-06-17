@@ -29,7 +29,7 @@ class Tui(controller: Controller) extends Observer {
                       "\n[3] Admin: Start mit: 100 Healthpints & 100 Mana")
                     case GameState.ENTERPLAYERNAMES =>  println("Bitte Spielernamen 1 & 2 eingeben: ")
                     case GameState.MAINGAME => printField()
-                    case GameState.WIN => getWinner
+                    case GameState.WIN => println("\n" + controller.getWinner().getOrElse(" ") + " hat gewonnen!!")
                 }
             }
         }
@@ -83,16 +83,6 @@ class Tui(controller: Controller) extends Observer {
             case 's' => controller.switchPlayer()
             case 'z' => controller.undo
             case 'y' => controller.redo
-    }
-
-
-
-    def getWinner: Unit = {
-        val p1Hp = controller.field.players(0).gamebar.hp.isEmpty
-        val p2Hp = controller.field.players(1).gamebar.hp.isEmpty
-
-        if p1Hp then println("\n" + controller.field.players(1).name + " hat gewonnen!!")
-        else println("\n" + controller.field.players(0).name + " hat gewonnen!!")
     }
 }
 

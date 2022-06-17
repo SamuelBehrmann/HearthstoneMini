@@ -56,10 +56,7 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
           gameState match {
                case GameState.CHOOSEMODE => gameState = GameState.ENTERPLAYERNAMES
                case GameState.ENTERPLAYERNAMES => gameState = GameState.MAINGAME
-               case GameState.MAINGAME => {
-                    gameState = GameState.WIN
-                    notifyObservers(Event.PLAY, msg = None)
-               }
+               case GameState.MAINGAME => gameState = GameState.WIN
           }
      }
      def setStrategy(strat: FieldInterface) = {
@@ -68,4 +65,12 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
           notifyObservers(Event.PLAY, msg = None)
      }
      override def toString() = field.toString
+     def getWinner(): Option[String] = {
+          val p1Hp = field.players(0).gamebar.hp.isEmpty
+          val p2Hp = field.players(1).gamebar.hp.isEmpty
+
+          if p1Hp then Some(field.players(0).name)
+          else if p2Hp then Some(field.players(1).name)
+          else None
+     }
 }

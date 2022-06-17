@@ -76,7 +76,7 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def getActivePlayer: Player = players.head
 
-  override def toMatrix: Matrix[String] = matrix
+  override def toMatrix: Matrix[String] = matrix 
     .updateMatrix(0, 0, List[String]("-" * FieldObject.standartFieldWidth))
     .updateMatrixWithMatrix(FieldObject.offset, 0, getPlayerById(1).toMatrix)
     .updateMatrixWithMatrix(FieldObject.offset + FieldObject.standartMenueBarHeight + FieldObject.standartGameBarHeight

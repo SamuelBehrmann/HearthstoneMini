@@ -1,11 +1,11 @@
 package model
 
-import model.gamebar_component.GameBarImpl.GameBar
-import model.player_component.playerImpl.Player
+import model.gamebarComponent.gamebarImpl.Gamebar
+import model.playerComponent.playerImpl.Player
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import model.card_component.cardImpl.Card
-import model.field_bar_component.fieldBarImpl.FieldBar
+import model.cardComponent.cardImpl.Card
+import model.fieldbarComponent.fieldbarImpl.Fieldbar
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
@@ -13,17 +13,17 @@ class PlayerSpec extends AnyWordSpec with Matchers {
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
 
   "A Player" when {
-    val player1 = Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana()
+    val player1 = Player(id = 1, gamebar = Gamebar(hand = testCards)).resetAndIncreaseMana()
     val player2 = Player(id = 2)
     "created player with ID = 1" should {
       "have ID 1" in {
         player1.id should be(1)
       }
       "have a gamebar" in {
-        player1.gamebar shouldBe a[GameBar]
+        player1.gamebar shouldBe a[Gamebar]
       }
       "have a fieldbar" in {
-        player1.fieldbar shouldBe a[FieldBar]
+        player1.fieldbar shouldBe a[Fieldbar]
       }
       "have name Player by default" in {
         player1.name should be("Player")
@@ -34,10 +34,10 @@ class PlayerSpec extends AnyWordSpec with Matchers {
         player2.id should be(2)
       }
       "have a gamebar" in {
-        player2.gamebar shouldBe a[GameBar]
+        player2.gamebar shouldBe a[Gamebar]
       }
       "have a fieldbar" in {
-        player2.fieldbar shouldBe a[FieldBar]
+        player2.fieldbar shouldBe a[Fieldbar]
       }
       "have name Player by default" in {
         player2.name should be("Player")

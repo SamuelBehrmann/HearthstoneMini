@@ -3,13 +3,13 @@ package model.commands
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import controller.component.controllerImpl.Controller
-import model.card_component.cardImpl.{Card, EmptyCard}
+import model.cardComponent.cardImpl.{Card, EmptyCard}
 
-import model.player_component.playerImpl.Player
+import model.playerComponent.playerImpl.Player
 import util.Observer
-import model.field_component.FieldInterface
+import model.fieldComponent.FieldInterface
 import model.Move
-import model.field_component.fieldImpl.Field
+import model.fieldComponent.fieldImpl.Field
 
 class place_card_command_spec extends AnyWordSpec with Matchers {
   "A controller" should {

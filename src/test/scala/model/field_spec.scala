@@ -1,14 +1,14 @@
 package model
 
-import model.card_component.cardImpl.Card
-import model.field_component.fieldImpl
-import model.gamebar_component.GameBarImpl.GameBar
-import model.player_component.playerImpl
-import model.player_component.playerImpl.Player
+import model.cardComponent.cardImpl.Card
+import model.fieldComponent.fieldImpl
+import model.gamebarComponent.gamebarImpl.Gamebar
+import model.playerComponent.playerImpl
+import model.playerComponent.playerImpl.Player
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import model.field_component.fieldImpl.Field
-import model.field_component.fieldImpl.FieldObject
+import model.fieldComponent.fieldImpl.Field
+import model.fieldComponent.fieldImpl.FieldObject
 
 class FieldSpec extends AnyWordSpec with Matchers {
   "A Field" when {
@@ -19,7 +19,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
 
       val field0 = new Field(5, "Player1", "Player2")
       val field = new Field(slotNum = 5, players = List[Player](
-        playerImpl.Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
+        playerImpl.Player(id = 1, gamebar = Gamebar(hand = testCards)).resetAndIncreaseMana(),
         Player(id = 2)))
 
       val field1 = new Field(5)

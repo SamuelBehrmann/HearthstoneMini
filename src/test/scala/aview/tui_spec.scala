@@ -6,12 +6,12 @@ import org.scalatest.wordspec.AnyWordSpec
 import util.Observer
 import scala.util.Try
 import scala.util.Success
-import model.field_component.fieldImpl.Field
+import model.fieldComponent.fieldImpl.Field
 
 
 class StrategySpec extends AnyWordSpec with Matchers {
   "The Tui" when {
-    val tui = new TUI(Controller(Field()))
+    val tui = new Tui(Controller(Field()))
     "checkInput is used" should {
       "return a Try" in {
         tui.checkInput("1").isSuccess should be (true)

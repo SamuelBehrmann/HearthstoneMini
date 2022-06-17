@@ -1,24 +1,24 @@
 package model
 
-import model.card_area_component.cardAreaImpl.CardArea
+import model.cardareaComponent.cardareaImpl.Cardarea
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import model.card_component.cardImpl.Card
+import model.cardComponent.cardImpl.Card
 
-class CardAreaSpec extends AnyWordSpec with Matchers {
+class CardareaSpec extends AnyWordSpec with Matchers {
    "A Cardarea is a Vector with x amount of slots" when {
     "empty" should {
       "be created by using a size and a samlpe cell" in {
-          val cardArea = new CardArea(5, None)
+          val cardArea = new Cardarea(5, None)
           cardArea.size should be(5)
       }
       "for test purposes only be created with a Vector" in {
-        val testCardArea = CardArea(Vector(None))
+        val testCardArea = Cardarea(Vector(None))
         testCardArea.size should be(1)
       }
     }
     "filled" should {
-        val cardArea = new CardArea(5, None)
+        val cardArea = new Cardarea(5, None)
         "allow accessing the slots" in {
           cardArea.slot(0).isEmpty should be(true)
         }

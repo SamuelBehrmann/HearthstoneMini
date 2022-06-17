@@ -1,17 +1,17 @@
 package model
 
-import model.card_component.cardImpl.Card
-import model.field_bar_component.fieldBarImpl.FieldBar
+import model.cardComponent.cardImpl.Card
+import model.fieldbarComponent.fieldbarImpl.Fieldbar
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import model.field_component.fieldImpl.FieldObject
+import model.fieldComponent.fieldImpl.FieldObject
 
 class FieldBarSpec extends AnyWordSpec with Matchers {
   "A HearthstoneMini fieldbar" when {
     "filled with Card" should {
-      val fieldBar1 = new FieldBar(5, None)
-      val fieldBar2 = FieldBar()
+      val fieldBar1 = new Fieldbar(5, None)
+      val fieldBar2 = Fieldbar()
       "be able to place cards" in {
         val newfield = fieldBar1.placeCard(1, new Card("Test", 1, 1, 1, "kann zaubern", "rare"))
         newfield.cardArea.row(1).get shouldBe a[Card]
@@ -21,7 +21,7 @@ class FieldBarSpec extends AnyWordSpec with Matchers {
       }
     }
     "fieldBar to matrix" in {
-      val fieldBarM = FieldBar().toMatrix().toAString() should be ((" " * FieldObject.standartFieldWidth + "\n") * (FieldObject.standartFieldBarHeight - 1)
+      val fieldBarM = Fieldbar().toMatrix().toString() should be ((" " * FieldObject.standartFieldWidth + "\n") * (FieldObject.standartFieldBarHeight - 1)
           + "-" * FieldObject.standartFieldWidth + "\n")
     }
   }

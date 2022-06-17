@@ -1,6 +1,6 @@
 package model
 
-import model.healthpoints_component.hpImpl.Healthpoints
+import model.healthpointsComponent.healthpointsImpl.Healthpoints
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 

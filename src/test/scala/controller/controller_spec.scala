@@ -6,10 +6,10 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import controller.component.controllerImpl.Controller
 import util.Observer
-import _root_.model.card_component.cardImpl.Card
-import _root_.model.field_component.fieldImpl.Field
-import _root_.model.player_component.playerImpl.Player
-import _root_.model.gamebar_component.GameBarImpl.GameBar
+import _root_.model.cardComponent.cardImpl.Card
+import _root_.model.fieldComponent.fieldImpl.Field
+import _root_.model.playerComponent.playerImpl.Player
+import _root_.model.gamebarComponent.gamebarImpl.Gamebar
 import _root_.model.Move
 
 class ControllerSpec extends AnyWordSpec with Matchers {
@@ -20,7 +20,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
   "The Controller" should {
     val controller = Controller(Field(slotNum = 5,
       players = List[Player](Player(id = 1,
-      gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
+      gamebar = Gamebar(hand = testCards)).resetAndIncreaseMana(),
       Player(id = 2))))
     "have a default gametstate of GameState.PREGAME" in {
       controller.gameState should be(GameState.CHOOSEMODE)

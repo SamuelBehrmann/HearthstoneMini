@@ -1,19 +1,19 @@
 package model
 
-import model.gamebar_component.GameBarImpl.GameBar
+import model.gamebarComponent.gamebarImpl.Gamebar
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import model.card_component.cardImpl.Card
+import model.cardComponent.cardImpl.Card
 
-class GameBarSpec extends AnyWordSpec with Matchers {
+class GamebarSpec extends AnyWordSpec with Matchers {
 
   val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
 
   "A Gamebar" when {
-    val gameBar = GameBar(hand = testCards)
-    val gameBar1 = GameBar()
+    val gameBar = Gamebar(hand = testCards)
+    val gameBar1 = Gamebar()
     "created" should {
       "be created in initial state" in {
         gameBar.hand.count(_.isInstanceOf[Card]) should be(4)

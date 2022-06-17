@@ -15,20 +15,11 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
     if checkConditions then {
       val difference = Math.abs(controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
         - controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue)
-      if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
-        < controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue then
-        memento = controller.field
-        newField = controller.field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
-      else if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
-        > controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue then
-        memento = controller.field
-        controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).fold({})(card => card.attackCount - 1)
-        newField = controller.field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
-      else {
-        memento = controller.field
-        newField = controller.field.destroyCard(0, move.fieldSlotActive)
-          .destroyCard(1, move.fieldSlotInactive)
-      }
+      newField = controller.field.reduceDefVal(move.fieldSlotInactive, controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue)
+
+      if newField.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue <= 0 then
+        newField = newField.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
+
       if (newField.players(0).gamebar.hp.isEmpty || newField.players(1).gamebar.hp.isEmpty)
       then controller.nextState()
       Success(newField)

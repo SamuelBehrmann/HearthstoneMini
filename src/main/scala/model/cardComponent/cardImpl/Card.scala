@@ -21,7 +21,7 @@ object Card {
 
     }
 }
-class Card(val name: String,
+case class Card(val name: String,
            val manaCost: Int, val attValue: Int, val defenseValue: Int,
            val effect: String, val rarity: String,
            var attackCount: Int  = 1)
@@ -31,6 +31,7 @@ class Card(val name: String,
     override def toMatrix: Matrix[String] = new Matrix[String](FieldObject.standartCardHeight,
         FieldObject.standartCardWidth, " ").updateMatrix(0, 0,
         toString().split("#").toList)
+    def reduceHP(amount: Int): Card = copy(defenseValue = defenseValue - amount)
 }
 
 class EmptyCard(val name: String = "yolo", val manaCost: Int = 0,

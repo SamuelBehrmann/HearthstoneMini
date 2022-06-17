@@ -34,7 +34,7 @@ case class Player(name: String = "Player", id: Int, fieldbar: Fieldbar = new Fie
     .updateMatrixWithMatrix(0, 0, fieldbar.toMatrix)
     .updateMatrixWithMatrix(FieldObject.standartFieldBarHeight, 0, gamebar.toMatrix)
     .updateMatrixWithMatrix(FieldObject.standartFieldBarHeight + FieldObject.standartGameBarHeight, 0, menueBar())
-
+    def reduceDefVal(slotNum: Int, amount: Int): Player = copy(fieldbar = fieldbar.reduceDefVal(slotNum, amount))
     def menueBar(): Matrix[String] = new Matrix[String](FieldObject.standartMenueBarHeight, FieldObject.standartFieldWidth, " ")
     .updateMatrix(0, 0, List[String]("\u001b[1m" + name + " \u001b[0m" + "\u001b[32;1m|\u001b[0;37m" * ((FieldObject.standartFieldWidth - name.length - 1) * gamebar.hp.value/gamebar.hp.max).asInstanceOf[Float].floor.asInstanceOf[Int], "-" * FieldObject.standartFieldWidth))
 }

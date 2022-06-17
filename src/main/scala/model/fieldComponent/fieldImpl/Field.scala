@@ -76,6 +76,8 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def getActivePlayer: Player = players.head
 
+  override def reduceDefVal(slotNum: Int, amount: Int): Field = copy(players = players.updated(1, players(1).reduceDefVal(slotNum, amount)))
+
   override def toMatrix: Matrix[String] = matrix 
     .updateMatrix(0, 0, List[String]("-" * FieldObject.standartFieldWidth))
     .updateMatrixWithMatrix(FieldObject.offset, 0, getPlayerById(1).toMatrix)

@@ -22,7 +22,7 @@ case class Fieldbar(cardArea: CardAreaInterface = new Cardarea[Option[Card]](Fie
     def removeCard(slot: Int): Fieldbar = copy(cardArea = cardArea.replaceSlot(slot, None),
         matrix = matrix.updateMatrixWithMatrix(0, slot * FieldObject.standartSlotWidth + 1,
             EmptyCard().toMatrix))
-
+    def reduceDefVal(slotNum: Int, amount: Int): Fieldbar = copy(cardArea = cardArea.reduceDefVal(slotNum, amount))
     def toMatrix: Matrix[String] = matrix
     .updateMatrix(5,0, List[String]("-" * FieldObject.standartFieldWidth))
 

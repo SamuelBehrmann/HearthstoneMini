@@ -10,6 +10,7 @@ trait CardInterface {
   val defenseValue: Int
   val effect: String
   val rarity: String
+  var attackCount: Int
   def toMatrix: Matrix[String] = new Matrix[String](FieldObject.standartCardHeight,
     FieldObject.standartCardWidth, " ")
 }

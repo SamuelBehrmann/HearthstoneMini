@@ -21,7 +21,7 @@ class ManaSpec extends AnyWordSpec with Matchers {
           val afterAlter = setMana.decrease(100)
           afterAlter.value should be(0)
           afterAlter.max should be(100)
-          afterAlter.isEmpty() should be(true)
+          afterAlter.isEmpty should be(true)
         }
       }
     }
@@ -45,7 +45,7 @@ class ManaSpec extends AnyWordSpec with Matchers {
       }
     }
     "when is empty" should {
-      testMana.setVal(0).isEmpty() should be (true)
+      testMana.setVal(0).isEmpty should be (true)
     }
     "when increased" should {
       testMana.increase(20).value should be (70)

@@ -14,7 +14,7 @@ class HpSpec extends AnyWordSpec with Matchers {
       }
       "not be set" in {
         val emptyHp = Healthpoints()
-        emptyHp.isEmpty() should be(true)
+        emptyHp.isEmpty should be(true)
       }
     }
   }
@@ -50,7 +50,7 @@ class HpSpec extends AnyWordSpec with Matchers {
     Healthpoints().setVal(20).value should be(20)
   }
   "when empty" when {
-    Healthpoints().setVal(0).isEmpty() should be (true)
+    Healthpoints().setVal(0).isEmpty should be (true)
   }
   "when increased" when {
     Healthpoints().setVal(40).increase(20).value should be (60)

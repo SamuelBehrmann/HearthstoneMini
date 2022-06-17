@@ -37,7 +37,7 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
     size,
     players = List[Player](Player(id = 1), Player(id = 2)))
 
-  override def placeCard(handSlot: Int, fieldSlot: Int): Field = if (  players.head.fieldbar.cardArea.slot(fieldSlot)
+  override def placeCard(handSlot: Int, fieldSlot: Int): Field = if (players.head.fieldbar.cardArea.slot(fieldSlot)
     .isEmpty && handSlot < players.head.gamebar.hand.length)
   then if players.head.gamebar.mana.value >= players.head.gamebar.hand(handSlot).manaCost
     then copy(players = players.updated(0, players.head.placeCard(handSlot, fieldSlot).reduceMana(players.head.gamebar

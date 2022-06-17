@@ -27,12 +27,12 @@ case class Player(name: String = "Player", id: Int, fieldbar: Fieldbar = new Fie
 
     def renderUnevenId(): Matrix[String] = new Matrix[String](FieldObject.standartMenueBarHeight + FieldObject.standartGameBarHeight + FieldObject.standartFieldBarHeight, FieldObject.standartFieldWidth, " ")
     .updateMatrixWithMatrix(0,0, menueBar())
-    .updateMatrixWithMatrix(FieldObject.standartMenueBarHeight, 0, gamebar.toMatrix())
-    .updateMatrixWithMatrix(FieldObject.standartGameBarHeight + FieldObject.standartMenueBarHeight, 0, fieldbar.toMatrix())
+    .updateMatrixWithMatrix(FieldObject.standartMenueBarHeight, 0, gamebar.toMatrix)
+    .updateMatrixWithMatrix(FieldObject.standartGameBarHeight + FieldObject.standartMenueBarHeight, 0, fieldbar.toMatrix)
 
     def renderEvenId(): Matrix[String] = new Matrix[String](FieldObject.standartMenueBarHeight + FieldObject.standartGameBarHeight + FieldObject.standartFieldBarHeight, FieldObject.standartFieldWidth, " ")
-    .updateMatrixWithMatrix(0, 0, fieldbar.toMatrix())
-    .updateMatrixWithMatrix(FieldObject.standartFieldBarHeight, 0, gamebar.toMatrix())
+    .updateMatrixWithMatrix(0, 0, fieldbar.toMatrix)
+    .updateMatrixWithMatrix(FieldObject.standartFieldBarHeight, 0, gamebar.toMatrix)
     .updateMatrixWithMatrix(FieldObject.standartFieldBarHeight + FieldObject.standartGameBarHeight, 0, menueBar())
 
     def menueBar(): Matrix[String] = new Matrix[String](FieldObject.standartMenueBarHeight, FieldObject.standartFieldWidth, " ")

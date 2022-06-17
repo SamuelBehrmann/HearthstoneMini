@@ -10,9 +10,10 @@ import model.fieldComponent.FieldInterface
 import model.Move
 import model.playerComponent.playerImpl.Player
 import net.codingwell.scalaguice.InjectorExtensions.*
-import util.{Event, Observable, UndoManager}
+import util.{Event, Observable, UndoManager, Command}
 import java.lang.System.exit
 import scala.HearthstoneMiniModule
+import scala.util.{Failure, Success, Try}
 
 case class Controller @Inject() (var field: FieldInterface) extends ControllerInterface {
      val injector = Guice.createInjector(new HearthstoneMiniModule)
@@ -47,6 +48,16 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
      def exitGame(): Unit = {
           gameState = GameState.EXIT
           notifyObservers(Event.EXIT)
+     }
+     def doStep(command: Command): Unit = {
+          command.doStep match {
+               case Success(newField) => {
+                    field = newField
+                    undoManager.doStep(newField, command)
+                    notifyObservers(Event.PLAY)
+               }
+               case Failure(x) => notifyObservers()
+          }
      }
      def undo: Unit = {
           undoManager.undoStep

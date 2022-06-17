@@ -5,31 +5,32 @@ import controller.GameState
 import controller.component.controllerImpl.Controller
 import model.fieldComponent.FieldInterface
 import util.Command
+import scala.util.{Failure, Success, Try}
 
 class AttackCommand(controller: Controller, move: Move) extends Command {
   var memento: FieldInterface = controller.field
-  override def doStep: Unit = {
-    if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined &&
-      controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).isDefined
-    then {
+  var newField: FieldInterface = null
+
+  override def doStep: Try[FieldInterface] = {
+    if checkConditions then {
       val difference = Math.abs(controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
         - controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue)
       if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
         < controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue then
         memento = controller.field
-        controller.field = controller.field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
+        newField = controller.field.destroyCard(0, move.fieldSlotActive).reduceHp(0, difference)
       else if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
         > controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue then
         memento = controller.field
-        controller.field = controller.field.destroyCard(1, move.fieldSlotInactive)
-          .reduceHp(1, difference)
-      else 
+        newField = controller.field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
+      else
         memento = controller.field
-        controller.field = controller.field.destroyCard(0, move.fieldSlotActive)
+        newField = controller.field.destroyCard(0, move.fieldSlotActive)
           .destroyCard(1, move.fieldSlotInactive)
-      if controller.field.players.head.gamebar.hp.isEmpty ||
-        controller.field.players(1).gamebar.hp.isEmpty then controller.gameState =  GameState.WIN
+
+      Success(newField)
     }
+    else Failure(Exception("you can't attack!"))
   }
   
   override def undoStep: Unit = {
@@ -43,4 +44,11 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
     controller.field = memento
     memento = new_memento
   }
+  override def checkConditions: Boolean =
+    controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined &&
+      controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).isDefined &&
+      controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount == 1
+
+
+
 }

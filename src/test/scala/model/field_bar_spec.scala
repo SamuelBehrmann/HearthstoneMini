@@ -21,7 +21,7 @@ class FieldBarSpec extends AnyWordSpec with Matchers {
       }
     }
     "fieldBar to matrix" in {
-      val fieldBarM = Fieldbar().toMatrix().toString() should be ((" " * FieldObject.standartFieldWidth + "\n") * (FieldObject.standartFieldBarHeight - 1)
+      val fieldBarM = Fieldbar().toMatrix.toString() should be ((" " * FieldObject.standartFieldWidth + "\n") * (FieldObject.standartFieldBarHeight - 1)
           + "-" * FieldObject.standartFieldWidth + "\n")
     }
   }

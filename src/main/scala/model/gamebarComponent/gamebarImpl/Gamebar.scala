@@ -34,7 +34,7 @@ case class Gamebar(hp: Healthpoints = new Healthpoints(30, 30),
     def setHpValue(amount: Int): Gamebar = copy(hp = hp.setVal(amount))
     def handAsMatrix(): Matrix[String] = {
         var tmpMatrix =  new Matrix[String](FieldObject.standartCardHeight, FieldObject.standartFieldWidth, " ")
-        hand.zipWithIndex.foreach((elem,index) => tmpMatrix = tmpMatrix.updateMatrixWithMatrix(0, FieldObject.standartSlotWidth * index + 1, hand(index).toMatrix()))
+        hand.zipWithIndex.foreach((elem,index) => tmpMatrix = tmpMatrix.updateMatrixWithMatrix(0, FieldObject.standartSlotWidth * index + 1, hand(index).toMatrix))
         tmpMatrix
     }
 

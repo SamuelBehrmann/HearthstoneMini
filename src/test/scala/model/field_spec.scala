@@ -61,14 +61,14 @@ class FieldSpec extends AnyWordSpec with Matchers {
         fieldAfter2ndMove.players(0).gamebar.mana.value should be(3)
       }
       "return the active player" in {
-        field.getActivePlayer() should be(field.players(0))
+        field.getActivePlayer should be(field.players(0))
       }
       "return player with id 1" in {
         field.getPlayerById(1) should be(field.players(0))
       }
       "have a Matrix representation" in {
-        field1.toMatrix().colSize should be(85)
-        field1.toMatrix().rowSize should be(31)
+        field1.toMatrix.colSize should be(85)
+        field1.toMatrix.rowSize should be(31)
 
 
       }

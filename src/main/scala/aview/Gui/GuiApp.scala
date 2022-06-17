@@ -17,7 +17,7 @@ class GUIApp(val controller:Controller) extends Observer {
     override def update(e: Event) = {
         Platform.runLater{
             e match {
-                case Event.EXIT => println("\u001b[2J" + "Schönes Spiel!")
+                case Event.EXIT => gui.stopApp()
                 case Event.PLAY => gui.start()
             }
         }

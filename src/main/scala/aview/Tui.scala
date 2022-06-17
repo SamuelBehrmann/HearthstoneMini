@@ -17,8 +17,9 @@ import scala.concurrent.duration.Duration
 class Tui(controller: Controller) extends Observer {
     controller.add(this)
 
-    override def update(e: Event) = {
+    override def update(e: Event, msg: Option[String]) = {
         e match {
+            case Event.ERROR => msg.fold({})((msg) => println(msg))
             case Event.EXIT => println("\u001b[2J" + "Schönes Spiel!")
             case Event.PLAY => {
                 controller.gameState match {
@@ -36,13 +37,11 @@ class Tui(controller: Controller) extends Observer {
 
 
     def onInput(input: String) = {
-        checkInput(input) match {
-            case Failure(_) =>
-            case Success(_) => controller.gameState match {
+        if checkInput(input) then {
+            controller.gameState match {
                 case GameState.CHOOSEMODE => setGameStrategy(input)
                 case GameState.ENTERPLAYERNAMES => setPlayerNames(input)
                 case GameState.MAINGAME => EvalInput(input)
-                case GameState.WIN => getWinner
             }
         }
     }
@@ -65,11 +64,11 @@ class Tui(controller: Controller) extends Observer {
         println("\u001b[33mp-place(hand,solt) | d-draw() | a-attack(yours, theirs) | e-direct attack | s-Endturn | z-undo | y-redo | q-Quit\u001b[0m")
 
     }
-    def checkInput(input: String): Try[String] = {
+    def checkInput(input: String): Boolean = {
         controller.gameState match {
-            case GameState.CHOOSEMODE => if (input.matches("([123])")) then Success(input) else Failure(Exception(""))
-            case GameState.ENTERPLAYERNAMES => if (input.matches("(.{3,10}\\s.{3,10})")) then Success(input) else Failure(Exception(""))
-            case GameState.MAINGAME => if (input.matches("([pa]\\d\\d)|([qdszy])|([e]\\d)")) then Success(input) else Failure(Exception(""))
+            case GameState.CHOOSEMODE => input.matches("([123])")
+            case GameState.ENTERPLAYERNAMES => input.matches("(.{3,10}\\s.{3,10})")
+            case GameState.MAINGAME => input.matches("([pa]\\d\\d)|([qdszy])|([e]\\d)")
         }
     }
     def EvalInput(input: String): Unit = {
@@ -77,7 +76,7 @@ class Tui(controller: Controller) extends Observer {
         chars(0) match
             case 'q' => controller.exitGame()
             case 'p' => controller.placeCard(Move(chars(1).asDigit - 1, chars(2).asDigit - 1))
-            case 'd' => if (controller.field.players(0).gamebar.hand.length < 5) then controller.drawCard()
+            case 'd' => controller.drawCard()
             case 'a' => controller.attack(Move(fieldSlotActive = chars(1).asDigit - 1,
                 fieldSlotInactive = chars(2).asDigit - 1))
             case 'e' => controller.directAttack(Move(fieldSlotActive = chars(1).asDigit - 1))

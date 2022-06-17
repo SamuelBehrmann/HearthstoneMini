@@ -21,7 +21,7 @@ def run: Unit = {
     val controller = Controller(new Field(5))
     val tui = Tui(controller)
     val GUI = new GUIApp(controller)
-    tui.update(Event.PLAY)
+    tui.update(Event.PLAY, None)
     while (controller.gameState != GameState.EXIT) do {
         tui.onInput(StdIn.readLine())
     }

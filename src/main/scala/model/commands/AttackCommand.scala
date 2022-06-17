@@ -22,12 +22,15 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
       else if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
         > controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue then
         memento = controller.field
+        controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).fold({})(card => card.attackCount - 1)
         newField = controller.field.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)
-      else
+      else {
         memento = controller.field
         newField = controller.field.destroyCard(0, move.fieldSlotActive)
           .destroyCard(1, move.fieldSlotInactive)
-
+      }
+      if (newField.players(0).gamebar.hp.isEmpty || newField.players(1).gamebar.hp.isEmpty)
+      then controller.nextState()
       Success(newField)
     }
     else Failure(Exception("you can't attack!"))
@@ -44,11 +47,10 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
     controller.field = memento
     memento = new_memento
   }
+
   override def checkConditions: Boolean =
-    controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined &&
-      controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).isDefined &&
-      controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount == 1
-
-
+    controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined
+      && controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).isDefined
+      && controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount == 1
 
 }

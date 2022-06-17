@@ -20,64 +20,52 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
      var gameState: GameState = GameState.CHOOSEMODE
      private val undoManager: UndoManager = new UndoManager
 
-     def placeCard(move: Move): Unit = {
-          undoManager.doStep(new PlaceCardCommand(this, move))
-          notifyObservers(Event.PLAY)
-     }
-     def drawCard(): Unit = {
-          undoManager.doStep(new DrawCardCommand(this))
-          notifyObservers(Event.PLAY)
-     }
+     def placeCard(move: Move): Unit = doStep(new PlaceCardCommand(this, move))
+     def drawCard(): Unit = doStep(new DrawCardCommand(this))
      def setPlayerNames(move: Move): Unit = {
-          undoManager.doStep(new SetPlayerNamesCommand(this, move))
           nextState()
-          notifyObservers(Event.PLAY)
+          doStep(new SetPlayerNamesCommand(this, move))
      }
-     def attack(move: Move): Unit = {
-          undoManager.doStep(new AttackCommand(this, move))
-          notifyObservers(Event.PLAY)
-     }
-     def directAttack(move: Move): Unit = {
-          undoManager.doStep(new DirectAttackCommand(this, move))
-          notifyObservers(Event.PLAY)
-     }
-     def switchPlayer(): Unit = {
-          undoManager.doStep(new SwitchPlayerCommand(this))
-          notifyObservers(Event.PLAY)
-     }
-     def exitGame(): Unit = {
-          gameState = GameState.EXIT
-          notifyObservers(Event.EXIT)
-     }
-     def doStep(command: Command): Unit = {
+     def attack(move: Move): Unit = doStep(new AttackCommand(this, move))
+     def directAttack(move: Move): Unit = doStep(new DirectAttackCommand(this, move))
+     def switchPlayer(): Unit = doStep(new SwitchPlayerCommand(this))
+
+     private def doStep(command: Command): Unit = {
           command.doStep match {
                case Success(newField) => {
                     field = newField
-                    undoManager.doStep(newField, command)
-                    notifyObservers(Event.PLAY)
+                    undoManager.doStep(command)
+                    notifyObservers(Event.PLAY, msg = None)
                }
-               case Failure(x) => notifyObservers()
+               case Failure(x) => notifyObservers(Event.ERROR, msg = Some(x.getMessage))
           }
      }
      def undo: Unit = {
           undoManager.undoStep
-          notifyObservers(Event.PLAY)
+          notifyObservers(Event.PLAY, msg = None)
      }
      def redo: Unit = {
           undoManager.redoStep
-          notifyObservers(Event.PLAY)
+          notifyObservers(Event.PLAY, msg = None)
+     }
+     def exitGame(): Unit = {
+          gameState = GameState.EXIT
+          notifyObservers(Event.EXIT, msg = None)
      }
      def nextState(): Unit = {
           gameState match {
                case GameState.CHOOSEMODE => gameState = GameState.ENTERPLAYERNAMES
                case GameState.ENTERPLAYERNAMES => gameState = GameState.MAINGAME
-               case GameState.MAINGAME => gameState = GameState.WIN
+               case GameState.MAINGAME => {
+                    gameState = GameState.WIN
+                    notifyObservers(Event.PLAY, msg = None)
+               }
           }
      }
      def setStrategy(strat: FieldInterface) = {
           field = strat
           nextState()
-          notifyObservers(Event.PLAY)
+          notifyObservers(Event.PLAY, msg = None)
      }
      override def toString() = field.toString
 }

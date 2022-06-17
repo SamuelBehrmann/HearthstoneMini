@@ -14,9 +14,10 @@ import scalafx.scene.paint.Color
 import util.{Event, Observer}
 
 class GUIApp(val controller:Controller) extends Observer {
-    override def update(e: Event) = {
+    override def update(e: Event, msg: Option[String]) = {
         Platform.runLater{
             e match {
+                case Event.ERROR =>
                 case Event.EXIT => gui.stopApp()
                 case Event.PLAY => gui.start()
             }

@@ -5,7 +5,6 @@ class UndoManager {
   private var redoStack: List[Command] = Nil
   def doStep(command: Command): Unit = {
     undoStack = command::undoStack
-    command.doStep
   }
   def undoStep  = {
     undoStack match {

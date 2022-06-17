@@ -6,21 +6,25 @@ import controller.component.controllerImpl.Controller
 import model.cardComponent.cardImpl.Card
 import util.Command
 import model.fieldComponent.FieldInterface
+import model.fieldComponent.fieldImpl.Field
+import scala.util.{Success, Try, Failure}
 
 class DirectAttackCommand(controller: Controller, move: Move) extends Command {
   var memento: FieldInterface = controller.field
-  override def doStep: Unit = {
-    if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined then
-      {
-        if !(controller.field.players(1).fieldbar.cardArea.row.count(_.isDefined) > 0 ) then {
-          memento = controller.field
-          controller.field = controller.field.reduceHp(1, controller.field.players.head.fieldbar.cardArea.
-            slot(move.fieldSlotActive).get.attValue)
-          if controller.field.players.head.gamebar.hp.isEmpty || controller.field.players(1).gamebar.hp.isEmpty then
-            controller.gameState =  GameState.WIN
-        } 
-    }   
+  var newField: FieldInterface = null
+
+  override def doStep: Try[FieldInterface] = {
+    if checkConditions then {
+      memento = controller.field
+      val newField = controller.field.reduceHp(1, controller.field.players.head.fieldbar.cardArea.
+        slot(move.fieldSlotActive).get.attValue)
+      if (newField.players(0).gamebar.hp.isEmpty || newField.players(1).gamebar.hp.isEmpty)
+      then controller.nextState()
+      Success(newField)
+    } else
+      Failure(Exception("You can't attack directly!"))
   }
+
 
   override def undoStep: Unit = {
     val new_memento = controller.field
@@ -33,4 +37,8 @@ class DirectAttackCommand(controller: Controller, move: Move) extends Command {
     controller.field = memento
     memento = new_memento
   }
+
+  override def checkConditions: Boolean =
+    (controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined)
+      && !(controller.field.players(1).fieldbar.cardArea.row.count(_.isDefined) > 0)
 }

@@ -5,11 +5,13 @@ import model.Move
 import model.fieldComponent.FieldInterface
 import util.Command
 
+import scala.util.{Success, Try}
+
 class SwitchPlayerCommand(controller: Controller) extends Command {
   var memento: FieldInterface = controller.field
-  override def doStep: Unit = {
+  override def doStep: Try[FieldInterface] = {
     memento = controller.field
-    controller.field = controller.field.switchPlayer()
+    Success(controller.field.switchPlayer())
   }
   override def undoStep: Unit = {
     val new_memento = controller.field
@@ -22,4 +24,6 @@ class SwitchPlayerCommand(controller: Controller) extends Command {
     controller.field = memento
     memento = new_memento
   }
+
+  override def checkConditions: Boolean = true
 }

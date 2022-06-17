@@ -1,9 +1,11 @@
 package util
 
-import play.api.libs.json._
+import play.api.libs.json.*
+
 import java.io.{File, FileInputStream}
 import scala.util.Random
-import model._
+import model.*
+import model.card_component.cardImpl.Card
 
 class CardProvider(inputFile: String) {
     private val stream = new FileInputStream(inputFile)

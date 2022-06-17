@@ -17,6 +17,5 @@ class HearthstoneMiniModule extends AbstractModule {
     bindConstant().annotatedWith(Names.named("DefaultSize")).to(defaultSize)
     bind(classOf[ControllerInterface]).to(classOf[Controller])
     bind(classOf[FieldInterface]).to(classOf[Field])
-
   }
 }

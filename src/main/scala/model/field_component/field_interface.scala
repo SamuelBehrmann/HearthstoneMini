@@ -1,7 +1,8 @@
 package model.field_component
 
 import model.player_component.playerImpl.Player
-import model.{Matrix, field_component}
+import model.matrix_component.matrixImpl.Matrix
+import model.field_component
 
 trait FieldInterface() {
   def players: List[Player]

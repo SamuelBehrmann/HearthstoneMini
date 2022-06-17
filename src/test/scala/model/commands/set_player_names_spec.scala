@@ -3,9 +3,14 @@ package model.commands
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import _root_.model.Move
+<<<<<<< HEAD
 import _root_.model.Card
 import _root_.model.EmptyCard
+=======
+import _root_.model.Player
+>>>>>>> fix/components
 import controller.component.controllerImpl.Controller
+import model.card_component.cardImpl.{Card, EmptyCard}
 import model.field_component.fieldImpl.FieldInterface
 import model.player_component.playerImpl.Player
 import util.Observer

@@ -1,5 +1,6 @@
 package model
 
+import model.card_component.cardImpl.Card
 import model.field_component.fieldImpl
 import model.field_component.fieldImpl.FieldInterface
 import model.gamebar_component.GameBarImpl.GameBar

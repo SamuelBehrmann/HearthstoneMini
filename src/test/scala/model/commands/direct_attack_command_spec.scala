@@ -1,12 +1,22 @@
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import _root_.model.Move
+<<<<<<< HEAD
 import _root_.model.Card
 import _root_.model.EmptyCard
+=======
+import _root_.model.Player
+>>>>>>> fix/components
 import controller.component.controllerImpl.Controller
 import model.commands.{AttackCommand, PlaceCardCommand}
 import util.Observer
 import model.commands.DirectAttackCommand
+<<<<<<< HEAD
+=======
+import model.GameBar
+import model.Mana
+import model.card_component.cardImpl.{Card, EmptyCard}
+>>>>>>> fix/components
 import model.field_component.fieldImpl.FieldInterface
 import model.gamebar_component.GameBarImpl.GameBar
 import model.mana_component.manaImpl.Mana

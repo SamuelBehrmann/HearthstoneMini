@@ -1,6 +1,5 @@
 package model.player_component
-
-import model.Matrix
+import model.matrix_component.matrixImpl.Matrix
 import model.field_component.fieldImpl.FieldObject
 import model.player_component.playerImpl.Player
 

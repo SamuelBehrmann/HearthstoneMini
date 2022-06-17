@@ -1,6 +1,10 @@
 package model
 
+<<<<<<< HEAD
 import model.gamebar_component.GameBarImpl.GameBar
+=======
+import model.card_component.cardImpl.Card
+>>>>>>> fix/components
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

@@ -1,15 +1,16 @@
 package model.gamebar_component.GameBarImpl
 
-import model.field_component.FieldInterface
+import model.card_component.cardImpl.Card
 import model.field_component.fieldImpl.{Field, FieldObject}
-import model.gamebar_component.GamebarInterface
-import model.healthpoints_component.hpImpl.Healthpoints
-import model.mana_component.manaImpl.Mana
-import model.{Card, Matrix}
-import util.CardProvider
+import model.field_component.FieldInterface
+import model.matrix_component.matrixImpl.Matrix
 
 import scala.collection.View.Empty
 import scala.compiletime.ops.string
+import model.healthpoints_component.hpImpl.Healthpoints
+import model.mana_component.manaImpl.Mana
+import model.gamebar_component.GamebarInterface
+import util.CardProvider
 
 case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
     mana: Mana = new Mana(),

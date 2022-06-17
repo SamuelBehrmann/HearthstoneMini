@@ -1,6 +1,7 @@
 package model.gamebar_component
 
-import model.{Card, Matrix}
+import model.card_component.cardImpl.Card
+import model.matrix_component.matrixImpl.Matrix
 import model.field_component.fieldImpl.FieldObject
 import model.gamebar_component.GameBarImpl.GameBar
 

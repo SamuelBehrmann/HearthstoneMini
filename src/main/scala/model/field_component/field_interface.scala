@@ -4,7 +4,7 @@ import model.player_component.playerImpl.Player
 import model.matrix_component.matrixImpl.Matrix
 import model.field_component
 
-trait FieldInterface() {
+trait FieldInterface {
   def players: List[Player]
   def matrix: Matrix[String]
   def slotNum: Int

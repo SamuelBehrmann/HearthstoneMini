@@ -1,14 +1,11 @@
 package model
 
-<<<<<<< HEAD
 import model.gamebar_component.GameBarImpl.GameBar
 import model.player_component.playerImpl.Player
-=======
-import model.card_component.cardImpl.Card
-import model.field_bar_component.fieldBarImpl.FieldBar
->>>>>>> fix/components
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import model.card_component.cardImpl.Card
+import model.field_bar_component.fieldBarImpl.FieldBar
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),

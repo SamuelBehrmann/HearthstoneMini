@@ -1,19 +1,22 @@
-package model
+package model.gamebar_component.GameBarImpl
 
 import model.card_component.cardImpl.Card
 import model.field_component.fieldImpl.{Field, FieldObject}
 import model.field_component.FieldInterface
 import model.matrix_component.matrixImpl.Matrix
 
-import scala.compiletime.ops.string
 import scala.collection.View.Empty
+import scala.compiletime.ops.string
+import model.healthpoints_component.hpImpl.Healthpoints
+import model.mana_component.manaImpl.Mana
+import model.gamebar_component.GamebarInterface
 import util.CardProvider
 
 case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
     mana: Mana = new Mana(),
     hand: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(5),
     deck: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(30),
-    friedhof: Array[Card] = Array[Card]()) {
+    friedhof: Array[Card] = Array[Card]()) extends GamebarInterface{
 
     def removeCardFromHand(slot: Int): GameBar = copy(hand = hand.filter(_ != hand(slot)))
     def addCardToHand(card: Option[Card]): GameBar = copy(hand = hand.appended(card.get))

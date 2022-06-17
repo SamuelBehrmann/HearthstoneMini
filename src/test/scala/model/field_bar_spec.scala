@@ -2,9 +2,10 @@ package model
 
 import model.card_component.cardImpl.Card
 import model.field_bar_component.fieldBarImpl.FieldBar
-import model.field_component.fieldImpl.FieldInterface
+
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import model.field_component.fieldImpl.FieldObject
 
 class FieldBarSpec extends AnyWordSpec with Matchers {
   "A HearthstoneMini fieldbar" when {
@@ -20,8 +21,8 @@ class FieldBarSpec extends AnyWordSpec with Matchers {
       }
     }
     "fieldBar to matrix" in {
-      val fieldBarM = FieldBar().toMatrix().toAString() should be ((" " * FieldInterface.standartFieldWidth + "\n") * (FieldInterface.standartFieldBarHeight - 1)
-          + "-" * FieldInterface.standartFieldWidth + "\n")
+      val fieldBarM = FieldBar().toMatrix().toAString() should be ((" " * FieldObject.standartFieldWidth + "\n") * (FieldObject.standartFieldBarHeight - 1)
+          + "-" * FieldObject.standartFieldWidth + "\n")
     }
   }
 }

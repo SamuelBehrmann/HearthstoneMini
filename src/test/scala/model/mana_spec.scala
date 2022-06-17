@@ -1,6 +1,7 @@
+import model.healthpoints_component.hpImpl.Healthpoints
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import model.{Healthpoints, Mana}
+import model.mana_component.manaImpl.Mana
 
 
 class ManaSpec extends AnyWordSpec with Matchers {

@@ -1,7 +1,7 @@
 package model.field_component.fieldImpl
 
 import model.field_component.FieldInterface
-import model.Player
+import model.player_component.playerImpl.Player
 import model.matrix_component.matrixImpl.Matrix
 
 import javax.inject.Inject

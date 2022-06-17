@@ -7,7 +7,8 @@ import controller.component.ControllerInterface
 import controller.{GameState, Strategy}
 import model.commands.*
 import model.field_component.FieldInterface
-import model.{Move, Player}
+import model.Move
+import model.player_component.playerImpl.Player
 import net.codingwell.scalaguice.InjectorExtensions.*
 import util.{Event, Observable, UndoManager}
 import java.lang.System.exit

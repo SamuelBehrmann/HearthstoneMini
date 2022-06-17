@@ -3,6 +3,7 @@ package model
 import model.card_area_component.cardAreaImpl.CardArea
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import model.card_component.cardImpl.Card
 
 class CardAreaSpec extends AnyWordSpec with Matchers {
    "A Cardarea is a Vector with x amount of slots" when {

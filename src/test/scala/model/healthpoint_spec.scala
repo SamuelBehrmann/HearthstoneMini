@@ -1,8 +1,8 @@
 package model
 
+import model.healthpoints_component.hpImpl.Healthpoints
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import model.Healthpoints
 
 class HpSpec extends AnyWordSpec with Matchers {
   "HP" when {

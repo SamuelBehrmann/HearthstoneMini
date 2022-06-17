@@ -1,18 +1,21 @@
-package controller
+package controller.component.controllerImpl
 
-import util.Observable
-import util.UndoManager
-import model.Field
-import model.Player
-import model.Move
+import com.google.inject.name.Names
+import com.google.inject.{Guice, Inject}
 import controller.GameState.*
-import controller.Strategy
 import controller.component.ControllerInterface
-import java.lang.System.exit
+import controller.{GameState, Strategy}
 import model.commands.*
-import util.Event
+import model.field_component.FieldInterface
+import model.Move
+import model.player_component.playerImpl.Player
+import net.codingwell.scalaguice.InjectorExtensions.*
+import util.{Event, Observable, UndoManager}
+import java.lang.System.exit
+import scala.HearthstoneMiniModule
 
-case class Controller(var field: Field) extends ControllerInterface() {
+case class Controller @Inject() (var field: FieldInterface) extends ControllerInterface {
+     val injector = Guice.createInjector(new HearthstoneMiniModule)
      var gameState: GameState = GameState.CHOOSEMODE
      private val undoManager: UndoManager = new UndoManager
 
@@ -60,7 +63,7 @@ case class Controller(var field: Field) extends ControllerInterface() {
                case GameState.MAINGAME => gameState = GameState.WIN
           }
      }
-     def setStrategy(strat: Field) = {
+     def setStrategy(strat: FieldInterface) = {
           field = strat
           nextState()
           notifyObservers(Event.PLAY)

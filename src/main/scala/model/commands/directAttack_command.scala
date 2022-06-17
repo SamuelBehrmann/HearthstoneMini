@@ -1,13 +1,14 @@
 package model.commands
 
 import model.Move
-import model.Field
-import controller.{Controller, GameState}
+import controller.GameState
+import controller.component.controllerImpl.Controller
+import model.card_component.cardImpl.Card
 import util.Command
-import model.Card
+import model.field_component.FieldInterface
 
 class DirectAttackCommand(controller: Controller, move: Move) extends Command {
-  var memento: Field = controller.field
+  var memento: FieldInterface = controller.field
   override def doStep: Unit = {
     if (controller.field.players(0).fieldbar.cardArea.slot(move.fieldSlotActive).isDefined) then 
       {

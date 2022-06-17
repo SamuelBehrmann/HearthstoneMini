@@ -1,7 +1,9 @@
 package model
 
+import model.gamebar_component.GameBarImpl.GameBar
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import model.card_component.cardImpl.Card
 
 class GameBarSpec extends AnyWordSpec with Matchers {
 

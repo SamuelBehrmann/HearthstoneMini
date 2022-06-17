@@ -3,7 +3,8 @@ package aview
 import aview.gui.enter_playernames_screen.EnterPlayernamesScreenImpl
 import aview.gui.main_game_screen.MainGameScreen
 import aview.gui.mode_selection_screen.ModeSelectionScreenImpl
-import controller.{Controller, GameState}
+import controller.GameState
+import controller.component.controllerImpl.Controller
 import scalafx.application.{JFXApp3, Platform}
 import scalafx.scene.Scene
 import scalafx.scene.paint.Color.*

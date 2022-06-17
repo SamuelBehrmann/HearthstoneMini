@@ -1,20 +1,17 @@
-package model
+package model.card_component.cardImpl
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.JsonSerializable
-import play.api.libs.json._
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import model.card_component.CardInterface
+import model.card_component.cardImpl.Card
+import model.field_component.FieldInterface
+import model.field_component.fieldImpl.{Field, FieldObject}
+import model.matrix_component.matrixImpl.Matrix
+import play.api.libs.json.*
+
 import scala.collection.View.Empty
 
-trait CardType {
-    val name: String
-    val manaCost: Int
-    val attValue: Int
-    val defenseValue: Int
-    val effect: String
-    val rarity: String
-    def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ")
-}
-object CardType {
+object Card {
     given cardReads:Reads[Option[Card]] = (o:JsValue) => {
         (o \ "type").validate[String] match
             case JsSuccess("MINION", _) => JsSuccess(Some(Card((o \ "name").as[String].grouped(10).toList(0),(o \ "cost").as[Int], (o \ "attack").as[Int], (o \ "health").as[Int], "Effect", "Rarity")))
@@ -29,11 +26,11 @@ object CardType {
             case e: JsError => JsSuccess(None)
     }
 }
-class Card(val name: String, val manaCost: Int, val attValue: Int, val defenseValue: Int, val effect: String, val rarity: String) extends CardType {
+class Card(val name: String, val manaCost: Int, val attValue: Int, val defenseValue: Int, val effect: String, val rarity: String) extends CardInterface {
     override def toString(): String = name + " (" + manaCost + ")" + "#" + "atk: " + attValue + "#def: " + defenseValue + "#" + effect + "#" + rarity
-    override def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ").updateMatrix(0, 0, toString().split("#").toList)
+    override def toMatrix(): Matrix[String] = new Matrix[String](FieldObject.standartCardHeight, FieldObject.standartCardWidth, " ").updateMatrix(0, 0, toString().split("#").toList)
 }
 
-class EmptyCard(val name: String = "yolo", val manaCost: Int = 0, val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "") extends CardType {
-    override def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ")
+class EmptyCard(val name: String = "yolo", val manaCost: Int = 0, val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "") extends CardInterface {
+    override def toMatrix(): Matrix[String] = new Matrix[String](FieldObject.standartCardHeight, FieldObject.standartCardWidth, " ")
 }

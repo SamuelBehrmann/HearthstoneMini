@@ -1,15 +1,21 @@
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import _root_.model.Field
-import _root_.model.Move
-import _root_.model.Card
-import _root_.model.EmptyCard
-import _root_.model.Player
-import controller.Controller
+
+import controller.component.controllerImpl.Controller
 import model.commands.{AttackCommand, PlaceCardCommand}
 import util.Observer
-import model.GameBar
-import model.Mana
+
+import controller.component.controllerImpl.Controller
+import model.commands.{AttackCommand, PlaceCardCommand}
+import util.Observer
+import model.card_component.cardImpl.{Card, EmptyCard}
+
+import model.gamebar_component.GameBarImpl.GameBar
+import model.mana_component.manaImpl.Mana
+import model.player_component.playerImpl
+import model.player_component.playerImpl.Player
+import model.field_component.fieldImpl.Field
+import model.Move
 
 class attack_command_spec extends AnyWordSpec with Matchers {
   val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
@@ -17,8 +23,8 @@ class attack_command_spec extends AnyWordSpec with Matchers {
     Card("test1", 1, 1, 20, "testEffect1", "testRarety1"))
 
   "A controller" should {
-    val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1, gamebar = GameBar(hand = testCards, mana = Mana(100,100)))
-      , Player(id = 2, gamebar = GameBar(hand = testCards, mana = Mana(100,100))))))
+    val controller = Controller(Field(slotNum = 5, players = List[Player](playerImpl.Player(id = 1, gamebar = GameBar(hand = testCards, mana = Mana(100,100)))
+      , playerImpl.Player(id = 2, gamebar = GameBar(hand = testCards, mana = Mana(100,100))))))
       controller.placeCard(Move(3,1))
       controller.placeCard(Move(0,2))
       controller.switchPlayer()

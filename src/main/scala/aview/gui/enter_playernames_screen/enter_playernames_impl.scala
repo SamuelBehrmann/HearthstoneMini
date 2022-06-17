@@ -1,7 +1,8 @@
 package aview.gui.enter_playernames_screen
 
 import controller.component.ControllerInterface
-import controller.{Controller, Strategy}
+import controller.Strategy
+import controller.component.controllerImpl.Controller
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
 import model.Move

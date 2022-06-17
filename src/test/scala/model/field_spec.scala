@@ -1,7 +1,14 @@
 package model
 
+import model.card_component.cardImpl.Card
+import model.field_component.fieldImpl
+import model.gamebar_component.GameBarImpl.GameBar
+import model.player_component.playerImpl
+import model.player_component.playerImpl.Player
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import model.field_component.fieldImpl.Field
+import model.field_component.fieldImpl.FieldObject
 
 class FieldSpec extends AnyWordSpec with Matchers {
   "A Field" when {
@@ -12,7 +19,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
 
       val field0 = new Field(5, "Player1", "Player2")
       val field = new Field(slotNum = 5, players = List[Player](
-        Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
+        playerImpl.Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
         Player(id = 2)))
 
       val field1 = new Field(5)
@@ -21,7 +28,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
         field0.slotNum should be(5)
       }
       "be created using default fieldsize 5 and 2 player names" in {
-        field.matrix.colSize should be(Field.standartFieldWidth)
+        field.matrix.colSize should be(FieldObject.standartFieldWidth)
       }
       "have a Card in slot 1 after placed 1 card in slot 1 from hand" in {
         field.placeCard(0, 0).players(0).gamebar.hand.length should be(4)

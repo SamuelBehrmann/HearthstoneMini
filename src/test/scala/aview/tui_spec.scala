@@ -1,12 +1,12 @@
 package aview
 
+import controller.component.controllerImpl.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import controller.Controller
 import util.Observer
-import model.Field
 import scala.util.Try
 import scala.util.Success
+import model.field_component.fieldImpl.Field
 
 
 class StrategySpec extends AnyWordSpec with Matchers {

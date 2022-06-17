@@ -4,13 +4,13 @@ package model
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import _root_.model.Field
-import _root_.model.Move
-import _root_.model.Card
-import _root_.model.EmptyCard
-import _root_.model.Player
-import _root_.model.GameBar
+import controller.component.controllerImpl.Controller
 import util.Observer
+import _root_.model.card_component.cardImpl.Card
+import _root_.model.field_component.fieldImpl.Field
+import _root_.model.player_component.playerImpl.Player
+import _root_.model.gamebar_component.GameBarImpl.GameBar
+import _root_.model.Move
 
 class ControllerSpec extends AnyWordSpec with Matchers {
   val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),

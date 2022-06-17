@@ -1,17 +1,19 @@
 package aview.gui.main_game_screen
 
 import controller.component.ControllerInterface
-import controller.{Controller, Strategy}
+import controller.Strategy
+import controller.component.controllerImpl.Controller
 import scalafx.event.EventHandler
 
 import scalafx.scene.input.MouseEvent
-import model.{Card, Move}
+import model.Move
 import scalafx.geometry.Insets
 import javafx.scene.Node
 import scalafx.Includes.jfxNode2sfx
 import scalafx.scene.control.*
 import scalafx.scene.layout.GridPane
 import javafx.scene.layout.GridPane.getColumnIndex
+import model.card_component.cardImpl.Card
 import scalafx.scene.paint.Color.{Black, Blue, Green, Grey, Red, White}
 import scalafx.scene.shape.Rectangle
 

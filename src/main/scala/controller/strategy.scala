@@ -1,7 +1,10 @@
 package controller
-import model.Field
+
+import model.field_component.fieldImpl.Field
+import model.field_component.FieldInterface
+
 object Strategy {
-    def normalStrategy(): Field = Field().setHpValues(30)
-    def hardcoreStrategy(): Field = Field().setHpValues(10).setManaValues(10)
-    def adminStrategy(): Field = Field().setHpValues(100).setManaValues(100)
+    def normalStrategy(): FieldInterface = Field().setHpValues(30).setManaValues(1)
+    def hardcoreStrategy(): FieldInterface = Field().setHpValues(10).setManaValues(10)
+    def adminStrategy(): FieldInterface = Field().setHpValues(100).setManaValues(100)
 }

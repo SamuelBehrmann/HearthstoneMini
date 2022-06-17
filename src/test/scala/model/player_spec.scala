@@ -1,5 +1,7 @@
 package model
 
+import model.gamebar_component.GameBarImpl.GameBar
+import model.player_component.playerImpl.Player
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

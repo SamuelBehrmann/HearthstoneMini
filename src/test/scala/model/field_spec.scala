@@ -2,6 +2,9 @@ package model
 
 import model.field_component.fieldImpl
 import model.field_component.fieldImpl.FieldInterface
+import model.gamebar_component.GameBarImpl.GameBar
+import model.player_component.playerImpl
+import model.player_component.playerImpl.Player
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -14,7 +17,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
 
       val field0 = new FieldInterface(5, "Player1", "Player2")
       val field = new FieldInterface(slotNum = 5, players = List[Player](
-        Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
+        playerImpl.Player(id = 1, gamebar = GameBar(hand = testCards)).resetAndIncreaseMana(),
         Player(id = 2)))
 
       val field1 = new FieldInterface(5)

@@ -1,6 +1,8 @@
-package model
+package model.mana_component.manaImpl
 
-case class Mana(value: Int = 1, max: Int = 1){
+import model.mana_component.{ManaInterface}
+
+case class Mana(value: Int = 1, max: Int = 1) extends ManaInterface {
 
     def increase(amount: Int): Mana = if (amount + value > max) then copy(value = max) else copy(value = value + amount)
     def resetAndIncrease(): Mana = copy(value = max + 1, max = max + 1)

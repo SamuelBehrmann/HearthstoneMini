@@ -1,6 +1,6 @@
 package controller
 
-import model.field_component.fieldImpl.*
+import model.field_component.fieldImpl.Field
 import model.field_component.FieldInterface
 
 object Strategy {

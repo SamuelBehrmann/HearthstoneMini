@@ -4,6 +4,8 @@ import model.field_component.FieldInterface
 import model.Matrix
 import model.Player
 
+import javax.inject.Inject
+
 object FieldObject {
   val offset: Int = 1
   val standartSlotNum: Int = 5
@@ -17,11 +19,12 @@ object FieldObject {
   val standartFieldHeight: Int = (standartFieldBarHeight + standartGameBarHeight + standartMenueBarHeight) * 2 + FieldObject.offset
 }
 
-case class Field(matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldHeight, FieldObject.standartFieldWidth, " "),
-                  slotNum: Int = FieldObject.standartSlotNum,
-                  players: List[Player] = List[Player](new Player(id = 1), new Player(id = 2)),
-                  turns: Int = 0) extends FieldInterface {
+case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldHeight, FieldObject.standartFieldWidth, " "),
+                             slotNum: Int = FieldObject.standartSlotNum,
+                            players: List[Player] = List[Player](new Player(id = 1), new Player(id = 2)),
+                            turns: Int = 0) extends FieldInterface() {
   // The active player is the Player in position 0 of the list
+
   def this(size: Int, player1: String, player2: String) = this(new Matrix[String](FieldObject.standartFieldHeight, FieldObject.standartSlotWidth * size, " "),
     size,
     players = List[Player](new Player(name = player1, id = 1), new Player(name = player2, id = 2)))

@@ -2,11 +2,11 @@ package model.field_component
 
 import model.{Matrix, Player, field_component}
 
-trait FieldInterface {
-  val players: Seq[Player]
-  val matrix: Matrix[String]
-  val slotNum: Int
-  val turns: Int
+trait FieldInterface() {
+  def players: List[Player]
+  def matrix: Matrix[String]
+  def slotNum: Int
+  def turns: Int
 
 
   def placeCard(handSlot: Int, fieldSlot: Int): FieldInterface

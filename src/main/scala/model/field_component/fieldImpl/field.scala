@@ -21,7 +21,7 @@ object FieldObject {
 
 case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldHeight, FieldObject.standartFieldWidth, " "),
                              slotNum: Int = FieldObject.standartSlotNum,
-                            players: List[Player] = List[Player](new Player(id = 1), new Player(id = 2)),
+                            players: List[Player] = List[Player](Player(id = 1), Player(id = 2)),
                             turns: Int = 0) extends FieldInterface() {
   // The active player is the Player in position 0 of the list
 

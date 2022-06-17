@@ -8,6 +8,7 @@ import controller.component.ControllerInterface
 import controller.component.controllerImpl.Controller
 import model.field_component.FieldInterface
 import model.field_component.fieldImpl.Field
+import model.player_component.playerImpl.Player
 
 
 class HearthstoneMiniModule extends AbstractModule {
@@ -16,6 +17,7 @@ class HearthstoneMiniModule extends AbstractModule {
   override def configure() = {
     bindConstant().annotatedWith(Names.named("DefaultSize")).to(defaultSize)
     bind(classOf[ControllerInterface]).to(classOf[Controller])
-    bind(classOf[FieldInterface]).to(classOf[Field])
+    bind(classOf[FieldInterface]).toInstance(new Field(5))
+
   }
 }

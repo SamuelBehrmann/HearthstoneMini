@@ -1,6 +1,7 @@
 package model
 
-import model.field_component.fieldImpl.{Field, FieldInterface}
+import model.field_component.fieldImpl.{Field, FieldObject}
+import model.field_component.FieldInterface
 
 import scala.compiletime.ops.string
 import scala.collection.View.Empty
@@ -27,14 +28,14 @@ case class GameBar(hp: Healthpoints = new Healthpoints(30, 30),
     def setManaValue(amount: Int) = copy(mana = mana.setVal(amount))
     def setHpValue(amount: Int) = copy(hp = hp.setVal(amount))
     def handAsMatrix(): Matrix[String] = {
-        var tmpMatrix =  new Matrix[String](Field.standartCardHeight, Field.standartFieldWidth, " ")
-        hand.zipWithIndex.foreach((elem,index) => tmpMatrix = tmpMatrix.updateMatrixWithMatrix(0, Field.standartSlotWidth * index + 1, hand(index).toMatrix()))
+        var tmpMatrix =  new Matrix[String](FieldObject.standartCardHeight, FieldObject.standartFieldWidth, " ")
+        hand.zipWithIndex.foreach((elem,index) => tmpMatrix = tmpMatrix.updateMatrixWithMatrix(0, FieldObject.standartSlotWidth * index + 1, hand(index).toMatrix()))
         tmpMatrix
     }
 
-    def toMatrix(): Matrix[String] = new Matrix[String](Field.standartGameBarHeight, Field.standartFieldWidth, " ")
+    def toMatrix(): Matrix[String] = new Matrix[String](FieldObject.standartGameBarHeight, FieldObject.standartFieldWidth, " ")
     .updateMatrix(0,0,List[String]("\u001b[32mHP: " + hp.toString + " \u001b[0;34mMana: " + mana.toString + "\u001b[0;37m"))
-    .updateMatrix(0,Field.standartFieldWidth - 2, List[String]("\u001b[0;31mDeck: " + deck.length + "  Friedhof: " + friedhof.length + "\u001b[0;37m"))
+    .updateMatrix(0,FieldObject.standartFieldWidth - 2, List[String]("\u001b[0;31mDeck: " + deck.length + "  Friedhof: " + friedhof.length + "\u001b[0;37m"))
     .updateMatrixWithMatrix(1,0, handAsMatrix())
-    .updateMatrix(6,0,List[String]("-" * Field.standartFieldWidth))
+    .updateMatrix(6,0,List[String]("-" * FieldObject.standartFieldWidth))
 }

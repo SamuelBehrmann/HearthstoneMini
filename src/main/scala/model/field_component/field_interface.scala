@@ -9,29 +9,29 @@ trait FieldInterface {
   val turns: Int
 
 
-  def placeCard(handSlot: Int, fieldSlot: Int): fieldImpl.FieldInterface
+  def placeCard(handSlot: Int, fieldSlot: Int): FieldInterface
 
-  def drawCard(): fieldImpl.FieldInterface
+  def drawCard(): FieldInterface
 
-  def destroyCard(player: Int, slot: Int): fieldImpl.FieldInterface
+  def destroyCard(player: Int, slot: Int): FieldInterface
 
-  def reduceHp(player: Int, amount: Int): fieldImpl.FieldInterface
+  def reduceHp(player: Int, amount: Int): FieldInterface
 
-  def increaseHp(amount: Int): fieldImpl.FieldInterface
+  def increaseHp(amount: Int): FieldInterface
 
-  def reduceMana(amount: Int): fieldImpl.FieldInterface
+  def reduceMana(amount: Int): FieldInterface
 
-  def increaseMana(amount: Int): fieldImpl.FieldInterface
+  def increaseMana(amount: Int):FieldInterface
 
-  def resetAndIncreaseMana(): fieldImpl.FieldInterface
+  def resetAndIncreaseMana(): FieldInterface
 
-  def setPlayerNames(p1: String, p2: String): fieldImpl.FieldInterface
+  def setPlayerNames(p1: String, p2: String): FieldInterface
 
-  def setHpValues(amount: Int): fieldImpl.FieldInterface
+  def setHpValues(amount: Int): FieldInterface
 
-  def setManaValues(amount: Int): fieldImpl.FieldInterface
+  def setManaValues(amount: Int): FieldInterface
 
-  def switchPlayer(): fieldImpl.FieldInterface
+  def switchPlayer(): FieldInterface
 
   def getPlayerById(id: Int): Player
 

@@ -2,7 +2,8 @@ package model
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.JsonSerializable
-import model.field_component.fieldImpl.{Field, FieldInterface}
+import model.field_component.fieldImpl.{Field, FieldObject}
+import model.field_component.FieldInterface
 import play.api.libs.json.*
 
 import scala.collection.View.Empty
@@ -14,7 +15,7 @@ trait CardType {
     val defenseValue: Int
     val effect: String
     val rarity: String
-    def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ")
+    def toMatrix(): Matrix[String] = new Matrix[String](FieldObject.standartCardHeight, FieldObject.standartCardWidth, " ")
 }
 object CardType {
     given cardReads:Reads[Option[Card]] = (o:JsValue) => {
@@ -33,9 +34,9 @@ object CardType {
 }
 class Card(val name: String, val manaCost: Int, val attValue: Int, val defenseValue: Int, val effect: String, val rarity: String) extends CardType {
     override def toString(): String = name + " (" + manaCost + ")" + "#" + "atk: " + attValue + "#def: " + defenseValue + "#" + effect + "#" + rarity
-    override def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ").updateMatrix(0, 0, toString().split("#").toList)
+    override def toMatrix(): Matrix[String] = new Matrix[String](FieldObject.standartCardHeight, FieldObject.standartCardWidth, " ").updateMatrix(0, 0, toString().split("#").toList)
 }
 
 class EmptyCard(val name: String = "yolo", val manaCost: Int = 0, val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "") extends CardType {
-    override def toMatrix(): Matrix[String] = new Matrix[String](Field.standartCardHeight, Field.standartCardWidth, " ")
+    override def toMatrix(): Matrix[String] = new Matrix[String](FieldObject.standartCardHeight, FieldObject.standartCardWidth, " ")
 }

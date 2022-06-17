@@ -5,7 +5,7 @@ import controller.GameState
 import controller.component.controllerImpl.Controller
 import util.Command
 import model.Card
-import model.field_component.fieldImpl.FieldInterface
+import model.field_component.FieldInterface
 
 class DirectAttackCommand(controller: Controller, move: Move) extends Command {
   var memento: FieldInterface = controller.field

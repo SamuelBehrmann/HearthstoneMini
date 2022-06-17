@@ -2,7 +2,7 @@ package model.commands
 
 import controller.component.controllerImpl.Controller
 import model.Move
-import model.field_component.fieldImpl.FieldInterface
+import model.field_component.FieldInterface
 import util.Command
 
 class SwitchPlayerCommand(controller: Controller) extends Command {

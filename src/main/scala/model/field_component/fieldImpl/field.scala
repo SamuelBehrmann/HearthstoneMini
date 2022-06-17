@@ -1,7 +1,8 @@
 package model.field_component.fieldImpl
 
 import model.field_component.FieldInterface
-import model.{Matrix, Player}
+import model.Matrix
+import model.Player
 
 object FieldObject {
   val offset: Int = 1
@@ -13,7 +14,7 @@ object FieldObject {
   val standartGameBarHeight: Int = 7
   val standartMenueBarHeight: Int = 2
   val standartFieldWidth: Int = standartSlotNum * standartSlotWidth
-  val standartFieldHeight: Int = (standartFieldBarHeight + standartGameBarHeight + standartMenueBarHeight) * 2 + Field.offset
+  val standartFieldHeight: Int = (standartFieldBarHeight + standartGameBarHeight + standartMenueBarHeight) * 2 + FieldObject.offset
 }
 
 case class Field(matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldHeight, FieldObject.standartFieldWidth, " "),

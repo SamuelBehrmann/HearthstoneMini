@@ -3,7 +3,7 @@ package model.commands
 import model.Move
 import controller.GameState
 import controller.component.controllerImpl.Controller
-import model.field_component.fieldImpl.FieldInterface
+import model.field_component.FieldInterface
 import util.Command
 
 class AttackCommand(controller: Controller, move: Move) extends Command {

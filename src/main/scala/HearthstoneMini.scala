@@ -1,4 +1,3 @@
-//package scala
 
 import model.*
 import controller.GameState
@@ -21,7 +20,7 @@ import scala.io.StdIn
 def run: Unit = {
     val controller = Controller(new Field(5))
     val tui = TUI(controller)
-    val GUI = new GUIApp(controller)
+    //val GUI = new GUIApp(controller)
     tui.update(Event.PLAY)
     while (controller.gameState != GameState.EXIT) do {
         tui.onInput(StdIn.readLine())

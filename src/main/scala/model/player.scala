@@ -1,7 +1,9 @@
 package model
 
+import model.field_bar_component.fieldBarImpl.FieldBar
 import model.field_component.fieldImpl.{Field, FieldObject}
 import model.field_component.FieldInterface
+import model.matrix_component.matrixImpl.Matrix
 
 import java.awt.MenuBar
 

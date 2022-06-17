@@ -5,8 +5,6 @@ package model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import _root_.model.Move
-import _root_.model.Card
-import _root_.model.EmptyCard
 import _root_.model.Player
 import _root_.model.GameBar
 import controller.component.controllerImpl.Controller

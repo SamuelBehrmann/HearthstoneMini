@@ -1,7 +1,9 @@
 package model
 
+import model.card_component.cardImpl.Card
 import model.field_component.fieldImpl.{Field, FieldObject}
 import model.field_component.FieldInterface
+import model.matrix_component.matrixImpl.Matrix
 
 import scala.compiletime.ops.string
 import scala.collection.View.Empty

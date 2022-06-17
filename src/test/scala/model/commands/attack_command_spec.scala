@@ -1,14 +1,13 @@
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import _root_.model.Move
-import _root_.model.Card
-import _root_.model.EmptyCard
 import _root_.model.Player
 import controller.component.controllerImpl.Controller
 import model.commands.{AttackCommand, PlaceCardCommand}
 import util.Observer
 import model.GameBar
 import model.Mana
+import model.card_component.cardImpl.{Card, EmptyCard}
 import model.field_component.fieldImpl.FieldInterface
 
 class attack_command_spec extends AnyWordSpec with Matchers {

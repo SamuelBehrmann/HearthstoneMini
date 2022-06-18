@@ -8,12 +8,15 @@ case class Cardarea[A](row: Vector[Option[Card]]) extends CardAreaInterface:
     override val size: Int = row.size
     override def slot(slotNum: Int): Option[Card] = row(slotNum)
     override def replaceSlot(slotNum: Int, card: Option[Card]): CardAreaInterface = copy(row.updated(slotNum, card))
-    override def reduceDefVal(slotNum: Int, amount: Int): CardAreaInterface = copy(row.updated(slotNum, Some(row(slotNum).get.reduceHP(amount))))
-    override def reduceAttackCount(slotNum: Int): CardAreaInterface = copy(row.updated(slotNum, Some(row(slotNum).get.reduceAttackCount())))
+    override def reduceDefVal(slotNum: Int, amount: Int): CardAreaInterface = copy(row.updated(slotNum, 
+        Some(row(slotNum).get.reduceHP(amount))))
+    override def reduceAttackCount(slotNum: Int): CardAreaInterface = copy(row.updated(slotNum, 
+        Some(row(slotNum).get.reduceAttackCount())))
     override def resetAttackCount(): CardAreaInterface = copy(
         {
             var old = row
-            row.zipWithIndex.foreach((card, index) => old = old.updated(index, card.fold(None)((card) => Some(card.resetAttackCount()))))
+            row.zipWithIndex.foreach((card, index) => old = old.updated(index, card.fold(None)((card) => 
+                Some(card.resetAttackCount()))))
             old
         }
     )

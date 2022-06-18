@@ -19,12 +19,14 @@ case class Fieldbar(cardArea: CardAreaInterface = new Cardarea[Option[Card]](Fie
     val size: Int = cardArea.size
     override def placeCard(slot: Int, card: Card): Fieldbar = copy(cardArea = cardArea.replaceSlot(slot, Some(card)))
     override def removeCard(slot: Int): Fieldbar = copy(cardArea = cardArea.replaceSlot(slot, None))
-    override def reduceDefVal(slotNum: Int, amount: Int): Fieldbar = copy(cardArea = cardArea.reduceDefVal(slotNum, amount))
+    override def reduceDefVal(slotNum: Int, amount: Int): Fieldbar = copy(cardArea = cardArea
+      .reduceDefVal(slotNum, amount))
     override def resetAttackCount(): Fieldbar = copy(cardArea = cardArea.resetAttackCount())
     override def reduceAttackCount(slotNum: Int): Fieldbar = copy(cardArea = cardArea.reduceAttackCount(slotNum))
     override def toMatrix: Matrix[String] = {
         var old = matrix
-        cardArea.row.zipWithIndex.foreach((card, index) => card.fold({})((card) => old = old.updateMatrixWithMatrix(0, index * FieldObject.standartSlotWidth + 1, card.toMatrix)))
+        cardArea.row.zipWithIndex.foreach((card, index) => card.fold({})((card) =>
+            old = old.updateMatrixWithMatrix(0, index * FieldObject.standartSlotWidth + 1, card.toMatrix)))
         old.updateMatrix(5,0, List[String]("-" * FieldObject.standartFieldWidth))
     }
 

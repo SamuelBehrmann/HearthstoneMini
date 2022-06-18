@@ -61,7 +61,8 @@ class Tui(controller: Controller) extends Observer {
         print("\u001b[2J")
         println("\u001b[33m" + controller.field.players(0).name + " ist dran!\u001b[0m")
         println(controller.field.toString)
-        println("\u001b[33mp-place(hand,solt) | d-draw() | a-attack(yours, theirs) | e-direct attack | s-Endturn | z-undo | y-redo | q-Quit\u001b[0m")
+        println("\u001b[33mp-place(hand,solt) | d-draw() | a-attack(yours, theirs) | e-direct attack | " +
+          "s-Endturn | z-undo | y-redo | q-Quit\u001b[0m")
 
     }
     def checkInput(input: String): Boolean = {

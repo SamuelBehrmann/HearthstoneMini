@@ -15,7 +15,8 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
     if checkConditions then {
       val difference = Math.abs(controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue
         - controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue)
-      newField = controller.field.reduceDefVal(move.fieldSlotInactive, controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue)
+      newField = controller.field.reduceDefVal(move.fieldSlotInactive, 
+        controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attValue)
       newField = newField.reduceAttackCount(move.fieldSlotActive)
       if newField.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).get.defenseValue <= 0 then
         newField = newField.destroyCard(1, move.fieldSlotInactive).reduceHp(1, difference)

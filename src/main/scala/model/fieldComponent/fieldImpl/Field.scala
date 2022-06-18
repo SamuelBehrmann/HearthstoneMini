@@ -58,7 +58,8 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def reduceAttackCount(slotNum: Int): Field = copy(players = players.updated(0,
     players.head.reduceAttackCount(slotNum)))
-  override def resetAttackCount(): Field = copy(players = players.updated(0, players.head.resetAttackCount()).updated(1, players(1).resetAttackCount()))
+  override def resetAttackCount(): Field = copy(
+    players = players.updated(0, players.head.resetAttackCount()).updated(1, players(1).resetAttackCount()))
 
   override def resetAndIncreaseMana(): Field = copy(players = players.updated(0, players.head.resetAndIncreaseMana())
     .updated(1, players(1).resetAndIncreaseMana()))
@@ -81,7 +82,8 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def getActivePlayer: Player = players.head
 
-  override def reduceDefVal(slotNum: Int, amount: Int): Field = copy(players = players.updated(1, players(1).reduceDefVal(slotNum, amount)))
+  override def reduceDefVal(slotNum: Int, amount: Int): Field = copy(
+    players = players.updated(1, players(1).reduceDefVal(slotNum, amount)))
 
   override def toMatrix: Matrix[String] = matrix 
     .updateMatrix(0, 0, List[String]("-" * FieldObject.standartFieldWidth))

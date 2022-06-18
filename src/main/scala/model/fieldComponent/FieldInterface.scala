@@ -1,5 +1,6 @@
 package model.fieldComponent
 
+import model.cardComponent.cardImpl.Card
 import model.playerComponent.playerImpl.Player
 import model.matrixComponent.matrixImpl.Matrix
 import model.fieldComponent
@@ -9,6 +10,7 @@ trait FieldInterface {
   def matrix: Matrix[String]
   def slotNum: Int
   def turns: Int
+
 
 
   def placeCard(handSlot: Int, fieldSlot: Int): FieldInterface
@@ -34,6 +36,8 @@ trait FieldInterface {
   def setManaValues(amount: Int): FieldInterface
 
   def reduceAttackCount(slotNum: Int): FieldInterface
+
+  def resetAttackCount(): FieldInterface
 
   def reduceDefVal(slotNum: Int, amount: Int): FieldInterface
 

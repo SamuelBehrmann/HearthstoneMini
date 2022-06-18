@@ -42,4 +42,5 @@ class DirectAttackCommand(controller: Controller, move: Move) extends Command {
     (controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined)
       && !(controller.field.players(1).fieldbar.cardArea.row.count(_.isDefined) > 0)
       && controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount >= 1
+      && controller.field.turns > 1
 }

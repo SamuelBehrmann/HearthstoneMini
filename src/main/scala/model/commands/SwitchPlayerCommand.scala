@@ -11,7 +11,7 @@ class SwitchPlayerCommand(controller: Controller) extends Command {
   var memento: FieldInterface = controller.field
   override def doStep: Try[FieldInterface] = {
     memento = controller.field
-    Success(controller.field.switchPlayer())
+    Success(controller.field.switchPlayer().resetAttackCount())
   }
   override def undoStep: Unit = {
     val new_memento = controller.field

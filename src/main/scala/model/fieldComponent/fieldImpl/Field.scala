@@ -1,5 +1,6 @@
 package model.fieldComponent.fieldImpl
 
+import model.cardComponent.cardImpl.Card
 import model.fieldComponent.FieldInterface
 import model.playerComponent.playerImpl.Player
 import model.matrixComponent.matrixImpl.Matrix
@@ -24,7 +25,7 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
   FieldObject.standartFieldWidth, " "),
                              slotNum: Int = FieldObject.standartSlotNum,
                             players: List[Player] = List[Player](Player(id = 1), Player(id = 2)),
-                            turns: Int = 0) extends FieldInterface() {
+                            turns: Int = 0 ) extends FieldInterface() {
   // The active player is the Player in position 0 of the list
 
   def this(size: Int, player1: String, player2: String) = this(new Matrix[String](FieldObject.standartFieldHeight,
@@ -57,6 +58,7 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def reduceAttackCount(slotNum: Int): Field = copy(players = players.updated(0,
     players.head.reduceAttackCount(slotNum)))
+  override def resetAttackCount(): Field = copy(players = players.updated(0, players.head.resetAttackCount()).updated(1, players(1).resetAttackCount()))
 
   override def resetAndIncreaseMana(): Field = copy(players = players.updated(0, players.head.resetAndIncreaseMana())
     .updated(1, players(1).resetAndIncreaseMana()))

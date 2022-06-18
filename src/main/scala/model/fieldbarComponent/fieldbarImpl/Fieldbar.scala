@@ -23,6 +23,7 @@ case class Fieldbar(cardArea: CardAreaInterface = new Cardarea[Option[Card]](Fie
         matrix = matrix.updateMatrixWithMatrix(0, slot * FieldObject.standartSlotWidth + 1,
             EmptyCard().toMatrix))
     override def reduceDefVal(slotNum: Int, amount: Int): Fieldbar = copy(cardArea = cardArea.reduceDefVal(slotNum, amount))
+    override def resetAttackCount(): Fieldbar = copy(cardArea = cardArea.resetAttackCount())
     override def reduceAttackCount(slotNum: Int): Fieldbar = copy(cardArea = cardArea.reduceAttackCount(slotNum))
     override def toMatrix: Matrix[String] = matrix
     .updateMatrix(5,0, List[String]("-" * FieldObject.standartFieldWidth))

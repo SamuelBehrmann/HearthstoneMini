@@ -33,6 +33,7 @@ case class Card(val name: String,
         toString().split("#").toList)
     override def reduceHP(amount: Int): Card = copy(defenseValue = defenseValue - amount)
     override def reduceAttackCount(): Card = copy(attackCount = attackCount - 1)
+    override def resetAttackCount(): Card = copy(attackCount = 1)
 }
 
 case class EmptyCard(val name: String = "yolo", val manaCost: Int = 0,
@@ -44,4 +45,5 @@ case class EmptyCard(val name: String = "yolo", val manaCost: Int = 0,
 
     override def reduceHP(amount: Int): EmptyCard = copy(defenseValue = defenseValue - amount)
     override def reduceAttackCount(): EmptyCard = copy(attackCount = attackCount - 1)
+    override def resetAttackCount(): CardInterface = copy(attackCount = 0)
 }

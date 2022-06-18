@@ -33,6 +33,8 @@ trait FieldInterface {
 
   def setManaValues(amount: Int): FieldInterface
 
+  def reduceAttackCount(slotNum: Int): FieldInterface
+
   def reduceDefVal(slotNum: Int, amount: Int): FieldInterface
 
   def switchPlayer(): FieldInterface

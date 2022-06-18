@@ -17,7 +17,7 @@ class DirectAttackCommand(controller: Controller, move: Move) extends Command {
     if checkConditions then {
       memento = controller.field
       val newField = controller.field.reduceHp(1, controller.field.players.head.fieldbar.cardArea.
-        slot(move.fieldSlotActive).get.attValue)
+        slot(move.fieldSlotActive).get.attValue).reduceAttackCount(move.fieldSlotActive)
       if (newField.players(0).gamebar.hp.isEmpty || newField.players(1).gamebar.hp.isEmpty)
       then controller.nextState()
       Success(newField)
@@ -41,4 +41,5 @@ class DirectAttackCommand(controller: Controller, move: Move) extends Command {
   override def checkConditions: Boolean =
     (controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined)
       && !(controller.field.players(1).fieldbar.cardArea.row.count(_.isDefined) > 0)
+      && controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount >= 1
 }

@@ -31,13 +31,17 @@ case class Card(val name: String,
     override def toMatrix: Matrix[String] = new Matrix[String](FieldObject.standartCardHeight,
         FieldObject.standartCardWidth, " ").updateMatrix(0, 0,
         toString().split("#").toList)
-    def reduceHP(amount: Int): Card = copy(defenseValue = defenseValue - amount)
+    override def reduceHP(amount: Int): Card = copy(defenseValue = defenseValue - amount)
+    override def reduceAttackCount(): Card = copy(attackCount = attackCount - 1)
 }
 
-class EmptyCard(val name: String = "yolo", val manaCost: Int = 0,
+case class EmptyCard(val name: String = "yolo", val manaCost: Int = 0,
                 val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "",
                 var attackCount: Int = 0)
   extends CardInterface {
     override def toMatrix: Matrix[String] = new Matrix[String](FieldObject.standartCardHeight,
         FieldObject.standartCardWidth, " ")
+
+    override def reduceHP(amount: Int): EmptyCard = copy(defenseValue = defenseValue - amount)
+    override def reduceAttackCount(): EmptyCard = copy(attackCount = attackCount - 1)
 }

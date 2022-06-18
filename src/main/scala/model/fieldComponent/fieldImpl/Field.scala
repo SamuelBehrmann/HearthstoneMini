@@ -55,6 +55,9 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def increaseMana(amount: Int): Field = copy(players = players.updated(0, players.head.increaseMana(amount)))
 
+  override def reduceAttackCount(slotNum: Int): Field = copy(players = players.updated(0,
+    players.head.reduceAttackCount(slotNum)))
+
   override def resetAndIncreaseMana(): Field = copy(players = players.updated(0, players.head.resetAndIncreaseMana())
     .updated(1, players(1).resetAndIncreaseMana()))
 

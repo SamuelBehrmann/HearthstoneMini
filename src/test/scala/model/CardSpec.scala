@@ -12,8 +12,7 @@ class CardSpec extends AnyWordSpec with Matchers {
         card.toString() should be("test (2)#atk: 2#def: 2#Schmettern#rare")
       }
       "have a Matrix repesentation" in {
-        card.toMatrix.toString should be("Matrix(Vector(Vector(t, e, s, t,  , (, 2, ),  ,  ,  ,  ,  ,  ,  ), Vector(a, t, k, :,  , 2,  ,  ,  ,  ,  ,  ,  ,  ,  ), Vector(d, e, f, :,  , 2,  ,  ,  ,  ,  ,  ,  ,  ,  ), Vector(S, c, h, m, e, t, t, e, r, n,  ,  ,  ,  ,  ), Vector(r, a, r, e,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  )))")
-
+        card.toMatrix.toString should be("test (2)       \natk: 2         \ndef: 2         \nSchmettern     \nrare           \n")
       }
       "have a name" in {
         card.name should be("test")

@@ -7,7 +7,7 @@ import model.cardComponent.cardImpl.Card
 
 class GamebarSpec extends AnyWordSpec with Matchers {
 
-  val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
+  val testCards: List[Card] = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
         Card("test1", 1, 1, 1, "testEffect1", "testRarety1"))
 
@@ -23,7 +23,7 @@ class GamebarSpec extends AnyWordSpec with Matchers {
       gameBar.drawCard().hand.length should be (5)
     }
     "a card is removed from hand" in {
-      gameBar.removeCardFromHand(2).hand.length should be(4)
+      gameBar1.removeCardFromHand(1).hand.size should be(4)
     }
     "a card is added to hand" in {
       val card = Card("test", 2, 2, 2, "Schmettern", "rare")

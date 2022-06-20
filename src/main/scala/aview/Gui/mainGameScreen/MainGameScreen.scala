@@ -112,8 +112,10 @@ class MainGameScreen(controller: Controller) extends GridPane {
       height = 100
       width = 100
     }
-    deck.onMouseClicked = _ => {
-      if controller.field.getPlayerById(idInt).gamebar.hand.length < 5 then controller.drawCard()
+    deck.onMouseClicked = event => {
+      if controller.field.getPlayerById(idInt).gamebar.hand.length < 5
+        && isActive
+      then controller.drawCard()
     }
     val friedhof: Rectangle = new Rectangle() {
       fill = Red

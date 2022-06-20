@@ -31,8 +31,8 @@ class FieldSpec extends AnyWordSpec with Matchers {
         field.matrix.colSize should be(FieldObject.standartFieldWidth)
       }
       "have a Card in slot 1 after placed 1 card in slot 1 from hand" in {
-        field.placeCard(0, 0).players(0).gamebar.hand.length should be(4)
-        field.placeCard(0, 0).players(0).fieldbar.cardArea.row(0).isDefined should be(true)
+        field0.placeCard(0, 0).players(0).gamebar.hand.length should be(4)
+        field0.placeCard(0, 0).players(0).fieldbar.cardArea.row(0).isDefined should be(true)
       }
       "have no Card in slot 1 when remove a card in slot 1" in {
         val field1 = field.placeCard(0, 0)

@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import model.fieldComponent.fieldImpl.FieldObject
 
-class FieldBarSpec extends AnyWordSpec with Matchers {
+class FieldbarSpec extends AnyWordSpec with Matchers {
   "A HearthstoneMini fieldbar" when {
     "filled with Card" should {
       val fieldBar1 = new Fieldbar(5, None)

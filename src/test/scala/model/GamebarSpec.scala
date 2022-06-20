@@ -23,7 +23,7 @@ class GamebarSpec extends AnyWordSpec with Matchers {
       gameBar.drawCard().hand.length should be (5)
     }
     "a card is removed from hand" in {
-      gameBar.removeCardFromHand(2).hand.length should be(3)
+      gameBar.removeCardFromHand(2).hand.length should be(4)
     }
     "a card is added to hand" in {
       val card = Card("test", 2, 2, 2, "Schmettern", "rare")

@@ -11,7 +11,7 @@ import model.fieldComponent.FieldInterface
 import model.Move
 import model.fieldComponent.fieldImpl.Field
 
-class place_card_command_spec extends AnyWordSpec with Matchers {
+class PlaceCardCommandSpec extends AnyWordSpec with Matchers {
   "A controller" should {
     "do step" in {
       val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1)

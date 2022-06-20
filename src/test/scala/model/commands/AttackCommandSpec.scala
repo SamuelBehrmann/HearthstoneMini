@@ -17,7 +17,7 @@ import model.playerComponent.playerImpl.Player
 import model.fieldComponent.fieldImpl.Field
 import model.Move
 
-class attack_command_spec extends AnyWordSpec with Matchers {
+class AttackCommandSpec extends AnyWordSpec with Matchers {
   val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
     Card("test1", 1, 10, 1, "testEffect1", "testRarety1"), Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
     Card("test1", 1, 1, 20, "testEffect1", "testRarety1"))

@@ -11,7 +11,7 @@ import model.fieldComponent.FieldInterface
 import model.Move
 import model.fieldComponent.fieldImpl.Field
 
-class set_player_names_spec extends AnyWordSpec with Matchers {
+class SetPlayerNamesSpec extends AnyWordSpec with Matchers {
   "A controller" should {
     "when setting names" in {
       val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1)

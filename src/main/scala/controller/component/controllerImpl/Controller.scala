@@ -64,13 +64,12 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
           nextState()
           notifyObservers(Event.PLAY, msg = None)
      }
-     override def toString() = field.toString
      def getWinner(): Option[String] = {
           val p1Hp = field.players(0).gamebar.hp.isEmpty
           val p2Hp = field.players(1).gamebar.hp.isEmpty
 
-          if p1Hp then Some(field.players(0).name)
-          else if p2Hp then Some(field.players(1).name)
+          if p1Hp then Some(field.players(1).name)
+          else if p2Hp then Some(field.players(0).name)
           else None
      }
 }

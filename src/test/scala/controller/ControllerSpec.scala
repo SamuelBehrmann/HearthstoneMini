@@ -10,6 +10,7 @@ import _root_.model.cardComponent.cardImpl.Card
 import _root_.model.fieldComponent.fieldImpl.Field
 import _root_.model.playerComponent.playerImpl.Player
 import _root_.model.gamebarComponent.gamebarImpl.Gamebar
+import _root_.model.healthpointsComponent.healthpointsImpl.Healthpoints
 import _root_.model.Move
 
 class ControllerSpec extends AnyWordSpec with Matchers {
@@ -110,5 +111,15 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       controller.exitGame()
       controller.gameState should be(GameState.EXIT)
     }
+    "should return the Winner when one player has 0 hp" in {
+      val controller = Controller(Field(slotNum = 5,
+        players = List[Player](Player(id = 1,
+          gamebar = Gamebar(hand = testCards, hp = Healthpoints(1,1))).resetAndIncreaseMana(),
+          Player(id = 2, gamebar = Gamebar(hand = testCards, hp = Healthpoints(1,1)))), turns = 2))
+      controller.placeCard(Move(2, 2))
+      controller.directAttack(Move(fieldSlotActive = 2))
+      controller.getWinner().get should be(controller.field.players(0).name)
+    }
+
   }
 }

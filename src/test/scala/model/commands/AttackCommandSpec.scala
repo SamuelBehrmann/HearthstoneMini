@@ -30,9 +30,8 @@ class AttackCommandSpec extends AnyWordSpec with Matchers {
       controller.switchPlayer()
       controller.placeCard(Move(1,1))
       controller.placeCard(Move(0,2))
+      controller.switchPlayer()
     val attackCommand = new AttackCommand(controller, Move(fieldSlotActive = 1, fieldSlotInactive = 2))
-    val attackCommandEven = new AttackCommand(controller, Move(fieldSlotActive = 2, fieldSlotInactive = 2))
-    val attackCommandLoss = new AttackCommand(controller, Move(fieldSlotActive = 2, fieldSlotInactive = 1))
 
     "do step" in {
       val field = controller.field
@@ -43,21 +42,6 @@ class AttackCommandSpec extends AnyWordSpec with Matchers {
       val field = controller.field
       attackCommand.undoStep
       attackCommand.memento should be (field)
-    }
-    "do even step" in {
-      val field = controller.field
-      attackCommandEven.doStep
-      attackCommandEven.memento should be (field)
-    }
-    "undo even step" in {
-      val field = controller.field
-      attackCommand.undoStep
-      attackCommand.memento should be (field)
-    }
-     "do loss step" in {
-      val field = controller.field
-      attackCommandLoss.doStep
-      attackCommandLoss.memento should be (field)
     }
     "redo step" in {
       val field = controller.field

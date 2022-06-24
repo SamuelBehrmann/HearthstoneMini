@@ -11,7 +11,6 @@ import scala.util.{Success, Try, Failure}
 
 class DirectAttackCommand(controller: Controller, move: Move) extends Command {
   var memento: FieldInterface = controller.field
-  var newField: FieldInterface = null
 
   override def doStep: Try[FieldInterface] = {
     if checkConditions then {

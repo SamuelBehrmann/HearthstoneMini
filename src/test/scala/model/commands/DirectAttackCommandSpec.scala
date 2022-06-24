@@ -21,6 +21,8 @@ class DirectAttackCommandSpec extends AnyWordSpec with Matchers {
       , Player(id = 2))))
 
     controller.placeCard(Move(handSlot = 0, fieldSlotActive = 0))
+    controller.switchPlayer()
+    controller.switchPlayer()
     val field = controller.field
     val directAttackCommand = new DirectAttackCommand(controller, Move(fieldSlotActive = 0))
     "do step" in {

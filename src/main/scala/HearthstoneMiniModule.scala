@@ -6,9 +6,9 @@ import net.codingwell.scalaguice.ScalaModule
 import controller.*
 import controller.component.ControllerInterface
 import controller.component.controllerImpl.Controller
-import model.field_component.FieldInterface
-import model.field_component.fieldImpl.Field
-import model.player_component.playerImpl.Player
+import model.fieldComponent.FieldInterface
+import model.fieldComponent.fieldImpl.Field
+import model.playerComponent.playerImpl.Player
 
 
 class HearthstoneMiniModule extends AbstractModule {
@@ -18,6 +18,5 @@ class HearthstoneMiniModule extends AbstractModule {
     bindConstant().annotatedWith(Names.named("DefaultSize")).to(defaultSize)
     bind(classOf[ControllerInterface]).to(classOf[Controller])
     bind(classOf[FieldInterface]).toInstance(new Field(5))
-
   }
 }

@@ -1,10 +1,10 @@
 
+import aview.Gui.GUIApp
 import model.*
 import controller.GameState
-import aview.TUI
-import aview.GUIApp
+import aview.Tui
 import controller.component.controllerImpl.Controller
-import model.field_component.fieldImpl.{Field}
+import model.fieldComponent.fieldImpl.Field
 
 import scala.io.StdIn.readLine
 import util.Event
@@ -19,10 +19,10 @@ import scala.io.StdIn
 @main
 def run: Unit = {
     val controller = Controller(new Field(5))
-    val tui = TUI(controller)
+    val tui = Tui(controller)
     val GUI = new GUIApp(controller)
-    tui.update(Event.PLAY)
-    while (controller.gameState != GameState.EXIT) do {
+    tui.update(Event.PLAY, None)
+    while (controller.gameState != GameState.EXIT && controller.gameState != GameState.WIN) do {
         tui.onInput(StdIn.readLine())
     }
 

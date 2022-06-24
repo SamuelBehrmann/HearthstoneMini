@@ -35,7 +35,7 @@ lazy val root = project
     jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
       None,
-      JacocoThresholds(),
+      JacocoThresholds(branch = 100),
       Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML), // note XML formatter
       "utf-8"),
     jacocoExcludes := Seq("aview*", "model.playerComponent.PlayerInterface",
@@ -43,7 +43,8 @@ lazy val root = project
       "model.cardareaComponent.CardAreaInterface",
       "model.fieldbarComponent.FieldbarInterface", "model.fieldComponent.FieldInterface",
       "model.gamebarComponent.GamebarInterface",
-      "model.healthpointsComponent.HealthpointsInterface", "model.matrixComponent.MatrixInterface")
+      "model.healthpointsComponent.HealthpointsInterface", "model.matrixComponent.MatrixInterface",
+      "HearthstoneMini*")
 
   )
 

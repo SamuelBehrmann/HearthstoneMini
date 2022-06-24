@@ -54,12 +54,15 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       val controller = Controller(Field(slotNum = 5,
         players = List[Player](Player(id = 1,
           gamebar = Gamebar(hand = testCards)).resetAndIncreaseMana(),
-          Player(id = 2))))
+          Player(id = 2,gamebar = Gamebar(hand = testCards)))))
+      controller.nextState()
+      controller.nextState()
       controller.placeCard(Move(2, 2))
       controller.switchPlayer()
       controller.placeCard(Move(2, 2))
+      controller.switchPlayer()
       controller.attack(Move(fieldSlotActive = 2, fieldSlotInactive = 2))
-      controller.field.players(0).fieldbar.cardArea.row(2).isEmpty should be(true)
+      controller.field.players(0).fieldbar.cardArea.row(3).isEmpty should be(true)
     }
     "switching player" in {
       val controller = Controller(Field(slotNum = 5,

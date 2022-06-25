@@ -35,7 +35,7 @@ lazy val root = project
     jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
       None,
-      JacocoThresholds(branch = 100),
+      JacocoThresholds(),
       Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML), // note XML formatter
       "utf-8"),
     jacocoExcludes := Seq("aview*", "model.playerComponent.PlayerInterface",

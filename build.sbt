@@ -27,8 +27,8 @@ lazy val root = project
         .map(m => "org.openjfx" % s"javafx-$m" % "16" classifier osName)
     },
 
-    libraryDependencies += "com.google.inject" % "guice" % "5.1.0",
-    //libraryDependencies += "net.coding-well" %% "scala-guice" % "4.2.11",
+    libraryDependencies += "com.google.inject.extensions" % "guice-assistedinject" % "5.1.0",
+    libraryDependencies += ( "net.codingwell" %% "scala-guice" % "5.0.2" ).cross( CrossVersion.for3Use2_13 ),
 
     libraryDependencies += ("com.typesafe.play" %% "play-json" % "2.10.0-RC1").cross(CrossVersion.for3Use2_13),
 
@@ -38,7 +38,13 @@ lazy val root = project
       JacocoThresholds(),
       Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML), // note XML formatter
       "utf-8"),
-    jacocoExcludes := Seq("aview*")
+    jacocoExcludes := Seq("aview*", "model.playerComponent.PlayerInterface",
+      "model.manaComponent.ManaInterface", "model.cardComponent.CardInterface",
+      "model.cardareaComponent.CardAreaInterface",
+      "model.fieldbarComponent.FieldbarInterface", "model.fieldComponent.FieldInterface",
+      "model.gamebarComponent.GamebarInterface",
+      "model.healthpointsComponent.HealthpointsInterface", "model.matrixComponent.MatrixInterface",
+      "HearthstoneMini*")
 
   )
 

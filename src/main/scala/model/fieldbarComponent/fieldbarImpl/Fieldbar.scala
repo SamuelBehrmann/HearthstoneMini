@@ -7,10 +7,17 @@ import model.fieldbarComponent.FieldbarInterface
 import model.fieldComponent.FieldInterface
 import model.fieldComponent.fieldImpl.{Field, FieldObject}
 import model.matrixComponent.matrixImpl.Matrix
+import play.api.libs.json.*
 
 import scala.quoted.FromExpr.NoneFromExpr
+import scala.xml.Node
 
-case class Fieldbar(cardArea: CardAreaInterface = new Cardarea[Option[Card]](FieldObject.standartSlotNum, None),
+object Fieldbar {
+    def fromXML(node: Node): Fieldbar = Fieldbar(cardArea = Cardarea.fromXML(node))
+    def fromJson(json: JsValue): Fieldbar = Fieldbar(cardArea = Cardarea.fromJson(json))
+}
+
+case class Fieldbar(cardArea: CardAreaInterface = new Cardarea(FieldObject.standartSlotNum, None),
                     matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldBarHeight,
                         FieldObject.standartFieldWidth, " "))
   extends FieldbarInterface:
@@ -29,4 +36,12 @@ case class Fieldbar(cardArea: CardAreaInterface = new Cardarea[Option[Card]](Fie
             old = old.updateMatrixWithMatrix(0, index * FieldObject.standartSlotWidth + 1, card.toMatrix)))
         old.updateMatrix(5,0, List[String]("-" * FieldObject.standartFieldWidth))
     }
-
+    def toJson: JsValue = Json.obj(
+        "cardarea" -> cardArea.toJson
+    )
+    def toXML: Node =
+        <Fieldbar>
+            <cardarea>
+                {cardArea.toXML}
+            </cardarea>
+        </Fieldbar>

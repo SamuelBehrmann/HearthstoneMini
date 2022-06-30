@@ -14,6 +14,7 @@ import scala.concurrent.*
 import java.time.Duration
 import org.scalactic.Bool
 
+import scala.annotation.nowarn
 import scala.io.StdIn
 
 @main

@@ -1,9 +1,8 @@
 package model.fileIOComponent
 
-import model.field_component.fieldImpl.Field
+import model.fieldComponent.FieldInterface
 
-
-trait fileIOInterface {
-  def load: Field
-  def safe(field: Field): Unit
+trait FileIOInterface {
+  def load: FieldInterface
+  def save(field: FieldInterface): Unit
 }

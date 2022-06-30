@@ -9,9 +9,11 @@ import model.fieldComponent.fieldImpl.{Field, FieldObject}
 import model.matrixComponent.matrixImpl.Matrix
 import play.api.libs.json.*
 
+import scala.annotation.nowarn
 import scala.collection.View.Empty
 
 object Card {
+    @nowarn
     given cardReads: Reads[Option[Card]] = (o:JsValue) => {
         (o \ "type").validate[String] match
             case JsSuccess("MINION", _) => JsSuccess(Some(Card((o \ "name").as[String].grouped(10).toList.head,

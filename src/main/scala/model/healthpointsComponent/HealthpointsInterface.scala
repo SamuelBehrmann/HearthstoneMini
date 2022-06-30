@@ -1,12 +1,16 @@
 package model.healthpointsComponent
 
 import model.healthpointsComponent.healthpointsImpl.Healthpoints
+import play.api.libs.json.JsValue
+import scala.xml.Node
 
 trait HealthpointsInterface {
   def increase(amount: Int): Healthpoints 
   def decrease(amount: Int): Healthpoints 
   def isEmpty: Boolean
-  def setVal(amount: Int): Healthpoints 
+  def setVal(amount: Int): Healthpoints
+  def toJson: JsValue
+  def toXML: Node
 }
 
 

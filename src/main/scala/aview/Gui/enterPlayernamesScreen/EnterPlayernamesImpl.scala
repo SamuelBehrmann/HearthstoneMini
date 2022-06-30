@@ -10,6 +10,7 @@ import scalafx.geometry.Insets
 import scalafx.scene.Node
 import scalafx.scene.control.{Button, Label, RadioButton, TextField, ToggleGroup}
 import scalafx.scene.layout.GridPane
+import model.fileIOComponent.jsonIOImpl.FileIO
 
 class EnterPlayernamesScreenImpl(controller: Controller) extends GridPane with EnterPlayernamesScreenInterface {
   override val textfields: Seq[TextField] = Seq(
@@ -19,6 +20,7 @@ class EnterPlayernamesScreenImpl(controller: Controller) extends GridPane with E
     new Label("Player1"),
     new Label("Player2"))
   override val nextButton: Button = new Button("next")
+
   nextButton.disable = true
   var bool1, bool2: Boolean = false
   nextButton.onMouseClicked = (_) => {
@@ -40,5 +42,6 @@ class EnterPlayernamesScreenImpl(controller: Controller) extends GridPane with E
   addColumn(0,labels.head, labels(1))
   addColumn(1, textfields.head, textfields(1))
   add(nextButton, 1,2)
+
 }
 

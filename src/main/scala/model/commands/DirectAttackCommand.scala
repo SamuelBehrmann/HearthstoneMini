@@ -11,7 +11,7 @@ import scala.util.{Success, Try, Failure}
 
 class DirectAttackCommand(controller: Controller, move: Move) extends Command {
   var memento: FieldInterface = controller.field
-
+  var errorMsg: String = ""
   override def doStep: Try[FieldInterface] = {
     if checkConditions then {
       memento = controller.field
@@ -21,7 +21,7 @@ class DirectAttackCommand(controller: Controller, move: Move) extends Command {
       then controller.nextState()
       Success(newField)
     } else
-      Failure(Exception("You can't attack directly!"))
+      Failure(Exception(errorMsg))
   }
 
 
@@ -38,8 +38,17 @@ class DirectAttackCommand(controller: Controller, move: Move) extends Command {
   }
 
   override def checkConditions: Boolean =
-    (controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined)
-      && !(controller.field.players(1).fieldbar.cardArea.row.count(_.isDefined) > 0)
-      && controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount >= 1
-      && controller.field.turns > 1
+    if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined then
+      if !(controller.field.players(1).fieldbar.cardArea.row.count(_.isDefined) > 0) then
+        if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount >= 1 then
+          if controller.field.turns > 1 then return true
+          else
+            errorMsg = "No player can attack in his first turn!"
+        else
+          errorMsg = "Each Card can only attack once each turn!"
+      else
+        errorMsg = "Make sure your Opponents field is empty before you attack directly"
+    else
+      errorMsg = "You cant attack with an empty Card slot!"
+    false
 }

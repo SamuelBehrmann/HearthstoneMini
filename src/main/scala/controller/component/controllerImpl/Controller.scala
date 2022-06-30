@@ -69,14 +69,17 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
           notifyObservers(Event.PLAY, msg = None)
      }
      def getWinner(): Option[String] = {
-          val p1Hp = field.players(0).gamebar.hp.isEmpty
+          val p1Hp = field.players.head.gamebar.hp.isEmpty
           val p2Hp = field.players(1).gamebar.hp.isEmpty
 
           if p1Hp then Some(field.players(1).name)
-          else if p2Hp then Some(field.players(0).name)
+          else if p2Hp then Some(field.players.head.name)
           else None
      }
-     def loadField = {
+     def saveField:Unit = {
+          fileIO.save(this.field)
+     }
+     def loadField:Unit = {
           this.field = fileIO.load
           nextState()
           nextState()

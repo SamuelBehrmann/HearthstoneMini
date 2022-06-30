@@ -18,7 +18,7 @@ class FileIO extends FileIOInterface {
   override def save(field: FieldInterface): Unit = {
     val pw = new PrintWriter(new File("field.json"))
     val save = Json.obj(
-      "field" -> Json.toJson(field.toJson)
+      "field" -> field.toJson
     )
     pw.write(Json.prettyPrint(save))
     pw.close()

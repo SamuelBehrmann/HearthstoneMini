@@ -23,7 +23,11 @@ object Gamebar {
         mana = Mana.fromJson((json \\ "mana").head)
     )
     def fromXML(node: Node): Gamebar = Gamebar(
-        hand = (node \\"hand" \\ "entry").map(card => Card.fromXML(card).get).toList
+        hand = (node \\"hand" \\ "entry").map(card => Card.fromXML(card).get).toList,
+        deck = (node \\"deck" \\ "entry").map(card => Card.fromXML(card).get).toList,
+        friedhof = (node \\"friedhof" \\ "entry").map(card => Card.fromXML(card).get).toArray,
+        hp = Healthpoints.fromXML((node \\ "hp").head),
+        mana = Mana.fromXML((node \\ "mana").head)
     )
 }
 case class Gamebar(hp: Healthpoints = Healthpoints(30, 30),
@@ -60,9 +64,9 @@ case class Gamebar(hp: Healthpoints = Healthpoints(30, 30),
         Json.obj(
             "hp" -> hp.toJson,
             "mana" -> mana.toJson,
-            "deck" -> deck.map(card => card.toJson),
-            "hand" -> hand.map(card => card.toJson),
-            "friedhof" -> friedhof.map(card => card.toJson)
+            "deck" -> deck.map(card => Json.obj("card" -> card.toJson)),
+            "hand" -> hand.map(card => Json.obj("card" -> card.toJson)),
+            "friedhof" -> friedhof.map(card => Json.obj("card" -> card.toJson))
         )
     def toXML: Node =
         <Player>

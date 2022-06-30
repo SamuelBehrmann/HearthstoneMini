@@ -7,12 +7,12 @@ import scala.xml.Node
 
 object Healthpoints{
     def fromJson(json: JsValue): Healthpoints = Healthpoints(
-        value = (json \\ "value").toString.toInt,
-        max = (json \\ "max").toString.toInt
+        value = (json \ "value").get.toString.toInt,
+        max = (json \ "max").get.toString.toInt
     )
     def fromXML(node: Node): Healthpoints = Healthpoints(
-            value = (node \\ "value").toString.toInt,
-            max = (node \\ "max").toString.toInt
+            value = (node \\ "value").head.text.toInt,
+            max = (node \\ "max").head.text.toInt
         )
 }
 case class Healthpoints(value: Int = 0, max: Int = 30) extends HealthpointsInterface {

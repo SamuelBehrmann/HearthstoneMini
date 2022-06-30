@@ -21,16 +21,19 @@ object FieldObject {
   val standartFieldHeight: Int = (standartFieldBarHeight + standartGameBarHeight + standartMenueBarHeight) * 2
     + FieldObject.offset
 
-  def fromJson(json: JsValue): Field = Field(
-    players = (json \ "players").validate[List[JsValue]].get.map(player => Player.fromJson(player)),
-    turns = (json \\ "turns").toString.toInt,
-    slotNum = (json \\ "slotnum").toString.toInt
-  )
+  def fromJson(json: JsValue): Field = {
+    val fieldJs = json \ "field"
+    Field(
+      players = (fieldJs \ "players").validate[List[JsValue]].get.map(player => Player.fromJson(player)),
+      turns = (fieldJs \ "turns").get.toString.toInt,
+      slotNum = (fieldJs \ "slotnum").get.toString.toInt
+    )
+  }
 
   def fromXML(node: Node): Field = Field(
-    players = (node \\ "players").map(player => Player.fromXML(player)).toList,
-    turns = (node \\ "turns").toString.toInt,
-    slotNum = (node \\ "slotnum").toString.toInt
+    players = (node \\ "players" \ "entry").map(player => Player.fromXML(player)).toList,
+    turns = (node \ "turns").head.text.toInt,
+    slotNum = (node \ "slotnum").head.text.toInt
   )
 }
 

@@ -13,8 +13,8 @@ import scala.quoted.FromExpr.NoneFromExpr
 import scala.xml.Node
 
 object Fieldbar {
-    def fromXML(node: Node): Fieldbar = Fieldbar()
-    def fromJson(json: JsValue): Fieldbar = Fieldbar()
+    def fromXML(node: Node): Fieldbar = Fieldbar(cardArea = Cardarea.fromXML(node))
+    def fromJson(json: JsValue): Fieldbar = Fieldbar(cardArea = Cardarea.fromJson(json))
 }
 
 case class Fieldbar(cardArea: CardAreaInterface = new Cardarea(FieldObject.standartSlotNum, None),
@@ -37,7 +37,7 @@ case class Fieldbar(cardArea: CardAreaInterface = new Cardarea(FieldObject.stand
         old.updateMatrix(5,0, List[String]("-" * FieldObject.standartFieldWidth))
     }
     def toJson: JsValue = Json.obj(
-        "Cardarea" -> cardArea.toJson
+        "cardarea" -> cardArea.toJson
     )
     def toXML: Node =
         <Fieldbar>

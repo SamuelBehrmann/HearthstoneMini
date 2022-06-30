@@ -1,22 +1,26 @@
 package controller.component.controllerImpl
 
-import com.google.inject.name.Names
-import com.google.inject.{Guice, Inject}
+import com.google.inject.name.{Named, Names}
+import com.google.inject.{Guice, Inject, Injector}
 import controller.GameState.*
 import controller.component.ControllerInterface
 import controller.{GameState, Strategy}
 import model.commands.*
 import model.fieldComponent.FieldInterface
 import model.Move
+import _root_.model.fileIOComponent.FileIOInterface
 import model.playerComponent.playerImpl.Player
 import net.codingwell.scalaguice.InjectorExtensions.*
-import util.{Event, Observable, UndoManager, Command}
+import util.{Command, Event, Observable, UndoManager}
+
 import java.lang.System.exit
+import java.text.Annotation
 import scala.HearthstoneMiniModule
 import scala.util.{Failure, Success, Try}
 
 case class Controller @Inject() (var field: FieldInterface) extends ControllerInterface {
-     val injector = Guice.createInjector(new HearthstoneMiniModule)
+     val injector: Injector = Guice.createInjector(new HearthstoneMiniModule)
+     val fileIO: FileIOInterface = injector.getInstance(classOf[FileIOInterface])
      var gameState: GameState = GameState.CHOOSEMODE
      private val undoManager: UndoManager = new UndoManager
 
@@ -72,8 +76,8 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
           else if p2Hp then Some(field.players(0).name)
           else None
      }
-     def loadField(field: FieldInterface) = {
-          this.field = field
+     def loadField = {
+          this.field = fileIO.load
           nextState()
           nextState()
           notifyObservers(Event.PLAY, msg = None)

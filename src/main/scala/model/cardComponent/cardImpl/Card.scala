@@ -12,38 +12,47 @@ import scala.collection.View.Empty
 import scala.xml.Node
 
 object Card {
-    given cardReads: Reads[Option[Card]] = (o:JsValue) => {
+    given cardReads: Reads[Option[Card]] = (o: JsValue) => {
         (o \ "type").validate[String] match
             case JsSuccess("MINION", _) => JsSuccess(Some(Card((o \ "name").as[String].grouped(10).toList.head,
                 (o \ "cost").as[Int], (o \ "attack").as[Int], (o \ "health").as[Int],
                 "Effect", "Rarity")))
             case JsSuccess(_, _) => JsSuccess(None)
     }
-    def fromJSON(json: JsValue): Option[Card] = json.toString() match
-        case "none" => None
-        case _ => Some(
-            Card(
-                name = (json \ "name").toString,
-                manaCost = (json \ "manaCost").toString.toInt,
-                attValue  = (json \ "attValue").toString.toInt,
-                defenseValue = (json \ "defenseValue").toString.toInt,
-                effect = (json \ "effect").toString,
-                rarity = (json \ "rarity").toString
-            )
-    )
 
-    def fromXML(node: Node) : Option[Card] = node.toString() match
-        case "none" => None
-        case _ => Some(
-            Card(
-                name = (node \\ "name").toString(),
-                manaCost = (node \\ "manaCost").toString().toInt,
-                attValue = (node \\ "attValue").toString().toInt,
-                defenseValue = (node \\ "defenseValue").toString().toInt,
-                effect = (node \\ "effect").toString(),
-                rarity = (node \\ "rarity").toString()
+    def fromJSON(json: JsValue): Option[Card] = {
+        val jsonObj = (json \ "card").get
+        jsonObj.toString.replace("\"", "") match
+            case "none" => None
+            case _ => Some(
+                Card(
+                    name = (jsonObj \ "name").get.toString.replace("\"", ""),
+                    manaCost = (jsonObj \ "manaCost").get.toString().toInt,
+                    attValue = (jsonObj \ "attValue").get.toString.toInt,
+                    defenseValue = (jsonObj \ "defenseValue").get.toString.toInt,
+                    effect = (jsonObj \ "effect").get.toString.replace("\"", ""),
+                    rarity = (jsonObj \ "rarity").get.toString.replace("\"", "")
+                )
             )
-    )
+    }
+
+
+    def fromXML(node: Node): Option[Card] = {
+        val nodeObj = node \\ "card"
+        nodeObj.head.text match {
+            case "none" => None
+            case _ => Some(
+                Card(
+                    name = (node \\ "name").head.text,
+                    manaCost = (node \\ "manaCost").head.text.toInt,
+                    attValue = (node \\ "attValue").head.text.toInt,
+                    defenseValue = (node \\ "defenseValue").head.text.toInt,
+                    effect = (node \\ "effect").head.text,
+                    rarity = (node \\ "rarity").head.text
+                )
+            )
+        }
+    }
 }
 case class Card(val name: String,
            val manaCost: Int, val attValue: Int, val defenseValue: Int,

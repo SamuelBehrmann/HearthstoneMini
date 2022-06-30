@@ -15,14 +15,14 @@ import scala.xml.Node
 
 object Player {
     def fromJson(json: JsValue): Player = Player(
-        name = (json \\ "name").toString(),
-        id = (json \\ "id").toString().toInt,
+        name = (json \\ "name").head.toString.replace("\"", ""),
+        id = (json \\ "id").head.toString().toInt,
         fieldbar = Fieldbar.fromJson((json \\ "fieldbar").head),
         gamebar = Gamebar.fromJson((json \\ "gamebar").head)
     )
     def fromXML(node: Node): Player = Player(
-        name = (node \\ "name").toString(),
-        id = (node \\ "id").toString.toInt,
+        name = (node \\ "name").head.text,
+        id = (node \\ "id").head.text.toInt,
         fieldbar =  Fieldbar.fromXML((node \\ "fieldbar").head),
         gamebar = Gamebar.fromXML((node \\ "gamebar").head)
     )
@@ -75,8 +75,8 @@ case class Player(name: String = "Player", id: Int,
       FieldObject.standartFieldWidth))
 
     override def toJson: JsValue = Json.obj(
-        "name" -> Json.toJson(name),
-        "id" -> Json.toJson(id),
+        "name" -> name,
+        "id" -> id,
         "fieldbar" -> fieldbar.toJson,
         "gamebar" -> gamebar.toJson
     )

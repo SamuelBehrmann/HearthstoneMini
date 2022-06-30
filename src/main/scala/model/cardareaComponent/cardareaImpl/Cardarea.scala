@@ -6,15 +6,19 @@ import play.api.libs.json.*
 import scala.xml.Node
 
 object Cardarea {
-    def fromXML(node: Node): Cardarea =
+    def fromXML(node: Node): Cardarea = {
+
         Cardarea(
             row = (node \\ "entry").map(card => Card.fromXML(card)).toVector
         )
+    }
 
-    def fromJson(json: JsValue): Cardarea =
+    def fromJson(json: JsValue): Cardarea = {
+        val jsonObj = json \ "cardarea"
         Cardarea(
-            row = (json \ "row").validate[List[JsValue]].get.map(card => Card.fromJSON(card)).toVector
+            row = (jsonObj\ "row").validate[List[JsValue]].get.map(card => Card.fromJSON(card)).toVector
         )
+    }
 }
 
 case class Cardarea(row: Vector[Option[Card]]) extends CardAreaInterface:
@@ -35,14 +39,14 @@ case class Cardarea(row: Vector[Option[Card]]) extends CardAreaInterface:
         }
     )
     override def toJson: JsValue = Json.obj(
-        "row" -> row.map(card => card.fold(Json.obj("none" -> "none"))(card => card.toJson)).toList
+        "row" -> row.map(card => card.fold(Json.obj("card" -> "none"))(card => Json.obj("card" -> card.toJson))).toList
     )
     override def toXML: Node =
         <Cardarea>
             <row>
                 {row.map(card =>
                 <entry>
-                    {card.fold("none")(card => card.toXML)})
+                    {card.fold(<card>{"none"}</card>)(card => <card>{card.toXML}</card>)}
                 </entry>
             )}
             </row>

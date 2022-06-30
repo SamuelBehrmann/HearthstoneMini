@@ -5,7 +5,7 @@ import controller.component.controllerImpl.Controller
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
 import model.fieldComponent.FieldInterface
-import model.fileIOComponent.jsonIOImpl.FileIO
+import model.fileIOComponent.xmlIOImpl.FileIO
 import scalafx.geometry.Insets
 import scalafx.scene.Node
 import scalafx.scene.control.{Button, RadioButton, ToggleGroup}
@@ -22,7 +22,7 @@ class ModeSelectionScreenImpl(controller: Controller) extends GridPane with Mode
     controller.setStrategy(radiogroup.getSelectedToggle.getUserData.asInstanceOf[FieldInterface])
 
   val loadButton: Button = new Button("load")
-  loadButton.onMouseClicked = (_) => controller.loadField(fileio.load)
+  loadButton.onMouseClicked = (_) => controller.loadField
 
   radiobuttons(0).setUserData(Strategy.normalStrategy())
   radiobuttons(1).setUserData(Strategy.hardcoreStrategy())

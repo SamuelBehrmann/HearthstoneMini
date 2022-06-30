@@ -8,13 +8,13 @@ import scala.xml.Node
 object Mana{
     def fromJson(json: JsValue): Mana =
         Mana(
-            value = (json \\ "value").toString.toInt,
-            max = (json \\ "max").toString.toInt
+            value = (json \ "value").get.toString.toInt,
+            max = (json \ "max").get.toString.toInt
     )
     def fromXML(node: Node): Mana =
         Mana(
-            value = (node \\ "value").toString.toInt,
-            max = (node \\ "max").toString.toInt
+            value = (node \\ "value").head.text.toInt,
+            max = (node \\ "max").head.text.toInt
         )
 }
 case class Mana(value: Int = 1, max: Int = 1) extends ManaInterface {

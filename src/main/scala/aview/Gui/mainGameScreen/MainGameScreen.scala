@@ -13,7 +13,7 @@ import scalafx.scene.control.*
 import scalafx.scene.layout.GridPane
 import javafx.scene.layout.GridPane.getColumnIndex
 import model.cardComponent.cardImpl.Card
-import model.fileIOComponent.jsonIOImpl.FileIO
+import model.fileIOComponent.xmlIOImpl.FileIO
 import scalafx.scene.paint.Color.{Black, Blue, Green, Grey, Red, White}
 import scalafx.scene.shape.Rectangle
 

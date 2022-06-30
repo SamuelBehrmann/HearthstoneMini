@@ -8,11 +8,13 @@ import model.fieldComponent.fieldImpl.FieldObject
 import model.matrixComponent.matrixImpl.Matrix
 import play.api.libs.json.*
 
+import scala.annotation.nowarn
 import scala.collection.View.Empty
 import scala.xml.Node
 
 object Card {
-    given cardReads: Reads[Option[Card]] = (o: JsValue) => {
+    @nowarn
+    given cardReads: Reads[Option[Card]] = (o:JsValue) => {
         (o \ "type").validate[String] match
             case JsSuccess("MINION", _) => JsSuccess(Some(Card((o \ "name").as[String].grouped(10).toList.head,
                 (o \ "cost").as[Int], (o \ "attack").as[Int], (o \ "health").as[Int],

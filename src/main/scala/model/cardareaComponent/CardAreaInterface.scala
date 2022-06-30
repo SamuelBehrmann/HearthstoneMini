@@ -1,5 +1,8 @@
 package model.cardareaComponent
 import model.cardComponent.cardImpl.Card
+import play.api.libs.json.JsValue
+
+import scala.xml.Node
 
 trait CardAreaInterface {
   val row: Vector[Option[Card]]
@@ -9,5 +12,7 @@ trait CardAreaInterface {
   def reduceDefVal(slotNum: Int, amount: Int): CardAreaInterface
   def reduceAttackCount(slotNum: Int): CardAreaInterface
   def resetAttackCount(): CardAreaInterface
+  def toJson: JsValue
+  def toXML: Node
 }
 

@@ -4,8 +4,9 @@ import model.cardComponent.cardImpl.Card
 import model.fieldComponent.FieldInterface
 import model.playerComponent.playerImpl.Player
 import model.matrixComponent.matrixImpl.Matrix
-
+import play.api.libs.json.*
 import javax.inject.Inject
+import scala.xml.Node
 
 object FieldObject {
   val offset: Int = 1
@@ -19,6 +20,18 @@ object FieldObject {
   val standartFieldWidth: Int = standartSlotNum * standartSlotWidth
   val standartFieldHeight: Int = (standartFieldBarHeight + standartGameBarHeight + standartMenueBarHeight) * 2
     + FieldObject.offset
+
+  def fromJson(json: JsValue): Field = Field(
+    players = (json \ "players").validate[List[JsValue]].get.map(player => Player.fromJson(player)),
+    turns = (json \\ "turns").toString.toInt,
+    slotNum = (json \\ "slotnum").toString.toInt
+  )
+
+  def fromXML(node: Node): Field = Field(
+    players = (node \\ "players").map(player => Player.fromXML(player)).toList,
+    turns = (node \\ "turns").toString.toInt,
+    slotNum = (node \\ "slotnum").toString.toInt
+  )
 }
 
 case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldHeight,
@@ -92,4 +105,16 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
       + FieldObject.standartFieldBarHeight, 0, getPlayerById(2).toMatrix)
 
   override def toString: String = toMatrix.rows.map(_.mkString("|", "", "|\n")).mkString
+
+  override def toJson: JsValue = Json.obj(
+    "players" -> players.map(player => player.toJson),
+    "slotnum" -> Json.toJson(slotNum),
+    "turns" -> Json.toJson(turns)
+  )
+  override def toXML: Node =
+    <Field>
+      <players>{players.map(player => <entry> {player.toXML}</entry>)}</players>
+      <slotnum>{slotNum.toString}</slotnum>
+      <turns>{turns.toString}</turns>
+    </Field>
 }

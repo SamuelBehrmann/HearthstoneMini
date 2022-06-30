@@ -10,10 +10,24 @@ import scala.compiletime.ops.string
 import model.healthpointsComponent.healthpointsImpl.Healthpoints
 import model.manaComponent.manaImpl.Mana
 import model.gamebarComponent.GamebarInterface
-import util.CardProvider
+import play.api.libs.json.*
+import _root_.util.CardProvider
 
-case class Gamebar(hp: Healthpoints = new Healthpoints(30, 30),
-                   mana: Mana = new Mana(),
+import scala.xml.Node
+object Gamebar {
+    def fromJson(json: JsValue): Gamebar = Gamebar(
+        hand = (json \ "hand").validate[List[JsValue]].get.map(card => Card.fromJSON(card).get),
+        deck = (json \ "deck").validate[List[JsValue]].get.map(card => Card.fromJSON(card).get),
+        friedhof = (json \ "friedhof").validate[List[JsValue]].get.map(card => Card.fromJSON(card).get).toArray,
+        hp = Healthpoints.fromJson((json \\ "hp").head),
+        mana = Mana.fromJson((json \\ "mana").head)
+    )
+    def fromXML(node: Node): Gamebar = Gamebar(
+        hand = (node \\"hand" \\ "entry").map(card => Card.fromXML(card).get).toList
+    )
+}
+case class Gamebar(hp: Healthpoints = Healthpoints(30, 30),
+                   mana: Mana = Mana(),
                    hand: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(5),
                    deck: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(30),
                    friedhof: Array[Card] = Array[Card]()) extends GamebarInterface{
@@ -37,10 +51,25 @@ case class Gamebar(hp: Healthpoints = new Healthpoints(30, 30),
         hand.zipWithIndex.foreach((elem,index) => tmpMatrix = tmpMatrix.updateMatrixWithMatrix(0, FieldObject.standartSlotWidth * index + 1, hand(index).toMatrix))
         tmpMatrix
     }
-
     def toMatrix: Matrix[String] = new Matrix[String](FieldObject.standartGameBarHeight, FieldObject.standartFieldWidth, " ")
     .updateMatrix(0,0,List[String]("\u001b[32mHP: " + hp.toString + " \u001b[0;34mMana: " + mana.toString + "\u001b[0;37m"))
     .updateMatrix(0,FieldObject.standartFieldWidth - 2, List[String]("\u001b[0;31mDeck: " + deck.length + "  Friedhof: " + friedhof.length + "\u001b[0;37m"))
     .updateMatrixWithMatrix(1,0, handAsMatrix())
     .updateMatrix(6,0,List[String]("-" * FieldObject.standartFieldWidth))
+    def toJson: JsValue =
+        Json.obj(
+            "hp" -> hp.toJson,
+            "mana" -> mana.toJson,
+            "deck" -> deck.map(card => card.toJson),
+            "hand" -> hand.map(card => card.toJson),
+            "friedhof" -> friedhof.map(card => card.toJson)
+        )
+    def toXML: Node =
+        <Player>
+            <hp>{hp.toXML}</hp>
+            <mana>{mana.toXML}</mana>
+            <hand>{hand.map(card => <entry>{card.toXML}</entry>)}</hand>
+            <deck>{deck.map(card => <entry>{card.toXML}</entry>)}</deck>
+            <friedhof>{friedhof.map(card => <entry>{card.toXML}</entry>)}</friedhof>
+        </Player>
 }

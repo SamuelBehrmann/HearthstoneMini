@@ -4,7 +4,6 @@ import controller.component.ControllerInterface
 import controller.Strategy
 import controller.component.controllerImpl.Controller
 import scalafx.event.EventHandler
-
 import scalafx.scene.input.MouseEvent
 import model.Move
 import scalafx.geometry.Insets
@@ -14,6 +13,7 @@ import scalafx.scene.control.*
 import scalafx.scene.layout.GridPane
 import javafx.scene.layout.GridPane.getColumnIndex
 import model.cardComponent.cardImpl.Card
+import model.fileIOComponent.jsonIOImpl.FileIO
 import scalafx.scene.paint.Color.{Black, Blue, Green, Grey, Red, White}
 import scalafx.scene.shape.Rectangle
 
@@ -188,8 +188,10 @@ class MainGameScreen(controller: Controller) extends GridPane {
     }
     mainGrid
   }
-
+  val fileio = new FileIO
   def renderButtonGrid(): GridPane = new GridPane {
+    val saveButton = new Button("save")
+    saveButton.onMouseClicked = (_) => fileio.save(controller.field)
     hgap = 10
     val switchButton = new Button("end turn")
     switchButton.onMouseClicked = (_) => controller.switchPlayer()
@@ -201,6 +203,7 @@ class MainGameScreen(controller: Controller) extends GridPane {
     add(switchButton,0,2)
     add(undoButton,1,2)
     add(redoButton,2,2)
+    add(saveButton,3,2)
   }
 }
 

@@ -2,8 +2,22 @@ package model.cardareaComponent.cardareaImpl
 
 import model.cardareaComponent.CardAreaInterface
 import model.cardComponent.cardImpl.Card
+import play.api.libs.json.*
+import scala.xml.Node
 
-case class Cardarea[A](row: Vector[Option[Card]]) extends CardAreaInterface:
+object Cardarea {
+    def fromXML(node: Node): Cardarea =
+        Cardarea(
+            row = (node \\ "entry").map(card => Card.fromXML(card)).toVector
+        )
+
+    def fromJson(json: JsValue): Cardarea =
+        Cardarea(
+            row = (json \ "row").validate[List[JsValue]].get.map(card => Card.fromJSON(card)).toVector
+        )
+}
+
+case class Cardarea(row: Vector[Option[Card]]) extends CardAreaInterface:
     def this(size: Int, filling: Option[Card]) = this(Vector.tabulate(size) { (row) => filling })
     override val size: Int = row.size
     override def slot(slotNum: Int): Option[Card] = row(slotNum)
@@ -15,9 +29,22 @@ case class Cardarea[A](row: Vector[Option[Card]]) extends CardAreaInterface:
     override def resetAttackCount(): CardAreaInterface = copy(
         {
             var old = row
-            row.zipWithIndex.foreach((card, index) => old = old.updated(index, card.fold(None)((card) => 
+            row.zipWithIndex.foreach((card, index) => old = old.updated(index, card.fold(None)(card =>
                 Some(card.resetAttackCount()))))
             old
         }
     )
+    override def toJson: JsValue = Json.obj(
+        "row" -> row.map(card => card.fold(Json.obj("none" -> "none"))(card => card.toJson)).toList
+    )
+    override def toXML: Node =
+        <Cardarea>
+            <row>
+                {row.map(card =>
+                <entry>
+                    {card.fold("none")(card => card.toXML)})
+                </entry>
+            )}
+            </row>
+    </Cardarea>
 

@@ -72,4 +72,10 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
           else if p2Hp then Some(field.players(0).name)
           else None
      }
+     def loadField(field: FieldInterface) = {
+          this.field = field
+          nextState()
+          nextState()
+          notifyObservers(Event.PLAY, msg = None)
+     }
 }

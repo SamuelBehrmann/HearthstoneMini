@@ -1,5 +1,8 @@
 package model.playerComponent
 import model.matrixComponent.matrixImpl.Matrix
+import play.api.libs.json.JsValue
+
+import scala.xml.Node
 
 trait PlayerInterface {
   def placeCard(handSlot: Int, fieldSlot: Int ): PlayerInterface
@@ -16,12 +19,10 @@ trait PlayerInterface {
   def toMatrix: Matrix[String]
   def reduceAttackCount(slotNum: Int): PlayerInterface
   def reduceDefVal(slotNum: Int, amount: Int): PlayerInterface
-
   def resetAttackCount(): PlayerInterface
-
   def renderUnevenId(): Matrix[String]
-
-  def renderEvenId(): Matrix[String] 
-
+  def renderEvenId(): Matrix[String]
   def menueBar(): Matrix[String]
+  def toJson: JsValue
+  def toXML: Node
 }

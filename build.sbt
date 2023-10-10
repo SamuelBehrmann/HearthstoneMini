@@ -1,6 +1,6 @@
 import sbt.Keys.libraryDependencies
 
-val scala3Version = "3.1.1"
+val scala3Version = "3.3.1"
 
 lazy val root = project
   .in(file("."))
@@ -13,7 +13,7 @@ lazy val root = project
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.12",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.12" % "test",
 
-    libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R25",
+    libraryDependencies += "org.scalafx" % "scalafx_3" % "20.0.0-R31",
 
     libraryDependencies ++= {
       // Determine OS version of JavaFX binaries
@@ -24,7 +24,7 @@ lazy val root = project
         case _ => throw new Exception("Unknown platform!")
       }
       Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
-        .map(m => "org.openjfx" % s"javafx-$m" % "16" classifier osName)
+        .map(m => "org.openjfx" % s"javafx-$m" % "20")
     },
 
     libraryDependencies += "com.google.inject.extensions" % "guice-assistedinject" % "5.1.0",

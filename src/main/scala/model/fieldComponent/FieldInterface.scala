@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.fieldComponent
 
 import model.cardComponent.cardImpl.Card

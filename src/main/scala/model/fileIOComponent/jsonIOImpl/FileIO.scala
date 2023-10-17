@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.fileIOComponent.jsonIOImpl
 import model.fieldComponent.FieldInterface
 import model.fieldComponent.fieldImpl.{Field, FieldObject}

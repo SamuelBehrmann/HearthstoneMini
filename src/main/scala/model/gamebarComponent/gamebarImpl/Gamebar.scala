@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.gamebarComponent.gamebarImpl
 
 import model.cardComponent.cardImpl.Card
@@ -11,9 +12,10 @@ import model.healthpointsComponent.healthpointsImpl.Healthpoints
 import model.manaComponent.manaImpl.Mana
 import model.gamebarComponent.GamebarInterface
 import play.api.libs.json.*
-import _root_.util.CardProvider
+
 
 import scala.xml.Node
+import hearthstoneMini.util.CardProvider
 object Gamebar {
     def fromJson(json: JsValue): Gamebar = Gamebar(
         hand = (json \ "hand").validate[List[JsValue]].get.map(card => Card.fromJSON(card).get),
@@ -32,8 +34,8 @@ object Gamebar {
 }
 case class Gamebar(hp: Healthpoints = Healthpoints(30, 30),
                    mana: Mana = Mana(),
-                   hand: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(5),
-                   deck: List[Card] = new CardProvider("src/main/scala/model/json/cards.json").getCards(30),
+                   hand: List[Card] = new CardProvider("/json/cards.json").getCards(5),
+                   deck: List[Card] = new CardProvider("/json/cards.json").getCards(30),
                    friedhof: Array[Card] = Array[Card]()) extends GamebarInterface{
 
     def removeCardFromHand(slot: Int): Gamebar = copy(hand = hand.filter(_ != hand(slot)))

@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.commands
 
 import model.Move

@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model
 
 import model.cardareaComponent.cardareaImpl.Cardarea

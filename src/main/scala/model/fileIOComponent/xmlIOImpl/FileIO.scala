@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.fileIOComponent.xmlIOImpl
 
 import com.google.inject.Guice
@@ -5,7 +6,6 @@ import com.google.inject.name.Names
 import model.fieldComponent.FieldInterface
 import net.codingwell.scalaguice.InjectorExtensions.*
 
-import scala.HearthstoneMiniModule
 import model.fileIOComponent.FileIOInterface
 import model.fieldComponent.fieldImpl.{Field, FieldObject}
 

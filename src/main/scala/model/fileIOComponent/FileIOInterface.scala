@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.fileIOComponent
 
 import model.fieldComponent.FieldInterface

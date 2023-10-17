@@ -1,3 +1,4 @@
+package hearthstoneMini
 package aview.Gui.modeSelectionScreen
 
 import javafx.event.EventHandler

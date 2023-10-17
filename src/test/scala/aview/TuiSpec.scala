@@ -1,3 +1,4 @@
+package hearthstoneMini
 package aview
 
 import controller.component.controllerImpl.Controller

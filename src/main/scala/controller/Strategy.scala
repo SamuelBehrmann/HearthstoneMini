@@ -1,3 +1,4 @@
+package hearthstoneMini
 package controller
 
 import model.fieldComponent.fieldImpl.Field

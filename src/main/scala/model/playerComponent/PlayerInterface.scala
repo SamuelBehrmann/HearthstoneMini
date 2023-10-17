@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.playerComponent
 import model.matrixComponent.matrixImpl.Matrix
 import play.api.libs.json.JsValue

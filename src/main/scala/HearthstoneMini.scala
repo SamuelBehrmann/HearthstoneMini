@@ -1,3 +1,5 @@
+package hearthstoneMini
+
 
 import aview.Gui.GUIApp
 import model.*
@@ -17,18 +19,20 @@ import org.scalactic.Bool
 import scala.annotation.nowarn
 import scala.io.StdIn
 
-@main
-def run: Unit = {
+object HearthstoneMini {
     val controller = Controller(new Field(5))
     val tui = Tui(controller)
     val GUI = new GUIApp(controller)
-    tui.update(Event.PLAY, None)
-    while (controller.gameState != GameState.EXIT && controller.gameState != GameState.WIN) do {
-        tui.onInput(StdIn.readLine())
+
+    def main(args: Array[String]): Unit = {
+        tui.update(Event.PLAY, None)
+        
+        while (controller.gameState != GameState.EXIT && controller.gameState != GameState.WIN) do {
+            tui.onInput(StdIn.readLine())
+        }
     }
-
-
 }
+
 
 
 

@@ -1,7 +1,7 @@
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-import model.playerComponent.playerImpl
+import hearthstoneMini.model.playerComponent.playerImpl
 import hearthstoneMini.controller.component.controllerImpl.Controller
 import hearthstoneMini.model.fieldComponent.fieldImpl.Field
 import hearthstoneMini.model.gamebarComponent.gamebarImpl.Gamebar

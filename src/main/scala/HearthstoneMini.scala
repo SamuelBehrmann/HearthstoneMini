@@ -1,6 +1,5 @@
 package hearthstoneMini
 
-
 import aview.Gui.GUIApp
 import model.*
 import controller.GameState
@@ -23,7 +22,7 @@ object HearthstoneMini {
     val controller = Controller(new Field(5))
     val tui = Tui(controller)
     val GUI = new GUIApp(controller)
-
+    
     def main(args: Array[String]): Unit = {
         tui.update(Event.PLAY, None)
         

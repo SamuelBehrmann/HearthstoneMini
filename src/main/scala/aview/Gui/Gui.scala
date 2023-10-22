@@ -42,6 +42,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       }
     }
   }
+  
   def showWinDialog = {
     val exitButton = new ButtonType("Exit")
     val alert = new Alert(AlertType.Confirmation) {

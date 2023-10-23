@@ -9,6 +9,7 @@ import model.fieldComponent.fieldImpl.Field
 import scala.io.StdIn
 import scala.io.StdIn.readLine
 import util.Event
+import scalafx.scene.text.FontWeight.Bold
 
 object HearthstoneMini {
   val hearthstoneMiniRunner = new HearthstoneMiniRunner()
@@ -18,16 +19,19 @@ object HearthstoneMini {
   }
 }
 
-class HearthstoneMiniRunner(initGUI: Boolean = false) {
+class HearthstoneMiniRunner(initGUI: Boolean = false, initTUI: Boolean = false) {
   val controller: Controller = Controller(new Field(5))
-  val tui: Tui = Tui(controller)
+  val optionalTui: Option[Tui] = if (initGUI) Some(new Tui(controller)) else None
   val optionalGUI: Option[GUIApp] = if (initGUI) Some(new GUIApp(controller)) else None
-
+  
   def play(): Unit = {
-    tui.update(Event.PLAY, None)
-    while controller.gameState != GameState.EXIT && controller.gameState != GameState.WIN do {
-      tui.onInput(StdIn.readLine())
-    }
+    optionalTui.fold(null)( 
+      tui => 
+        tui.update(Event.PLAY, None)
+        while controller.gameState != GameState.EXIT && controller.gameState != GameState.WIN do {
+          tui.onInput(StdIn.readLine())
+        }
+    )
   }
 }
 

@@ -42,8 +42,23 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       }
     }
   }
+
+  def showErrorDialog(msg: Option[String]) = {
+    val exitButton = new ButtonType("close")
+    val alert = new Alert(AlertType.Warning) {
+      title = "Unable to proceed!"
+      headerText = s"${msg.fold("")(msg => msg)}"
+      buttonTypes = Seq(exitButton)
+    }
+
+    val result = alert.showAndWait()
+    result match {
+      case _ => alert.close()
+    }
+  }
+
   
-  def showWinDialog = {
+  def showWinDialog: Unit = {
     val exitButton = new ButtonType("Exit")
     val alert = new Alert(AlertType.Confirmation) {
       title = "Congratulations!"

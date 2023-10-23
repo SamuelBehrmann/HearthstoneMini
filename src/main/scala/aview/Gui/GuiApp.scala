@@ -18,7 +18,7 @@ class GUIApp(val controller:Controller) extends Observer {
     override def update(e: Event, msg: Option[String]) = {
         Platform.runLater{
             e match {
-                case Event.ERROR =>
+                case Event.ERROR => gui.showErrorDialog(msg)
                 case Event.EXIT => gui.stopApp()
                 case Event.PLAY => gui.start()
             }

@@ -11,6 +11,7 @@ import scala.util.{Failure, Success, Try}
 class AttackCommand(controller: Controller, move: Move) extends Command {
   var memento: FieldInterface = controller.field
   var newField: FieldInterface = null
+  var errorMsg: String = ""
 
   override def doStep: Try[FieldInterface] = {
     if checkConditions then {
@@ -26,7 +27,7 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
       then controller.nextState()
       Success(newField)
     }
-    else Failure(Exception("you can't attack!"))
+    else Failure(Exception(errorMsg))
   }
   
   override def undoStep: Unit = {
@@ -42,9 +43,17 @@ class AttackCommand(controller: Controller, move: Move) extends Command {
   }
 
   override def checkConditions: Boolean =
-    controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined
-      && controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).isDefined
-      && controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount >= 1
-      && controller.field.turns > 1
-
+    if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).isDefined then
+      if controller.field.players(1).fieldbar.cardArea.slot(move.fieldSlotInactive).isDefined then
+        if controller.field.players.head.fieldbar.cardArea.slot(move.fieldSlotActive).get.attackCount >= 1 then
+          if controller.field.turns > 1 then return true
+          else
+            errorMsg = "No player can attack in his first turn!"
+        else
+          errorMsg = "Each Card can only attack once each turn!"
+      else
+        errorMsg = "Make sure you select a Card of your Opponent"
+    else
+      errorMsg = "You cant attack with an empty Card slot!"
+    false
 }

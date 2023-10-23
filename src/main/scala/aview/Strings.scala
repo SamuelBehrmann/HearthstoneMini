@@ -16,7 +16,7 @@ object Strings {
   val istDranMsg: String = " ist dran!"
   val gewonnenMsg: String = " hat gewonnen!!"
   val commands: String = "place(hand,solt) | d-draw() | a-attack(yours, theirs) |" +
-    " e-direct attack | " + "s-Endturn | z-undo | y-redo | q-Quit"
+    " e-direct attack | " + "s-Endturn |" + "\n" + " z-undo | y-redo | q-Quit"
   val cleanScreen: String = "\u001b[2J"
   val colorYellow: String = "\u001b[33m"
   val boldText: String = "\u001b[1m"

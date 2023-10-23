@@ -12,7 +12,7 @@ import util.Event
 
 object HearthstoneMini {
   val hearthstoneMiniRunner = new HearthstoneMiniRunner()
-  
+
   def main(args: Array[String]): Unit = {
     hearthstoneMiniRunner.play()
   }

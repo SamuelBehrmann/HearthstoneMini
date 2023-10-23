@@ -1,5 +1,5 @@
 import sbt.Keys.libraryDependencies
-val scala3Version = "3.3.1";
+val scala3Version = "3.3.1"
 
 assemblyMergeStrategy in assembly := {
  case PathList("META-INF", _*) => MergeStrategy.discard

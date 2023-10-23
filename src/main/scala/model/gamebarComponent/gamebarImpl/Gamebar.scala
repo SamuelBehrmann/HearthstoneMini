@@ -57,11 +57,13 @@ case class Gamebar(hp: Healthpoints = Healthpoints(30, 30),
         hand.zipWithIndex.foreach((elem,index) => tmpMatrix = tmpMatrix.updateMatrixWithMatrix(0, FieldObject.standartSlotWidth * index + 1, hand(index).toMatrix))
         tmpMatrix
     }
+
     def toMatrix: Matrix[String] = new Matrix[String](FieldObject.standartGameBarHeight, FieldObject.standartFieldWidth, " ")
-    .updateMatrix(0,0,List[String]("\u001b[32mHP: " + hp.toString + " \u001b[0;34mMana: " + mana.toString + "\u001b[0;37m"))
-    .updateMatrix(0,FieldObject.standartFieldWidth - 2, List[String]("\u001b[0;31mDeck: " + deck.length + "  Friedhof: " + friedhof.length + "\u001b[0;37m"))
-    .updateMatrixWithMatrix(1,0, handAsMatrix())
-    .updateMatrix(6,0,List[String]("-" * FieldObject.standartFieldWidth))
+      .updateMatrix(0, 0, List[String]("HP: " + hp.toString + " Mana: " + mana.toString))
+      .updateMatrix(0, FieldObject.standartFieldWidth - 22, List[String]("Deck: " + deck.length + "  Friedhof: " + friedhof.length))
+      .updateMatrixWithMatrix(1, 0, handAsMatrix())
+      .updateMatrix(6, 0, List[String]("-" * FieldObject.standartFieldWidth))
+
     def toJson: JsValue =
         Json.obj(
             "hp" -> hp.toJson,

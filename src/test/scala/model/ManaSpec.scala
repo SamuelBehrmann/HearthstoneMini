@@ -6,9 +6,13 @@ import hearthstoneMini.model.manaComponent.manaImpl.Mana
 class ManaSpec extends AnyWordSpec with Matchers {
   val testMana = Mana(50,100)
   "Mana" when {
-    // "value is set" should {
-    //   testMana.setVal(40).value should be (40)
-    // }
+   "Mana Set" when { 
+      "value is set" should {
+        "set to new value" in {
+          testMana.setVal(40).value should be (40)
+        }
+      }
+    }
     "Mana decrease" when {
       "initialized with 100" should {
         val setMana = Mana(100, 100)
@@ -41,14 +45,15 @@ class ManaSpec extends AnyWordSpec with Matchers {
           afterAlter.max should be(setMana.max + 1)
           afterAlter.value should be(setMana.max + 1)
         }
+        "when increased" in {
+          testMana.increase(20).value should be (70)
+        }
       }
     }
-    // "when is empty" should {
-    //   testMana.setVal(0).isEmpty should be (true)
-    // }
-    // "when increased" should {
-    //   testMana.increase(20).value should be (70)
-    // }
+    "when is empty" should {
+      "be empty" in {
+        testMana.setVal(0).isEmpty should be (true)
+      }
+    } 
   }
-
 }

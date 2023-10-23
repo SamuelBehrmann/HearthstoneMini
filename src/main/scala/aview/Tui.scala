@@ -1,3 +1,4 @@
+package hearthstoneMini
 package aview
 
 import model.Move
@@ -85,5 +86,9 @@ class Tui(controller: Controller) extends Observer {
             case 'z' => controller.undo
             case 'y' => controller.redo
     }
+    override def toString(): String =  controller.field.players(0).name + " ist dran!" +
+        "\n" + controller.field.toString + 
+        "\np-place(hand,solt) | d-draw() | a-attack(yours, theirs) | e-direct attack | " +
+          "s-Endturn | z-undo | y-redo | q-Quit\u001b[0m"
 }
 

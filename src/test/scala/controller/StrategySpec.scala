@@ -1,3 +1,4 @@
+package hearthstoneMini
 package controller
 
 import org.scalatest.matchers.should.Matchers

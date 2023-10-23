@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model
 import model.cardComponent.cardImpl.Card
 import model.cardComponent.cardImpl.EmptyCard

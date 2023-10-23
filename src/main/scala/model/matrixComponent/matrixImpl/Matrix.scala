@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.matrixComponent.matrixImpl
 
 import model.matrixComponent.MatrixInterface

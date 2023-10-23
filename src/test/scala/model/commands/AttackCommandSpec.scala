@@ -1,19 +1,14 @@
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import controller.component.controllerImpl.Controller
-import model.commands.{AttackCommand, PlaceCardCommand}
-import util.Observer
-import controller.component.controllerImpl.Controller
-import model.commands.{AttackCommand, PlaceCardCommand}
-import util.Observer
-import model.cardComponent.cardImpl.{Card, EmptyCard}
-import model.gamebarComponent.gamebarImpl.Gamebar
-import model.manaComponent.manaImpl.Mana
-import model.playerComponent.playerImpl
-import model.playerComponent.playerImpl.Player
-import model.fieldComponent.fieldImpl.Field
-import model.Move
-import model.healthpointsComponent.healthpointsImpl.Healthpoints
+import _root_.hearthstoneMini.model.cardComponent.cardImpl.Card
+import _root_.hearthstoneMini.model.fieldComponent.fieldImpl.Field
+import _root_.hearthstoneMini.model.playerComponent.playerImpl.Player
+import _root_.hearthstoneMini.model.gamebarComponent.gamebarImpl.Gamebar
+import _root_.hearthstoneMini.model.Move
+import _root_.hearthstoneMini.model.healthpointsComponent.healthpointsImpl.Healthpoints
+import hearthstoneMini.model.commands.AttackCommand
+import hearthstoneMini.controller.component.controllerImpl.Controller
+import hearthstoneMini.model.manaComponent.manaImpl.Mana
 
 class AttackCommandSpec extends AnyWordSpec with Matchers {
   val testCards = List[Card](Card("test1", 1, 1, 1, "testEffect1", "testRarety1"),
@@ -21,8 +16,8 @@ class AttackCommandSpec extends AnyWordSpec with Matchers {
     Card("test1", 1, 1, 20, "testEffect1", "testRarety1"))
 
   "A controller" should {
-    val controller = Controller(Field(slotNum = 5, players = List[Player](playerImpl.Player(id = 1, gamebar = Gamebar(hand = testCards, hp = Healthpoints(1,1), mana = Mana(100,100)))
-      , playerImpl.Player(id = 2, gamebar = Gamebar(hand = testCards, hp = Healthpoints(1,1),mana = Mana(100,100))))))
+    val controller = Controller(Field(slotNum = 5, players = List[Player](Player(id = 1, gamebar = Gamebar(hand = testCards, hp = Healthpoints(1,1), mana = Mana(100,100)))
+      ,Player(id = 2, gamebar = Gamebar(hand = testCards, hp = Healthpoints(1,1),mana = Mana(100,100))))))
       controller.placeCard(Move(1,1))
       controller.switchPlayer()
       controller.placeCard(Move(0,1))

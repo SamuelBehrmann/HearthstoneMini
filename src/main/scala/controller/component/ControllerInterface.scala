@@ -1,3 +1,4 @@
+package hearthstoneMini
 package controller.component
 import model.Move
 import model.fieldComponent.FieldInterface

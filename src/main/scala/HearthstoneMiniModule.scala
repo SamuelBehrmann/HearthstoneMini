@@ -1,4 +1,4 @@
-package scala
+package hearthstoneMini
 
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names

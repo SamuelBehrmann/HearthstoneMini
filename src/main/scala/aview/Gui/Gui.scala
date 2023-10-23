@@ -1,3 +1,4 @@
+package hearthstoneMini
 package aview.Gui
 
 import aview.Gui.enterPlayernamesScreen.EnterPlayernamesScreenImpl
@@ -41,6 +42,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
       }
     }
   }
+
   def showErrorDialog(msg: Option[String]) = {
     val exitButton = new ButtonType("close")
     val alert = new Alert(AlertType.Warning) {
@@ -55,6 +57,7 @@ class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
     }
   }
 
+  
   def showWinDialog: Unit = {
     val exitButton = new ButtonType("Exit")
     val alert = new Alert(AlertType.Confirmation) {

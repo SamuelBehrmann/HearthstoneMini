@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.healthpointsComponent
 
 import model.healthpointsComponent.healthpointsImpl.Healthpoints

@@ -1,3 +1,4 @@
+package hearthstoneMini
 package controller
 
 object GameState extends Enumeration {

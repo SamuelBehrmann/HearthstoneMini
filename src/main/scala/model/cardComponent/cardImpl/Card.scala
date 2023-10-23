@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.cardComponent.cardImpl
 
 import com.fasterxml.jackson.databind.JsonSerializable

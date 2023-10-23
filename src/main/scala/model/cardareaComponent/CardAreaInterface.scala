@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.cardareaComponent
 import model.cardComponent.cardImpl.Card
 import play.api.libs.json.JsValue

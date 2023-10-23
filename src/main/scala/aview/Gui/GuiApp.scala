@@ -1,3 +1,4 @@
+package hearthstoneMini
 package aview.Gui
 
 import aview.Gui.GUI

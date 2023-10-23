@@ -1,3 +1,4 @@
+package hearthstoneMini
 package model.manaComponent.manaImpl
 
 import model.manaComponent.ManaInterface

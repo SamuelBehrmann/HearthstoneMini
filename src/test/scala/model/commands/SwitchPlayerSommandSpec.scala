@@ -1,4 +1,5 @@
 
+package hearthstoneMini
 package model.commands
 
 import org.scalatest.matchers.should.Matchers

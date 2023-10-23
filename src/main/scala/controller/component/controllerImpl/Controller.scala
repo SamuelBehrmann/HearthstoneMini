@@ -1,3 +1,4 @@
+package hearthstoneMini
 package controller.component.controllerImpl
 
 import com.google.inject.name.{Named, Names}
@@ -8,14 +9,13 @@ import controller.{GameState, Strategy}
 import model.commands.*
 import model.fieldComponent.FieldInterface
 import model.Move
-import _root_.model.fileIOComponent.FileIOInterface
+import model.fileIOComponent.FileIOInterface
 import model.playerComponent.playerImpl.Player
 import net.codingwell.scalaguice.InjectorExtensions.*
 import util.{Command, Event, Observable, UndoManager}
 
 import java.lang.System.exit
 import java.text.Annotation
-import scala.HearthstoneMiniModule
 import scala.util.{Failure, Success, Try}
 
 case class Controller @Inject() (var field: FieldInterface) extends ControllerInterface {

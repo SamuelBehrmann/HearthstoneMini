@@ -173,15 +173,15 @@ class MainGameScreen(controller: Controller) extends GridPane {
       val thatNodesX = getColumnIndex(event.getGestureSource.asInstanceOf[Node])
       if (event.getSource.asInstanceOf[Node].getParent.getId == "fieldbar" &&
         event.getGestureSource.asInstanceOf[Node].getParent.getId == "hand") then {
-        if (event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString &&
-          event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString)
+        if (event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players.head.id.toString &&
+          event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players.head.id.toString)
         then {
           controller.placeCard(Move(handSlot = thatNodesX, fieldSlotActive = thisNodesX))
         }
       } else if (event.getSource.asInstanceOf[Node].getParent.getId == "fieldbar" &&
         event.getGestureSource.asInstanceOf[Node].getParent.getId == "fieldbar") then {
         if (event.getSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(1).id.toString &&
-          event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players(0).id.toString)
+          event.getGestureSource.asInstanceOf[Node].getParent.getParent.getId == controller.field.players.head.id.toString)
         then {
           controller.attack(Move(fieldSlotInactive = thisNodesX, fieldSlotActive = thatNodesX))
         }
@@ -189,10 +189,9 @@ class MainGameScreen(controller: Controller) extends GridPane {
     }
     mainGrid
   }
-  val fileio = new FileIO
   def renderButtonGrid(): GridPane = new GridPane {
     val saveButton = new Button("save")
-    saveButton.onMouseClicked = (_) => fileio.save(controller.field)
+    saveButton.onMouseClicked = (_) => controller.saveField
     hgap = 10
     val switchButton = new Button("end turn")
     switchButton.onMouseClicked = (_) => controller.switchPlayer()

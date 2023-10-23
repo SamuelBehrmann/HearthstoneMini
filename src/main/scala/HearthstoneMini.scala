@@ -11,8 +11,8 @@ import scala.io.StdIn.readLine
 import util.Event
 
 object HearthstoneMini {
+  val hearthstoneMiniRunner = new HearthstoneMiniRunner()
   def main(args: Array[String]): Unit = {
-    val hearthstoneMiniRunner = new HearthstoneMiniRunner()
     hearthstoneMiniRunner.play()
   }
 }

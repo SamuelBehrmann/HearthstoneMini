@@ -1,11 +1,11 @@
 package hearthstoneMini
 package model.fieldComponent.fieldImpl
 
-import model.cardComponent.cardImpl.Card
 import model.fieldComponent.FieldInterface
 import model.playerComponent.playerImpl.Player
 import model.matrixComponent.matrixImpl.Matrix
 import play.api.libs.json.*
+
 import javax.inject.Inject
 import scala.xml.Node
 
@@ -38,11 +38,11 @@ object FieldObject {
   )
 }
 
-case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldHeight,
+case class Field @Inject()(matrix: Matrix[String] = new Matrix[String](FieldObject.standartFieldHeight,
   FieldObject.standartFieldWidth, " "),
-                             slotNum: Int = FieldObject.standartSlotNum,
-                            players: List[Player] = List[Player](Player(id = 1), Player(id = 2)),
-                            turns: Int = 0 ) extends FieldInterface() {
+                           slotNum: Int = FieldObject.standartSlotNum,
+                           players: List[Player] = List[Player](Player(id = 1), Player(id = 2)),
+                           turns: Int = 0) extends FieldInterface() {
   // The active player is the Player in position 0 of the list
 
   def this(size: Int, player1: String, player2: String) = this(new Matrix[String](FieldObject.standartFieldHeight,
@@ -57,7 +57,7 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def placeCard(handSlot: Int, fieldSlot: Int): Field =
     copy(players = players.updated(0, players.head.placeCard(handSlot, fieldSlot).reduceMana(players.head.gamebar
-        .hand(handSlot).manaCost)))
+      .hand(handSlot).manaCost)))
 
   override def drawCard(): Field = copy(players = players.updated(0, players.head.drawCard()))
 
@@ -75,6 +75,7 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
 
   override def reduceAttackCount(slotNum: Int): Field = copy(players = players.updated(0,
     players.head.reduceAttackCount(slotNum)))
+
   override def resetAttackCount(): Field = copy(
     players = players.updated(0, players.head.resetAttackCount()).updated(1, players(1).resetAttackCount()))
 
@@ -102,7 +103,7 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
   override def reduceDefVal(slotNum: Int, amount: Int): Field = copy(
     players = players.updated(1, players(1).reduceDefVal(slotNum, amount)))
 
-  override def toMatrix: Matrix[String] = matrix 
+  override def toMatrix: Matrix[String] = matrix
     .updateMatrix(0, 0, List[String]("-" * FieldObject.standartFieldWidth))
     .updateMatrixWithMatrix(FieldObject.offset, 0, getPlayerById(1).toMatrix)
     .updateMatrixWithMatrix(FieldObject.offset + FieldObject.standartMenueBarHeight + FieldObject.standartGameBarHeight
@@ -115,10 +116,19 @@ case class Field @Inject() (matrix: Matrix[String] = new Matrix[String](FieldObj
     "slotnum" -> Json.toJson(slotNum),
     "turns" -> Json.toJson(turns)
   )
+
   override def toXML: Node =
     <Field>
-      <players>{players.map(player => <entry> {player.toXML}</entry>)}</players>
-      <slotnum>{slotNum.toString}</slotnum>
-      <turns>{turns.toString}</turns>
+      <players>
+        {players.map(player => <entry>
+        {player.toXML}
+      </entry>)}
+      </players>
+      <slotnum>
+        {slotNum.toString}
+      </slotnum>
+      <turns>
+        {turns.toString}
+      </turns>
     </Field>
 }

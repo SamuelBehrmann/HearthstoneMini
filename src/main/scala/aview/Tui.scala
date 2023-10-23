@@ -54,7 +54,8 @@ class Tui(controller: Controller) extends Observer {
 
   def printField(): Unit = {
     print(Strings.cleanScreen)
-    println(controller.field.players(0).name + Strings.istDranMsg + Strings.zeilenUmbruch)
+    println(controller.field.players(0).name + Strings.istDranMsg)
+    println()
     println(controller.field.toString + Strings.zeilenUmbruch)
     println(Strings.commands)
 

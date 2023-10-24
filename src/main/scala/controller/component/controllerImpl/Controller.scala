@@ -22,6 +22,7 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
      val injector: Injector = Guice.createInjector(new HearthstoneMiniModule)
      val fileIO: FileIOInterface = injector.getInstance(classOf[FileIOInterface])
      var gameState: GameState = GameState.CHOOSEMODE
+     var errorMsg: Option[String] = None
      private val undoManager: UndoManager = new UndoManager
 
      def placeCard(move: Move): Unit = doStep(new PlaceCardCommand(this, move))
@@ -39,21 +40,27 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
                case Success(newField) => {
                     field = newField
                     undoManager.doStep(command)
-                    notifyObservers(Event.PLAY, msg = None)
+                    errorMsg = None
+                    notifyObservers(Event.PLAY, msg = errorMsg)
                }
-               case Failure(x) => notifyObservers(Event.ERROR, msg = Some(x.getMessage))
+               case Failure(x) =>
+                    errorMsg =  Some(x.getMessage)
+                    notifyObservers(Event.ERROR, msg = errorMsg)
           }
      }
      def undo: Unit = {
           undoManager.undoStep
+          errorMsg = None
           notifyObservers(Event.PLAY, msg = None)
      }
      def redo: Unit = {
           undoManager.redoStep
+          errorMsg = None
           notifyObservers(Event.PLAY, msg = None)
      }
      def exitGame(): Unit = {
           gameState = GameState.EXIT
+          errorMsg = None
           notifyObservers(Event.EXIT, msg = None)
      }
      def nextState(): Unit = {
@@ -66,6 +73,7 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
      def setStrategy(strat: FieldInterface) = {
           field = strat
           nextState()
+          errorMsg = None
           notifyObservers(Event.PLAY, msg = None)
      }
      def getWinner(): Option[String] = {
@@ -83,6 +91,7 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
           this.field = fileIO.load
           nextState()
           nextState()
+          errorMsg = None
           notifyObservers(Event.PLAY, msg = None)
      }
 }

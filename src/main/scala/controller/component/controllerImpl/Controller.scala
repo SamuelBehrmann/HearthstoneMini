@@ -70,8 +70,12 @@ case class Controller @Inject() (var field: FieldInterface) extends ControllerIn
                case GameState.MAINGAME => gameState = GameState.WIN
           }
      }
-     def setStrategy(strat: FieldInterface) = {
-          field = strat
+     def setStrategy(strat: Strategy) = {
+          field = strat match {
+               case Strategy.normal =>  field.setHpValues(30).setManaValues(1)
+               case Strategy.hardcore =>  field.setHpValues(10).setManaValues(10)
+               case Strategy.debug => field.setHpValues(100).setManaValues(100)
+          }
           nextState()
           errorMsg = None
           notifyObservers(Event.PLAY, msg = None)

@@ -102,7 +102,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         players = List[Player](Player(id = 1,
           gamebar = Gamebar(hand = testCards)).resetAndIncreaseMana(),
           Player(id = 2))))
-      controller.setStrategy(Strategy.adminStrategy())
+      controller.setStrategy(Strategy.debug)
       controller.field.getPlayerById(1).gamebar.hp.value should be (100)
       controller.field.getPlayerById(1).gamebar.mana.value should be (100)
     }

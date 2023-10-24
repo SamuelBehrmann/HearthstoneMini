@@ -21,7 +21,7 @@ object HearthstoneMini {
 
 class HearthstoneMiniRunner(initGUI: Boolean = false, initTUI: Boolean = false) {
   val controller: Controller = Controller(new Field(5))
-  val optionalTui: Option[Tui] = if (initGUI) Some(new Tui(controller)) else None
+  val optionalTui: Option[Tui] = if (initTUI) Some(new Tui(controller)) else None
   val optionalGUI: Option[GUIApp] = if (initGUI) Some(new GUIApp(controller)) else None
   
   def play(): Unit = {

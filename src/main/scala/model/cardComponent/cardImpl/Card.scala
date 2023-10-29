@@ -4,14 +4,13 @@ package model.cardComponent.cardImpl
 import com.fasterxml.jackson.databind.JsonSerializable
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import model.cardComponent.CardInterface
-import model.cardComponent.cardImpl.Card
-import model.fieldComponent.fieldImpl.FieldObject
 import model.matrixComponent.matrixImpl.Matrix
 import play.api.libs.json.*
 
 import scala.annotation.nowarn
 import scala.collection.View.Empty
 import scala.xml.Node
+import hearthstoneMini.model.fieldComponent.fieldImpl.FieldObject
 
 object Card {
     @nowarn
@@ -94,6 +93,11 @@ case class EmptyCard(val name: String = "yolo", val manaCost: Int = 0,
                 val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "",
                 var attackCount: Int = 0)
   extends CardInterface {
+
+  override def toJson: JsValue = ???
+
+  override def toXML: Node = ???
+
     override def toMatrix: Matrix[String] = new Matrix[String](FieldObject.standartCardHeight,
         FieldObject.standartCardWidth, " ")
 

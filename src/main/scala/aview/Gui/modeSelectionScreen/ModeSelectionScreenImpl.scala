@@ -12,7 +12,7 @@ import scalafx.scene.Node
 import scalafx.scene.control.{Button, RadioButton, ToggleGroup}
 import scalafx.scene.layout.GridPane
 
-class ModeSelectionScreenImpl(controller: Controller) extends GridPane with ModeSelectionScreenInterface {
+class ModeSelectionScreenImpl(controller: ControllerInterface) extends GridPane with ModeSelectionScreenInterface {
   val fileio = new FileIO
   override val radiobuttons: Seq[RadioButton] = List(new RadioButton("Normal"), new RadioButton("Hardcore"),
     new RadioButton("Debug"))

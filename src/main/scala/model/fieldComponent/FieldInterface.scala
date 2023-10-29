@@ -8,12 +8,13 @@ import model.fieldComponent
 import play.api.libs.json.JsValue
 
 import scala.xml.Node
+import hearthstoneMini.model.playerComponent.PlayerInterface
 
 trait FieldInterface {
-  def players: List[Player]
-  def matrix: Matrix[String]
-  def slotNum: Int
-  def turns: Int
+  val players: List[PlayerInterface]
+  val matrix: Matrix[String]
+  val slotNum: Int
+  val turns: Int
 
   def placeCard(handSlot: Int, fieldSlot: Int): FieldInterface
   def drawCard(): FieldInterface

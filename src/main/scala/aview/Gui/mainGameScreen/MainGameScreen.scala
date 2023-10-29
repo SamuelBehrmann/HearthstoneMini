@@ -17,8 +17,9 @@ import model.cardComponent.cardImpl.Card
 import model.fileIOComponent.xmlIOImpl.FileIO
 import scalafx.scene.paint.Color.{Black, Blue, Green, Grey, Red, White}
 import scalafx.scene.shape.Rectangle
+import hearthstoneMini.model.cardComponent.CardInterface
 
-class MainGameScreen(controller: Controller) extends GridPane {
+class MainGameScreen(controller: ControllerInterface) extends GridPane {
   vgap = 20
   padding = Insets(20, 100, 10, 10)
 
@@ -143,7 +144,7 @@ class MainGameScreen(controller: Controller) extends GridPane {
     }
   }
 
-  def renderCard(card: Option[Card]): Node = {
+  def renderCard(card: Option[CardInterface]): Node = {
     val background1: Rectangle = new Rectangle() {
       height = 100
       width = 100

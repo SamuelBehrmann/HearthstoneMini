@@ -1,17 +1,17 @@
 package hearthstoneMini
 package model.manaComponent
 
-import model.manaComponent.manaImpl.Mana
 import play.api.libs.json.JsValue
-
 import scala.xml.Node
 
 trait ManaInterface {
-  def increase(amount: Int): Mana 
-  def resetAndIncrease(): Mana 
-  def decrease(amount: Int): Mana 
+  val value: Int
+  val max: Int
+  def increase(amount: Int): ManaInterface 
+  def resetAndIncrease(): ManaInterface 
+  def decrease(amount: Int): ManaInterface 
   def isEmpty: Boolean
-  def setVal(amount: Int): Mana
+  def setVal(amount: Int): ManaInterface
   def toJson: JsValue
   def toXML: Node
 }

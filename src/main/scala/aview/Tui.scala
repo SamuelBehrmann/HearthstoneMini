@@ -8,8 +8,9 @@ import controller.GameState
 import controller.Strategy
 import controller.component.controllerImpl.Controller
 import scala.util.{Failure, Success, Try}
+import hearthstoneMini.controller.component.ControllerInterface
 
-class Tui(controller: Controller) extends Observer {
+class Tui(controller: ControllerInterface) extends Observer {
   controller.add(this)
 
   override def update(e: Event, msg: Option[String]) = {

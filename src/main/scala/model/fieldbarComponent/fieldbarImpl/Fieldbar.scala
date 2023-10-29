@@ -12,6 +12,7 @@ import play.api.libs.json.*
 
 import scala.quoted.FromExpr.NoneFromExpr
 import scala.xml.Node
+import hearthstoneMini.model.cardComponent.CardInterface
 
 object Fieldbar {
     def fromXML(node: Node): Fieldbar = Fieldbar(cardArea = Cardarea.fromXML(node))
@@ -25,7 +26,7 @@ case class Fieldbar(cardArea: CardAreaInterface = new Cardarea(FieldObject.stand
     def this(size: Int, filling: Option[Card]) = this(cardArea = new Cardarea(size, filling),
         new Matrix[String](FieldObject.standartFieldBarHeight, FieldObject.standartSlotWidth * size, " "))
     val size: Int = cardArea.size
-    override def placeCard(slot: Int, card: Card): Fieldbar = copy(cardArea = cardArea.replaceSlot(slot, Some(card)))
+    override def placeCard(slot: Int, card: CardInterface): Fieldbar = copy(cardArea = cardArea.replaceSlot(slot, Some(card)))
     override def removeCard(slot: Int): Fieldbar = copy(cardArea = cardArea.replaceSlot(slot, None))
     override def reduceDefVal(slotNum: Int, amount: Int): Fieldbar = copy(cardArea = cardArea
       .reduceDefVal(slotNum, amount))

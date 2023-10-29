@@ -4,8 +4,17 @@ import model.matrixComponent.matrixImpl.Matrix
 import play.api.libs.json.JsValue
 
 import scala.xml.Node
+import hearthstoneMini.model.gamebarComponent.GamebarInterface
+import scala.compiletime.ops.int
+import hearthstoneMini.model.fieldbarComponent.FieldbarInterface
+import hearthstoneMini.model.cardareaComponent.CardAreaInterface
 
 trait PlayerInterface {
+  val id: Int
+  val name: String
+  val gamebar: GamebarInterface
+  val fieldbar: FieldbarInterface
+  
   def placeCard(handSlot: Int, fieldSlot: Int ): PlayerInterface
   def drawCard(): PlayerInterface
   def destroyCard(fieldSlot: Int): PlayerInterface

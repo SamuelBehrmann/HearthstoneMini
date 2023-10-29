@@ -6,6 +6,8 @@ import play.api.libs.json.JsValue
 import scala.xml.Node
 
 trait HealthpointsInterface {
+  val value: Int
+  val max: Int
   def increase(amount: Int): Healthpoints 
   def decrease(amount: Int): Healthpoints 
   def isEmpty: Boolean

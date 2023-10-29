@@ -8,19 +8,29 @@ import model.gamebarComponent.gamebarImpl.Gamebar
 import play.api.libs.json.JsValue
 
 import scala.xml.Node
+import hearthstoneMini.model.healthpointsComponent.HealthpointsInterface
+import hearthstoneMini.model.cardareaComponent.CardAreaInterface
+import hearthstoneMini.model.cardComponent.CardInterface
+import hearthstoneMini.model.manaComponent.ManaInterface
 
 trait GamebarInterface {
-  def removeCardFromHand(slot: Int): Gamebar
-  def addCardToHand(card: Option[Card]): Gamebar
-  def addCardToFriedhof(card: Option[Card]): Gamebar
-  def reduceHp(amount: Int): Gamebar
-  def increaseHp(amount: Int): Gamebar
-  def reduceMana(amount: Int): Gamebar
-  def increaseMana(amount: Int): Gamebar
-  def resetAndIncreaseMana(): Gamebar
-  def drawCard(): Gamebar
-  def setManaValue(amount: Int): Gamebar
-  def setHpValue(amount: Int): Gamebar
+  val hp: HealthpointsInterface
+  val mana: ManaInterface
+  val hand: List[CardInterface]
+  val deck: List[CardInterface]
+  val friedhof: Array[CardInterface]
+
+  def removeCardFromHand(slot: Int): GamebarInterface
+  def addCardToHand(card: Option[CardInterface]): GamebarInterface
+  def addCardToFriedhof(card: Option[CardInterface]): GamebarInterface
+  def reduceHp(amount: Int): GamebarInterface
+  def increaseHp(amount: Int): GamebarInterface
+  def reduceMana(amount: Int): GamebarInterface
+  def increaseMana(amount: Int): GamebarInterface
+  def resetAndIncreaseMana(): GamebarInterface
+  def drawCard(): GamebarInterface
+  def setManaValue(amount: Int): GamebarInterface
+  def setHpValue(amount: Int): GamebarInterface
   def handAsMatrix(): Matrix[String]
   def toMatrix: Matrix[String]
   def toJson: JsValue

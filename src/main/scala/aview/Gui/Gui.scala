@@ -14,9 +14,10 @@ import scalafx.scene.paint.Color.*
 import scalafx.scene.control.Alert
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.image.{Image, ImageView}
+import hearthstoneMini.controller.component.ControllerInterface
 
 
-class GUI(guiApp: GUIApp, controller: Controller) extends JFXApp3
+class GUI(guiApp: GUIApp, controller: ControllerInterface) extends JFXApp3
 {
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {

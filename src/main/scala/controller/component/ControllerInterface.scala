@@ -4,6 +4,7 @@ import model.Move
 import model.fieldComponent.FieldInterface
 import util.Observable
 import hearthstoneMini.controller.GameState.GameState
+import hearthstoneMini.controller.Strategy
 
 trait ControllerInterface extends Observable {
   var errorMsg: Option[String]
@@ -19,7 +20,7 @@ trait ControllerInterface extends Observable {
   def undo: Unit
   def redo: Unit
   def nextState(): Unit
-  def setStrategy(strat: FieldInterface): Unit
+  def setStrategy(strat: Strategy): Unit
   override def toString(): String
   def getWinner(): Option[String]
   def loadField: Unit

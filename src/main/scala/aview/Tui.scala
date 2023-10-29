@@ -10,6 +10,7 @@ import controller.component.controllerImpl.Controller
 import scala.util.{Failure, Success, Try}
 import hearthstoneMini.controller.component.ControllerInterface
 
+
 class Tui(controller: ControllerInterface) extends Observer {
   controller.add(this)
 
@@ -42,9 +43,9 @@ class Tui(controller: ControllerInterface) extends Observer {
 
   def setGameStrategy(input: String): Unit = {
     controller.setStrategy(input.toCharArray.head.asDigit match {
-      case 1 => Strategy.normalStrategy()
-      case 2 => Strategy.hardcoreStrategy()
-      case 3 => Strategy.adminStrategy()
+      case 1 => Strategy.normal
+      case 2 => Strategy.hardcore
+      case 3 => Strategy.debug
     })
   }
 

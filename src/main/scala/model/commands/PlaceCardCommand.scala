@@ -7,8 +7,9 @@ import model.fieldComponent.FieldInterface
 import util.Command
 
 import scala.util.{Failure, Success, Try}
+import hearthstoneMini.controller.component.ControllerInterface
 
-class PlaceCardCommand(controller: Controller, move: Move) extends Command {
+class PlaceCardCommand(controller: ControllerInterface, move: Move) extends Command {
   var memento: FieldInterface = controller.field
   override def doStep: Try[FieldInterface] = if checkConditions then {
     memento = controller.field

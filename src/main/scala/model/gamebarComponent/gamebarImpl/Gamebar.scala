@@ -16,6 +16,9 @@ import play.api.libs.json.*
 
 import scala.xml.Node
 import hearthstoneMini.util.CardProvider
+import hearthstoneMini.model.healthpointsComponent.HealthpointsInterface
+import hearthstoneMini.model.manaComponent.ManaInterface
+import hearthstoneMini.model.cardComponent.CardInterface
 object Gamebar {
     def fromJson(json: JsValue): Gamebar = Gamebar(
         hand = (json \ "hand").validate[List[JsValue]].get.map(card => Card.fromJSON(card).get),
@@ -32,15 +35,15 @@ object Gamebar {
         mana = Mana.fromXML((node \\ "mana").head)
     )
 }
-case class Gamebar(hp: Healthpoints = Healthpoints(30, 30),
-                   mana: Mana = Mana(),
-                   hand: List[Card] = new CardProvider("/json/cards.json").getCards(5),
-                   deck: List[Card] = new CardProvider("/json/cards.json").getCards(30),
-                   friedhof: Array[Card] = Array[Card]()) extends GamebarInterface{
+case class Gamebar(hp: HealthpointsInterface = Healthpoints(30, 30),
+                   mana: ManaInterface = Mana(),
+                   hand: List[CardInterface] = new CardProvider("/json/cards.json").getCards(5),
+                   deck: List[CardInterface] = new CardProvider("/json/cards.json").getCards(30),
+                   friedhof: Array[CardInterface] = Array[CardInterface]()) extends GamebarInterface{
 
     def removeCardFromHand(slot: Int): Gamebar = copy(hand = hand.filter(_ != hand(slot)))
-    def addCardToHand(card: Option[Card]): Gamebar = copy(hand = hand.appended(card.get))
-    def addCardToFriedhof(card: Option[Card]): Gamebar = card match {
+    def addCardToHand(card: Option[CardInterface]): Gamebar = copy(hand = hand.appended(card.get))
+    def addCardToFriedhof(card: Option[CardInterface]): Gamebar = card match {
         case Some(_) => copy(friedhof = friedhof.appended(card.get))
         case None => this
     }

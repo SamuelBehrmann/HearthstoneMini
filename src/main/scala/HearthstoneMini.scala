@@ -10,6 +10,7 @@ import scala.io.StdIn
 import scala.io.StdIn.readLine
 import util.Event
 import scalafx.scene.text.FontWeight.Bold
+import hearthstoneMini.controller.component.ControllerInterface
 
 object HearthstoneMini {
   val hearthstoneMiniRunner = new HearthstoneMiniRunner()
@@ -20,7 +21,7 @@ object HearthstoneMini {
 }
 
 class HearthstoneMiniRunner(initGUI: Boolean = false, initTUI: Boolean = false) {
-  val controller: Controller = Controller(new Field(5))
+  val controller: ControllerInterface = Controller(new Field(5))
   val optionalTui: Option[Tui] = if (initTUI) Some(new Tui(controller)) else None
   val optionalGUI: Option[GUIApp] = if (initGUI) Some(new GUIApp(controller)) else None
   

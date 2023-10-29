@@ -1,15 +1,16 @@
 package hearthstoneMini
 package model.cardareaComponent
-import model.cardComponent.cardImpl.Card
 import play.api.libs.json.JsValue
 
 import scala.xml.Node
+import hearthstoneMini.model.cardComponent.CardInterface
 
 trait CardAreaInterface {
-  val row: Vector[Option[Card]]
+  val row: Vector[Option[CardInterface]]
   val size: Int
-  def slot(slotNum: Int): Option[Card]
-  def replaceSlot(slotNum: Int, slot: Option[Card]): CardAreaInterface
+  
+  def slot(slotNum: Int): Option[CardInterface]
+  def replaceSlot(slotNum: Int, slot: Option[CardInterface]): CardAreaInterface
   def reduceDefVal(slotNum: Int, amount: Int): CardAreaInterface
   def reduceAttackCount(slotNum: Int): CardAreaInterface
   def resetAttackCount(): CardAreaInterface

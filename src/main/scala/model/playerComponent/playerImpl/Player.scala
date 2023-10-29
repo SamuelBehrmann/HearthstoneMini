@@ -14,6 +14,8 @@ import aview.Strings
 
 import java.awt.MenuBar
 import scala.xml.Node
+import hearthstoneMini.model.fieldbarComponent.FieldbarInterface
+import hearthstoneMini.model.gamebarComponent.GamebarInterface
 
 object Player {
   def fromJson(json: JsValue): Player = Player(
@@ -32,8 +34,8 @@ object Player {
 }
 
 case class Player(name: String = "Player", id: Int,
-                  fieldbar: Fieldbar = new Fieldbar(FieldObject.standartSlotNum, None),
-                  gamebar: Gamebar = new Gamebar())
+                  fieldbar: FieldbarInterface = new Fieldbar(FieldObject.standartSlotNum, None),
+                  gamebar: GamebarInterface = new Gamebar())
   extends PlayerInterface {
   override def placeCard(handSlot: Int, fieldSlot: Int): Player = copy(
     fieldbar = fieldbar.placeCard(fieldSlot, gamebar.hand(handSlot)),

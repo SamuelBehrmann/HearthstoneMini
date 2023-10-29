@@ -13,8 +13,9 @@ import scalafx.scene.image.Image
 import scalafx.scene.layout.Background
 import scalafx.scene.paint.Color
 import util.{Event, Observer}
+import hearthstoneMini.controller.component.ControllerInterface
 
-class GUIApp(val controller:Controller) extends Observer {
+class GUIApp(val controller: ControllerInterface) extends Observer {
     override def update(e: Event, msg: Option[String]) = {
         Platform.runLater{
             e match {

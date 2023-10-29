@@ -13,7 +13,7 @@ import scalafx.scene.control.{Button, Label, RadioButton, TextField, ToggleGroup
 import scalafx.scene.layout.GridPane
 import model.fileIOComponent.jsonIOImpl.FileIO
 
-class EnterPlayernamesScreenImpl(controller: Controller) extends GridPane with EnterPlayernamesScreenInterface {
+class EnterPlayernamesScreenImpl(controller: ControllerInterface) extends GridPane with EnterPlayernamesScreenInterface {
   override val textfields: Seq[TextField] = Seq(
     new TextField() { promptText = "Player 1"},
     new TextField() { promptText = "Player 2"})

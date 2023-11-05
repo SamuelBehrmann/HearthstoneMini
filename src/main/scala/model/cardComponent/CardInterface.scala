@@ -12,6 +12,7 @@ trait CardInterface {
   val manaCost: Int
   val attValue: Int
   val defenseValue: Int
+  val id: String
   val effect: String
   val rarity: String
   var attackCount: Int

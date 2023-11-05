@@ -16,9 +16,9 @@ object Card {
     @nowarn
     given cardReads: Reads[Option[Card]] = (o:JsValue) => {
         (o \ "type").validate[String] match
-            case JsSuccess("MINION", _) => JsSuccess(Some(Card((o \ "name").as[String].grouped(10).toList.head,
+            case JsSuccess("MINION", _) => JsSuccess(Some(Card(name = (o \ "name").as[String].grouped(10).toList.head,
                 (o \ "cost").as[Int], (o \ "attack").as[Int], (o \ "health").as[Int],
-                "Effect", "Rarity")))
+                "Effect", "Rarity", id = (o \ "id").as[String])))
             case JsSuccess(_, _) => JsSuccess(None)
     }
 
@@ -33,7 +33,8 @@ object Card {
                     attValue = (jsonObj \ "attValue").get.toString.toInt,
                     defenseValue = (jsonObj \ "defenseValue").get.toString.toInt,
                     effect = (jsonObj \ "effect").get.toString.replace("\"", ""),
-                    rarity = (jsonObj \ "rarity").get.toString.replace("\"", "")
+                    rarity = (jsonObj \ "rarity").get.toString.replace("\"", ""),
+                    id = (jsonObj \ "id").get.toString.replace("\"", "")
                 )
             )
     }
@@ -50,7 +51,8 @@ object Card {
                     attValue = (node \\ "attValue").head.text.toInt,
                     defenseValue = (node \\ "defenseValue").head.text.toInt,
                     effect = (node \\ "effect").head.text,
-                    rarity = (node \\ "rarity").head.text
+                    rarity = (node \\ "rarity").head.text,
+                    id = (node \\ "id").head.text
                 )
             )
         }
@@ -59,7 +61,7 @@ object Card {
 case class Card(val name: String,
            val manaCost: Int, val attValue: Int, val defenseValue: Int,
            val effect: String, val rarity: String,
-           var attackCount: Int  = 1)
+           var attackCount: Int  = 1, val id: String)
   extends CardInterface {
     override def toString: String = name + " (" + manaCost + ")" + "#" + "atk: " + attValue + "#def: "
       + defenseValue + "#" + effect + "#" + rarity
@@ -91,7 +93,7 @@ case class Card(val name: String,
 
 case class EmptyCard(val name: String = "yolo", val manaCost: Int = 0,
                 val attValue: Int = 0, val defenseValue: Int = 0, val effect: String = "", val rarity: String = "",
-                var attackCount: Int = 0)
+                var attackCount: Int = 0, val id: String)
   extends CardInterface {
 
   override def toJson: JsValue = ???

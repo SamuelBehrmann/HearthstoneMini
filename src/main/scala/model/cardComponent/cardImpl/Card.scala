@@ -73,6 +73,7 @@ case class Card(val name: String,
     override def resetAttackCount(): Card = copy(attackCount = 1)
 
     def toJson: JsValue = Json.obj(
+        "id" -> id,
         "name" -> name,
         "manaCost" -> manaCost,
         "attValue" -> attValue,
@@ -82,6 +83,7 @@ case class Card(val name: String,
     )
     def toXML: Node =
         <card>
+            <id>{id}</id>
             <name>{name}</name>
             <manaCost>{manaCost.toString}</manaCost>
             <attValue>{attValue.toString}</attValue>
